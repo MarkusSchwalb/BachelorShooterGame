@@ -33,6 +33,7 @@ public class Eyes : MonoBehaviour
             //Check if player can be seen
             if (playerHitByRaycast(player, vectorBetween))
             {
+                Debug.Log("isInView");
                 return true;
             }
 

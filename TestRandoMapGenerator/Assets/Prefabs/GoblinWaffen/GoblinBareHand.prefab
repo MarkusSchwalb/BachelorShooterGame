@@ -1,0 +1,186 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1933510667806418732
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 885697512406088979}
+  - component: {fileID: 6206669019058890681}
+  m_Layer: 0
+  m_Name: GoblinBareHand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &885697512406088979
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933510667806418732}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1341046695860942744}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6206669019058890681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933510667806418732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06008bd434f79fd448e569fbfb34770c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <AttacksLightRight>k__BackingField:
+  - <AnimationName>k__BackingField: LightGoblinAttack
+    <TransitionTime>k__BackingField: 0.1
+    <NextComboIndex>k__BackingField: 1
+    <ComboAdvanceTime>k__BackingField: 0.8
+    <ForceTime>k__BackingField: 0.2
+    <ForceAmount>k__BackingField: 0.5
+    <Knockback>k__BackingField: 2
+    <AttackRange>k__BackingField: 1
+    <DamageAmount>k__BackingField: 5
+    <EnduranceCost>k__BackingField: 20
+  - <AnimationName>k__BackingField: LightGoblinAttack2
+    <TransitionTime>k__BackingField: 0.1
+    <NextComboIndex>k__BackingField: -1
+    <ComboAdvanceTime>k__BackingField: 0.8
+    <ForceTime>k__BackingField: 0.2
+    <ForceAmount>k__BackingField: 0.5
+    <Knockback>k__BackingField: 2
+    <AttackRange>k__BackingField: 1
+    <DamageAmount>k__BackingField: 5
+    <EnduranceCost>k__BackingField: 20
+  <AttacksHeavyRight>k__BackingField:
+    <AnimationName>k__BackingField: BareHandRightHeavyAttack
+    <TransitionTime>k__BackingField: 0.1
+    <NextComboIndex>k__BackingField: -1
+    <ComboAdvanceTime>k__BackingField: 0.5
+    <ForceTime>k__BackingField: 0.2
+    <ForceAmount>k__BackingField: 1
+    <Knockback>k__BackingField: 4
+    <AttackRange>k__BackingField: 1
+    <DamageAmount>k__BackingField: 10
+    <EnduranceCost>k__BackingField: 40
+  <Block>k__BackingField:
+    <BlockAnimationName>k__BackingField: BareHandBlocking
+    <TransitionTime>k__BackingField: 0.5
+    <DamageReduction>k__BackingField: 0.5
+    <EnduranceCost>k__BackingField: 20
+  <AttacksHeavyLeft>k__BackingField: []
+  <WeaponLogic>k__BackingField: {fileID: 9112780186563666548}
+  <DamageDealer>k__BackingField: {fileID: 7135376511844259927}
+  <WantedPositionRight>k__BackingField: {x: 0, y: 0, z: 0}
+  <WantedRotationRight>k__BackingField: {x: 0, y: 0, z: 0}
+  <WantedPositionLeft>k__BackingField: {x: 0, y: 0, z: 0}
+  <WantedRotationLeft>k__BackingField: {x: 0, y: 0, z: 0}
+--- !u!1 &9112780186563666548
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1341046695860942744}
+  - component: {fileID: 1800164887945802436}
+  - component: {fileID: 8870151519656136515}
+  - component: {fileID: 7135376511844259927}
+  m_Layer: 0
+  m_Name: WeaponLogic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1341046695860942744
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9112780186563666548}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 885697512406088979}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1800164887945802436
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9112780186563666548}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &8870151519656136515
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9112780186563666548}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &7135376511844259927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9112780186563666548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75310293eb9cef74da13f733f8806991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myCollider: {fileID: 0}

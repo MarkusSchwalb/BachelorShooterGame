@@ -43,8 +43,11 @@ public class BaseStateMashine : MonoBehaviour
         }
 
     }
+    
+    /*
     private void OnAnimatorMove()
     {
         currentState?.OnAnimatorMoveState();
     }
+    */
 }

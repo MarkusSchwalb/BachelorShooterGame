@@ -5,6 +5,12 @@ using UnityEngine.AI;
 
 public class SimpleEnemyChaseState : BaseSimpleEnemyState
 {
+    private readonly int StandardBlendTree = Animator.StringToHash("Standard");
+    private readonly int ForwardSpeedHash = Animator.StringToHash("GoblinSpeed");
+
+    private const float animationDampTime = 0.1f;
+    private const float crossFadeDuration = 0.2f;
+
     public SimpleEnemyChaseState(SimpleEnemy simpleEnemy) : base(simpleEnemy)
     {
     }
@@ -16,12 +22,15 @@ public class SimpleEnemyChaseState : BaseSimpleEnemyState
         if (stateMashine.Player == null)
         {
             //stateMashine.SwitchState(new EnemyIdleState(stateMashine)); //
+            stateMashine.GoBackToStandardState();
             return;
         }
+        stateMashine.Agent.enabled = true;
         stateMashine.Agent.speed = stateMashine.ChasingSpeed;
         stateMashine.Agent.destination = stateMashine.Player.transform.position;
 
-        //stateMashine.Animator.CrossFadeInFixedTime(StandardBlendTree, crossFadeDuration);     Grad noch kein Animator
+        if (stateMashine.Animator != null)
+            stateMashine.Animator?.CrossFadeInFixedTime(StandardBlendTree, crossFadeDuration);    //?is the safety operator that checks if it is null
     }
 
     public override void ExitState()
@@ -36,6 +45,10 @@ public class SimpleEnemyChaseState : BaseSimpleEnemyState
 
     public override void UpdateState(float DeltaTime)
     {
+        float currentSpeed = stateMashine.Agent.velocity.magnitude;
+        if (stateMashine.Animator != null)
+            stateMashine.Animator?.SetFloat(ForwardSpeedHash, currentSpeed, animationDampTime, DeltaTime);
+
         //Debug.Log("updateChaseState");
         if (stateMashine.Eyes.CheckIsInView(stateMashine.Player))
         {
@@ -54,5 +67,7 @@ public class SimpleEnemyChaseState : BaseSimpleEnemyState
         {
             stateMashine.SwitchState(new SimpleEnemyIdleState(stateMashine));
         }
+
+
     }
 }

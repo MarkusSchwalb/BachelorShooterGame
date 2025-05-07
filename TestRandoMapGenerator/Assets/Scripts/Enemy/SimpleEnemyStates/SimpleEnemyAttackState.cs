@@ -6,6 +6,12 @@ public class SimpleEnemyAttackState : BaseSimpleEnemyState
 {
     float cooldown = 2;
     float counter = 0;
+
+    private float previousFrameTime;
+    private readonly int LightGoblinAttack = Animator.StringToHash("LightGoblinAttack");
+
+    private const float animationDampTime = 0.1f;
+    private const float crossFadeDuration = 0.2f;
     public SimpleEnemyAttackState(SimpleEnemy simpleEnemy) : base(simpleEnemy)
     {
     }
@@ -13,12 +19,15 @@ public class SimpleEnemyAttackState : BaseSimpleEnemyState
     public override void EnterState()
     {
         Debug.Log("EnterAttackState");
+        //play animation
+        if (stateMashine.Animator != null) 
+        stateMashine.Animator?.CrossFadeInFixedTime(LightGoblinAttack, crossFadeDuration);
+
         counter = 0;
         if (stateMashine.Player == null) { stateMashine.SwitchState(new SimpleEnemyIdleState(stateMashine)); return; }
         if (stateMashine.Player.TryGetComponent<Player> (out Player player))
         {
             player.HealthComponent.TakeDamage(stateMashine.Damage);
-            
         }
     }
 
@@ -35,10 +44,30 @@ public class SimpleEnemyAttackState : BaseSimpleEnemyState
 
     public override void UpdateState(float DeltaTime)
     {
-        counter += DeltaTime;
-        if (counter > cooldown)
+        if (stateMashine.Animator != null) //change after animation
         {
-            stateMashine.SwitchState(new SimpleEnemyChaseState(stateMashine));
+            float normalizedTime = GetNormalizedTime(stateMashine.Animator, "Attack");
+
+            if (normalizedTime < 1)
+            {
+                
+            }
+            else
+            {
+                stateMashine.GoBackToStandardState();
+                //Debug.Log("1");
+            }
+
+            previousFrameTime = normalizedTime;
+        } else //change after time
+        {
+            counter += DeltaTime;
+            if (counter > cooldown)
+            {
+                stateMashine.SwitchState(new SimpleEnemyChaseState(stateMashine));
+            }
         }
+
+        
     }
 }
