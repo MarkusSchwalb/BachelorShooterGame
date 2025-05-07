@@ -42,7 +42,8 @@ public class LevelGenerationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GenerateNewSeed();
+        GenerateLevel();
     }
 
     // Update is called once per frame
@@ -246,47 +247,7 @@ public class LevelGenerationManager : MonoBehaviour
         CurrentRoom.FinalizeRoom(); //maybe another position?? think about it
 
         return exitNr;
-        /*
-        UnityEngine.Random.InitState(SeedNmbr);
-        if (CurrentRoom != null) { CurrentRoom.CheckExits(); }
-
-        if (east >= 1) { CurrentRoom.DeleteDirection(direction.east); }
-        if (west >= 1) { CurrentRoom.DeleteDirection(direction.west); }
-        if (north >= 1) { CurrentRoom.DeleteDirection(direction.north); }
-        //random function
-        Debug.Log("Debug List " + CurrentRoom.ExitList + "It contains x many objects x= " + CurrentRoom.ExitList.Count);
-        int exitNr = UnityEngine.Random.Range(0, CurrentRoom.ExitList.Count);
         
-        //add counter for east and west 
-        
-
-        if (CurrentRoom.ExitList.Count < 2) //if only one exit than it has to be the one
-        {
-            if (CurrentRoom.ExitList[exitNr].ExitDirection == lastDirection) changeCount++; //count the direction change
-            CurrentRoom.ExitList[exitNr].ExitDirection = lastDirection;
-            HandleSideCounter(CurrentRoom.ExitList[exitNr].ExitDirection);
-            return exitNr; 
-        }
-
-
-        if (CurrentRoom.ExitList[exitNr].ExitDirection == lastDirection)
-        {
-            if (changeCount > forceChangeDirAt) // force direction change after x time of the same direction
-            {
-                //select another direction
-                if (exitNr >= CurrentRoom.ExitList.Count - 1) { exitNr=0; }
-                else { exitNr++; }
-
-                HandleSideCounter(CurrentRoom.ExitList[exitNr].ExitDirection);
-                changeCount = 0;
-
-                return exitNr;
-            }
-            changeCount++;
-        }
-
-        HandleSideCounter(CurrentRoom.ExitList[exitNr].ExitDirection);
-        return exitNr; */
     }
 
     private void HandleSideCounter(direction exitDirection)

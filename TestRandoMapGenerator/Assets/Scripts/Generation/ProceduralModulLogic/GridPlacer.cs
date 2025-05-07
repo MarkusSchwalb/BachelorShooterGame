@@ -28,6 +28,7 @@ public class GridPlacer : ProceduralModulLogicBase
     public override void DoProcedural()
     {
         DeleteChildren();
+        GetRoomObject();
 
         int targetForward;
         int targetRight;
@@ -38,7 +39,7 @@ public class GridPlacer : ProceduralModulLogicBase
         }
         else
         {
-            targetForward = Minforward;
+            targetForward = Maxforward;
             targetRight = MaxRight;
         }
         
@@ -53,24 +54,36 @@ public class GridPlacer : ProceduralModulLogicBase
         
     }
 
+    private void GetRoomObject()
+    {
+        if (roomObject != null) { return; }
+
+
+        Modules mod = GetComponent<Modules>();
+        if (mod == null) { return; }
+        if (mod.Room != null) { roomObject = mod.Room; }
+    }
+
     private void SpawnUnreliable(int targetForward, int targetRight)
     {
-        Vector3 spawnPosition = gameObject.transform.position;
 
         for (int i = 0; i < targetForward; i++)
         {
-            spawnPosition.z = gameObject.transform.position.z + i * RightSpacing;
-
             for (int j = 0; j < targetRight; j++)
             {
                 if (!CheckReliability()) continue;
+                
+                // Local Position 
+                Vector3 localPos = new Vector3(j * RightSpacing, 0, i * ForwardSpacing);
+                // World Position
+                Vector3 worldPos = transform.TransformPoint(localPos);
 
-                spawnPosition.x = gameObject.transform.position.x + j * RightSpacing;
                 int randomModInt = UnityEngine.Random.Range(0, PlaceableObject.Length);
                 GameObject spawnObject = Instantiate(
-                    PlaceableObject[randomModInt], spawnPosition,
-                    Quaternion.identity,
+                    PlaceableObject[randomModInt], worldPos,
+                    transform.rotation,
                     transform); //Spawn
+
                 CheckForModules(spawnObject);
             }
         }
@@ -86,19 +99,20 @@ public class GridPlacer : ProceduralModulLogicBase
 
     private void SpawnReliable(int targetForward, int targetRight)
     {
-        Vector3 spawnPosition = gameObject.transform.position;
 
         for (int i = 0; i < targetForward; i++)
         {
-            spawnPosition.z = gameObject.transform.position.z + i * RightSpacing;
-
             for (int j = 0; j < targetRight; j++)
             {
-                spawnPosition.x = gameObject.transform.position.x + j * RightSpacing;
+                // Local Position 
+                Vector3 localPos = new Vector3(j * RightSpacing, 0, i * ForwardSpacing);
+                // World Position
+                Vector3 worldPos = transform.TransformPoint(localPos);
+
                 int randomModInt = UnityEngine.Random.Range(0, PlaceableObject.Length);
                 GameObject spawnObject = Instantiate(
-                    PlaceableObject[randomModInt], spawnPosition,
-                    Quaternion.identity,
+                    PlaceableObject[randomModInt], worldPos,
+                    transform.rotation,
                     transform); //Spawn
 
                 CheckForModules(spawnObject);

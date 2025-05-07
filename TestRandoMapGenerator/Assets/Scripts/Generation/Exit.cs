@@ -103,10 +103,23 @@ public class Exit : MonoBehaviour
         IsMainPath = value;
     }
 
-    internal void HandleEndOfPath()
+    public void HandleEndOfPath()
     {
         if (IsMainPath) { return; }
         Instantiate(EndOfPath, transform); // maybe later with a check Space if sideroom
+    }
+
+    public void DeleteChildren()
+    {
+        if (gameObject.transform.childCount != 0)
+        {
+            Transform parent = transform;
+
+            for (int i = parent.childCount - 1; i >= 0; i--)
+            {
+                DestroyImmediate(parent.GetChild(i).gameObject);
+            }
+        }
     }
 }
 

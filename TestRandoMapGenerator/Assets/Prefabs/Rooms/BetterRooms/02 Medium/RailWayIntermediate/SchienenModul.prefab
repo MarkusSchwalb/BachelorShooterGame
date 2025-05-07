@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4196558829574304979
 Transform:
@@ -66,6 +66,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlaceableObject:
   - {fileID: 1150264133849767508, guid: e37c6cabef351374b939a7a0776c748d, type: 3}
+  roomObject: {fileID: 0}
   IsRandomAmount: 1
   IsReliableGrid: 0
   Reliability: 50
@@ -90,7 +91,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2343916381919710647
 Transform:
@@ -142,6 +143,10 @@ PrefabInstance:
     - target: {fileID: 1310692215844050, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
       propertyPath: m_Name
       value: Schiene
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310692215844050, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4310563078893524, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
       propertyPath: m_RootOrder
@@ -221,6 +226,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Schiene (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 1310692215844050, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4310563078893524, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -298,6 +307,10 @@ PrefabInstance:
     - target: {fileID: 1310692215844050, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
       propertyPath: m_Name
       value: Schiene (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310692215844050, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4310563078893524, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
       propertyPath: m_RootOrder
@@ -377,6 +390,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Schiene (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1310692215844050, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4310563078893524, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -454,6 +471,10 @@ PrefabInstance:
     - target: {fileID: 1310692215844050, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
       propertyPath: m_Name
       value: Schiene (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310692215844050, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4310563078893524, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
       propertyPath: m_RootOrder
@@ -533,6 +554,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Schiene (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 1310692215844050, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4310563078893524, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -610,6 +635,10 @@ PrefabInstance:
     - target: {fileID: 1310692215844050, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
       propertyPath: m_Name
       value: Schiene (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310692215844050, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4310563078893524, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
       propertyPath: m_RootOrder
@@ -689,6 +718,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Schiene (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1310692215844050, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4310563078893524, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -766,6 +799,10 @@ PrefabInstance:
     - target: {fileID: 1310692215844050, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
       propertyPath: m_Name
       value: Schiene (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310692215844050, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4310563078893524, guid: 7e67214582eed1e4b954243d2b549111, type: 3}
       propertyPath: m_RootOrder

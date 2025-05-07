@@ -59,6 +59,7 @@ public class RoomObject : MonoBehaviour
         {
             Debug.LogWarning("No decent Exit found for some purposes we take number one exit" + gameObject.name);
             if (EExit[0] == null) Debug.LogError(name + " Seems to have no Exit");
+            else
             ExitList.Add(EExit[0]);
         }
     }
@@ -157,11 +158,16 @@ public class RoomObject : MonoBehaviour
             {
                 exit.HandleEndOfPath();
             }
+            if (exit.IsMainPath)
+            {
+                exit.DeleteChildren();
+            }
         }
     }
 
     public void GetChangeMats()
     {
+        Debug.Log("MaterialChange in Room: " + name);
         ChangeMatsWall.Clear();
         ChangeMatsFloor.Clear();
 
@@ -174,6 +180,7 @@ public class RoomObject : MonoBehaviour
 
     void recursiveChangeMats(Transform parent)
     {
+        
         //int i = 0;
         foreach (Transform child in parent)
         {

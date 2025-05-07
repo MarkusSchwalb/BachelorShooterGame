@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ModuleSplitter : MonoBehaviour
 {
+    public RoomObject room;
     public Modules[] Modules;
 
    
@@ -12,7 +13,18 @@ public class ModuleSplitter : MonoBehaviour
         Debug.Log("ModuleSplitter Finalize Module");
         foreach (Modules module in Modules)
         {
+            module.SpawnModules();        
+        }
+    }
+
+    public void FinalizeModules(RoomObject ro)
+    {
+        Debug.Log("ModuleSplitter Finalize Module");
+        foreach (Modules module in Modules)
+        {
+            if (module.Room == null) { module.Room = ro; }
             module.SpawnModules();
+
         }
     }
 }

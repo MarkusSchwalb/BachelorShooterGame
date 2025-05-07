@@ -40,7 +40,7 @@ public class Modules : MonoBehaviour
         
         if (gameObject.transform.childCount != 0)
         {
-            if (ModuleTransform == null) { Debug.LogWarning("please make sure you have a parent Transform for the Modules" + name); }
+            if (ModuleTransform == null) { Debug.LogWarning("please make sure you have a parent Transform for the Modules " + name); }
 
             for (int i = ModuleTransform.childCount - 1; i >= 0; i--)
             {
@@ -58,7 +58,7 @@ public class Modules : MonoBehaviour
                 Room = roomObject;
             } else
             {
-                Debug.LogError(gameObject.name + "Modul has no assigned RoomObject");
+                Debug.LogWarning(gameObject.name + "Modul has no assigned RoomObject "+ transform.position);
                 spawnedModules.Clear();
                 spawnedModulesGO.Clear();
                 return;
@@ -129,6 +129,7 @@ public class Modules : MonoBehaviour
 
         if (module.TryGetComponent<ModuleSplitter>(out ModuleSplitter splitter))
         {
+            if (Room != null) { splitter.FinalizeModules(Room); }
             splitter.FinalizeModules();
         }
 

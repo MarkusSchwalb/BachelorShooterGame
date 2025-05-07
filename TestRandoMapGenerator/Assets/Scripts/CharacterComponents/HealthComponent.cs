@@ -19,13 +19,13 @@ public class HealthComponent : MonoBehaviour
     void Start()
     {
         currentHealth = HDHealthData.MaxHealth;
-        slider.SetMaxValue(HDHealthData.MaxHealth);
+        if (slider != null) slider.SetMaxValue(HDHealthData.MaxHealth);
         UpdateSlider();
     }
 
     private void SetSlider()
     {
-        throw new NotImplementedException();
+        
     }
 
     // Update is called once per frame
