@@ -60,8 +60,21 @@ public class RoomObject : MonoBehaviour
             Debug.LogWarning("No decent Exit found for some purposes we take number one exit" + gameObject.name);
             if (EExit[0] == null) Debug.LogError(name + " Seems to have no Exit");
             else
-            ExitList.Add(EExit[0]);
+            ExitList.Add(GetDirectionExit(direction.north));
         }
+    }
+
+    private Exit GetDirectionExit( direction face)
+    {
+        int i = 0;
+        foreach (Exit exit in EExit)
+        {
+            //Debug.Log(i);
+            i++;
+            if (exit.ExitDirection == face) return exit;
+        }
+
+        return EExit[0];
     }
 
     internal void DeleteDirection(direction value)

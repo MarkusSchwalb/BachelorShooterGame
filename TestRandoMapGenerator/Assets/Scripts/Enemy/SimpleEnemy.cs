@@ -27,7 +27,7 @@ public class SimpleEnemy : BaseStateMashine
     private void CheckComponents()
     {
         if (Eyes == null) { Eyes = GetComponent<Eyes>(); }
-        if (Animator == null) { Animator = GetComponent<Animator>(); Animator?.applyRootMotion = false; }
+        if (Animator == null) { Animator = GetComponent<Animator>(); }
         if (Agent == null) { Agent = GetComponent<NavMeshAgent>();}
         if (Player == null) { Player = GameObject.FindWithTag("Player"); }
     }

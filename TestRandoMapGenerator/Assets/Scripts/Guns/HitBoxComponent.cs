@@ -7,9 +7,15 @@ public class HitBoxComponent : MonoBehaviour
     [field: SerializeField] public HealthComponent HComp { get; private set; }
     [field: SerializeField] public float DamageMultiplier { get; private set; } = 1; //for vulnerable spots like heads or something x2 or for armor parts *0.1
 
+    XPManager manager;
+
+    [field: SerializeField] private float xpGain = 10;
+
     // Start is called before the first frame update
     void Start()
     {
+        manager = XPManager.Instance;
+
         if (HComp == null)
         {
             GameObject parent = gameObject.transform.parent.gameObject;
@@ -47,5 +53,7 @@ public class HitBoxComponent : MonoBehaviour
         if (HComp == null) return;
         float damage = pData.normalDamage * DamageMultiplier;
         HComp.TakeDamage(damage);
+
+        manager.GainXP((int)(xpGain * DamageMultiplier));
     }
 }

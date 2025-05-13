@@ -6,12 +6,18 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    
     [field: SerializeField] public CharacterController CharacterController { get; private set; }
     [field: SerializeField] public HealthComponent HealthComponent { get; private set; }
     [field: SerializeField] public InputReader InputReader { get; private set; }
 
     [field: SerializeField] public float MovementSpeed { get; private set; } = 5;
     [field: SerializeField] public float SprintingSpeed { get; private set; } = 10;
+
+    public int currentSlot { get; private set; } = 0;
+
+    public GameObject MainGun;
+    public GameObject SecondaryGun;
 
     [field: SerializeField] public Gun CurrentGun { get; private set;}
     

@@ -16,12 +16,22 @@ public class MagazinComp : MonoBehaviour
     [field: SerializeField] public int MaxBulletsInMagazine { get; private set; }
     [field: SerializeField] public int CurrentBulletsInMag { get; private set; }
 
+    private void Awake()
+    {
+        gun = GetComponent<Gun>();
+        GunInfo = gun.GunInfo;
+
+        GetInitialAmmo();
+    }
+
     private void Start()
     {
         gun = GetComponent<Gun>();
         GunInfo = gun.GunInfo;
 
         GetInitialAmmo();
+
+        
     }
 
     private void GetInitialAmmo()
