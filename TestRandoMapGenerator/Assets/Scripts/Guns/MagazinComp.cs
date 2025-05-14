@@ -36,7 +36,7 @@ public class MagazinComp : MonoBehaviour
 
     private void GetInitialAmmo()
     {
-        Debug.Log("GetInitialAmmo");
+        //Debug.Log("GetInitialAmmo");
         if (GunInfo == null) { Debug.LogError("NoGunInfo on " + gameObject.name); return; }
         
         MaxAmmo = GunInfo.MaxAmmo;

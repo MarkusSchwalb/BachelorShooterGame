@@ -12,7 +12,7 @@ public class GunShot : MonoBehaviour
 
     public void playSound()
     {
-        UnityEngine.Debug.Log("play sound");
+        //UnityEngine.Debug.Log("play sound");
         if (AudioSource == null) AudioSource = GetComponent<AudioSource>();
         AudioSource.clip = SoundClip;
         AudioSource.Play();
@@ -22,7 +22,7 @@ public class GunShot : MonoBehaviour
     IEnumerator DestroyAfterSound(float time)
     {
         yield return new WaitForSeconds(time);
-        UnityEngine.Debug.Log("Delete");
+        //UnityEngine.Debug.Log("Delete");
         Destroy(gameObject);
     }
 }

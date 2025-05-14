@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class SimpleEnemyChaseState : BaseSimpleEnemyState
 {
     private readonly int StandardBlendTree = Animator.StringToHash("Standard");
-    private readonly int ForwardSpeedHash = Animator.StringToHash("GoblinSpeed");
+    private readonly int ForwardSpeedHash = Animator.StringToHash("ForwardSpeed");
 
     private const float animationDampTime = 0.1f;
     private const float crossFadeDuration = 0.2f;
@@ -23,8 +23,10 @@ public class SimpleEnemyChaseState : BaseSimpleEnemyState
         {
             //stateMashine.SwitchState(new EnemyIdleState(stateMashine)); //
             stateMashine.GoBackToStandardState();
+            Debug.LogWarning("Is In ChaseState and no player found");
             return;
         }
+
         stateMashine.Agent.enabled = true;
         stateMashine.Agent.speed = stateMashine.ChasingSpeed;
         stateMashine.Agent.destination = stateMashine.Player.transform.position;
@@ -45,6 +47,8 @@ public class SimpleEnemyChaseState : BaseSimpleEnemyState
 
     public override void UpdateState(float DeltaTime)
     {
+        Debug.Log("Update Chase State");
+        /*
         float currentSpeed = stateMashine.Agent.velocity.magnitude;
         if (stateMashine.Animator != null)
             stateMashine.Animator?.SetFloat(ForwardSpeedHash, currentSpeed, animationDampTime, DeltaTime);
@@ -66,7 +70,7 @@ public class SimpleEnemyChaseState : BaseSimpleEnemyState
         if (!stateMashine.Agent.pathPending && stateMashine.Agent.remainingDistance <= 1 )
         {
             stateMashine.SwitchState(new SimpleEnemyIdleState(stateMashine));
-        }
+        }*/
 
 
     }

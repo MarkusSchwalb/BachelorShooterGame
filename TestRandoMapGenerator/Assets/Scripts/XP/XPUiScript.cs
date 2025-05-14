@@ -33,6 +33,7 @@ public class XPUiScript : MonoBehaviour
 
     private void UpdateUI(int xpChange)
     {
+        if (CurrentXPField == null) return;
         //make shure the GainedXp Field is shown
         //showGainedUI = true;
         counter = 0;

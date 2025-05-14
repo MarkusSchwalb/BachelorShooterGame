@@ -5,7 +5,7 @@ using UnityEngine;
 public class SimpleEnemyIdleState : BaseSimpleEnemyState
 {
     private readonly int StandardBlendTree = Animator.StringToHash("Standard");
-    private readonly int ForwardSpeedHash = Animator.StringToHash("GoblinSpeed");
+    private readonly int ForwardSpeedHash = Animator.StringToHash("ForwardSpeed");
 
     private const float animationDampTime = 0.1f;
     private const float crossFadeDuration = 0.2f;

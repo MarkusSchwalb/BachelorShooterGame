@@ -43,7 +43,7 @@ public class GunUiScript : MonoBehaviour
 
     private void UpdateUi()
     {
-        Debug.Log("UpdateUI");
+        //Debug.Log("UpdateUI");
         if (player == null) {
             Debug.Log("UpdateUI NO PLAYER FOUND");
             return;
@@ -66,7 +66,7 @@ public class GunUiScript : MonoBehaviour
 
     private void UpdateSlot()
     {
-        Debug.Log("UpdateSlot");
+        //Debug.Log("UpdateSlot");
         if (backgImage == null) return;
 
         if (player.currentSlot == 0 && slot == InventorySlot.Main)
@@ -89,7 +89,7 @@ public class GunUiScript : MonoBehaviour
 
     private void UpdateAmmoDisplay(GameObject gun)
     {
-        Debug.Log("UpdateAmmoDisplay");
+        //Debug.Log("UpdateAmmoDisplay");
         if (gun == null) { Debug.Log("UpdateAmmoDisplayNoGunFound"); return; }
         if (gun.TryGetComponent<MagazinComp>(out MagazinComp mag))
         {
@@ -110,8 +110,10 @@ public class GunUiScript : MonoBehaviour
         if (counter < 0.2f) { UpdateUi(); counter += Time.deltaTime; }
         if (player.InputReader.TriggerDown)
         {
-            UpdateUi();
+            
         }
+
+        UpdateUi();
     }
 
 
