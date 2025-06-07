@@ -19,5 +19,9 @@ public class RoomObjectEditor : Editor
         {
             roomObject.GetChangeMats();
         }
+        if (GUILayout.Button("ChangeMats"))
+        {
+            roomObject.ChangeMaterialsOfMainStuff();
+        }
     }
 }

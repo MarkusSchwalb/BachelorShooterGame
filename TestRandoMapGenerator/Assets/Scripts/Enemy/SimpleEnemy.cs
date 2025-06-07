@@ -35,6 +35,6 @@ public class SimpleEnemy : BaseStateMashine
     public virtual void GoBackToStandardState()
     {
         //Debug.Log("gobacktostandardState");
-        SwitchState(new SimpleRandoPatrol(this));
+        SwitchState(new SimpleEnemyIdleState(this));
     }
 }

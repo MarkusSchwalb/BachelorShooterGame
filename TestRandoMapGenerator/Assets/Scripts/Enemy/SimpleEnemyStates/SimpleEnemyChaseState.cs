@@ -48,7 +48,7 @@ public class SimpleEnemyChaseState : BaseSimpleEnemyState
     public override void UpdateState(float DeltaTime)
     {
         Debug.Log("Update Chase State");
-        /*
+        
         float currentSpeed = stateMashine.Agent.velocity.magnitude;
         if (stateMashine.Animator != null)
             stateMashine.Animator?.SetFloat(ForwardSpeedHash, currentSpeed, animationDampTime, DeltaTime);
@@ -70,7 +70,7 @@ public class SimpleEnemyChaseState : BaseSimpleEnemyState
         if (!stateMashine.Agent.pathPending && stateMashine.Agent.remainingDistance <= 1 )
         {
             stateMashine.SwitchState(new SimpleEnemyIdleState(stateMashine));
-        }*/
+        }
 
 
     }

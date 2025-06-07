@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     [field: SerializeField] public float MovementSpeed { get; private set; } = 5;
     [field: SerializeField] public float SprintingSpeed { get; private set; } = 10;
 
+    [field: SerializeField] public Recoil RecoilScript { get; private set; }
+
     public int currentSlot { get; private set; } = 0;
 
     public GameObject MainGun;

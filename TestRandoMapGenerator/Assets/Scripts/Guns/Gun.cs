@@ -153,6 +153,9 @@ public class Gun : MonoBehaviour
 
     private void ShootFeel()
     {
+        if (player.RecoilScript != null) { player.RecoilScript.RecoilFire(); }
+        else { Debug.Log("NoRecoilScript found"); }
+        
         if (MuscleFlash != null) { MuscleFlash.Play(); }
         if (GunShotAudio != null && ShotSoundObject != null)
         {

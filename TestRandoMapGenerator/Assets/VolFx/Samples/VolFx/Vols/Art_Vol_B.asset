@@ -15,7 +15,7 @@ MonoBehaviour:
   active: 1
   m_Weight:
     m_OverrideState: 1
-    m_Value: 0.805
+    m_Value: 0.638
   m_Gradient:
     m_OverrideState: 1
     m_Value:
@@ -84,7 +84,7 @@ MonoBehaviour:
       - {r: 0.9902236, g: 1, b: 0.6745283, a: 1}
   m_Mask:
     m_OverrideState: 1
-    m_Value: {x: 0, y: 1}
+    m_Value: {x: 0.007135212, y: 1}
   m_Palette:
     m_OverrideState: 1
     m_Value: {fileID: 0}
@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d94e4d16c32d4354919ca310e9b07591, type: 3}
   m_Name: AdjustmentsVol
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_Tint:
     m_OverrideState: 1
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -226,7 +226,7 @@ MonoBehaviour:
       - {r: 1, g: 1, b: 1, a: 1}
   m_Hue:
     m_OverrideState: 1
-    m_Value: -0.091
+    m_Value: -0.39
   m_Saturation:
     m_OverrideState: 1
     m_Value: 0.094
@@ -254,6 +254,7 @@ MonoBehaviour:
   components:
   - {fileID: 4775689949009537784}
   - {fileID: -427860612050768664}
+  - {fileID: 5252895887380839075}
   - {fileID: -6922670414256248899}
 --- !u!114 &4775689949009537784
 MonoBehaviour:
@@ -270,7 +271,7 @@ MonoBehaviour:
   active: 1
   m_Intencity:
     m_OverrideState: 1
-    m_Value: 16.43
+    m_Value: 1
   m_Threshold:
     m_OverrideState: 1
     m_Value:
@@ -333,7 +334,7 @@ MonoBehaviour:
       - {r: 1, g: 1, b: 1, a: 1}
   m_Scatter:
     m_OverrideState: 1
-    m_Value: 0.284
+    m_Value: 0.177
   m_Color:
     m_OverrideState: 0
     m_Value:
@@ -403,3 +404,103 @@ MonoBehaviour:
   m_Flicker:
     m_OverrideState: 1
     m_Value: 1
+--- !u!114 &5252895887380839075
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2303f781f6c04e428d9eb352fa4be37e, type: 3}
+  m_Name: OutlineVol
+  m_EditorClassIdentifier: 
+  active: 1
+  m_Sensitive:
+    m_OverrideState: 1
+    m_Value: 1
+  m_Thickness:
+    m_OverrideState: 1
+    m_Value: 0.085
+  m_Color:
+    m_OverrideState: 1
+    m_Value:
+      _grad:
+        serializedVersion: 2
+        key0: {r: 0, g: 0, b: 0, a: 1}
+        key1: {r: 0, g: 0, b: 0, a: 1}
+        key2: {r: 0, g: 0, b: 0, a: 0}
+        key3: {r: 0, g: 0, b: 0, a: 0}
+        key4: {r: 0, g: 0, b: 0, a: 0}
+        key5: {r: 0, g: 0, b: 0, a: 0}
+        key6: {r: 0, g: 0, b: 0, a: 0}
+        key7: {r: 0, g: 0, b: 0, a: 0}
+        ctime0: 0
+        ctime1: 65535
+        ctime2: 0
+        ctime3: 0
+        ctime4: 0
+        ctime5: 0
+        ctime6: 0
+        ctime7: 0
+        atime0: 0
+        atime1: 65535
+        atime2: 0
+        atime3: 0
+        atime4: 0
+        atime5: 0
+        atime6: 0
+        atime7: 0
+        m_Mode: 0
+        m_ColorSpace: 0
+        m_NumColorKeys: 2
+        m_NumAlphaKeys: 2
+      _pixels:
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+      - {r: 0, g: 0, b: 0, a: 1}
+  m_Fill:
+    m_OverrideState: 0
+    m_Value: {r: 0, g: 0, b: 0, a: 0}
+  m_Adaptive:
+    m_OverrideState: 0
+    m_Value: 1
+  m_Sharp:
+    m_OverrideState: 0
+    m_Value: 1
+  m_Remap:
+    m_OverrideState: 1
+    m_Value: 0
+  m_Mode:
+    m_OverrideState: 1
+    m_Value: 3

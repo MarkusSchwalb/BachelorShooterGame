@@ -129,7 +129,7 @@ public class RoomObject : MonoBehaviour
         }
     }
 
-    private void ChangeMaterialsOfMainStuff()
+    public void ChangeMaterialsOfMainStuff()
     {
         Debug.Log("ChangeMaterialsOfMainStuff");
         int randomNr = UnityEngine.Random.Range(0, 10);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,12 +11,15 @@ public class SimpleEnemyIdleState : BaseSimpleEnemyState
     private const float animationDampTime = 0.1f;
     private const float crossFadeDuration = 0.2f;
 
+    float counter = 0;
+
     public SimpleEnemyIdleState(SimpleEnemy simpleEnemy) : base(simpleEnemy)
     {
     }
 
     public override void EnterState()
     {
+        counter = 0;
         Debug.Log("EnterIdleStateSimpleEnemy");
         if (stateMashine.Animator!=null)
         stateMashine.Animator?.CrossFadeInFixedTime(StandardBlendTree, crossFadeDuration); 
@@ -31,6 +35,8 @@ public class SimpleEnemyIdleState : BaseSimpleEnemyState
         
     }
 
+    
+
     public override void UpdateState(float DeltaTime)
     {
         float currentSpeed = stateMashine.Agent.velocity.magnitude;
@@ -42,10 +48,29 @@ public class SimpleEnemyIdleState : BaseSimpleEnemyState
         {
             Debug.Log("PlayerInView");
             //
-
+            float distance = (stateMashine.Player.transform.position - stateMashine.transform.position).sqrMagnitude;
+            if (distance < 3)
+            {
+                stateMashine.SwitchState(new SimpleEnemyAttackState(stateMashine));
+                return;
+            }
 
             //switch state to chaseState
             stateMashine.SwitchState(new SimpleEnemyChaseState(stateMashine));
+        }
+
+        if (counter > 5) CheckRandomPatrol();
+
+        counter += DeltaTime;
+    }
+
+    private void CheckRandomPatrol()
+    {
+        int randomInt = UnityEngine.Random.Range(0, 100);
+
+        if (randomInt > 70)
+        {
+            stateMashine.SwitchState(new SimpleRandoPatrol(stateMashine));
         }
     }
 }

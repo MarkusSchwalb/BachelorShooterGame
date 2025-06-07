@@ -8,7 +8,7 @@ public class SimpleEnemyAttackState : BaseSimpleEnemyState
     float counter = 0;
 
     private float previousFrameTime;
-    private readonly int LightGoblinAttack = Animator.StringToHash("LightGoblinAttack");
+    private readonly int AttackHash = Animator.StringToHash("Attack");
 
     private const float animationDampTime = 0.1f;
     private const float crossFadeDuration = 0.2f;
@@ -21,12 +21,15 @@ public class SimpleEnemyAttackState : BaseSimpleEnemyState
         Debug.Log("EnterAttackState");
         //play animation
         if (stateMashine.Animator != null) 
-        stateMashine.Animator?.CrossFadeInFixedTime(LightGoblinAttack, crossFadeDuration);
+        stateMashine.Animator?.CrossFadeInFixedTime(AttackHash, crossFadeDuration);
 
         counter = 0;
+
         if (stateMashine.Player == null) { stateMashine.SwitchState(new SimpleEnemyIdleState(stateMashine)); return; }
         if (stateMashine.Player.TryGetComponent<Player> (out Player player))
         {
+            float distance = (player.transform.position - stateMashine.transform.position).sqrMagnitude;
+            if (distance < 3)
             player.HealthComponent.TakeDamage(stateMashine.Damage);
         }
     }

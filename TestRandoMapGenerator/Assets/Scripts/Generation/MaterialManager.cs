@@ -21,7 +21,7 @@ public class MaterialManager : MonoBehaviour
                 DontDestroyOnLoad(gameObject);
             }
         }
-        else
+        else if (Instance != this)
         {
             DestroyImmediate(gameObject); // Falls schon eine Instanz existiert, zerstören
         }
@@ -33,7 +33,7 @@ public class MaterialManager : MonoBehaviour
         {
             Instance = this;
         }
-        else
+        else if (Instance != this)
         {
             DestroyImmediate(gameObject); // Falls schon eine Instanz existiert, zerstören
         }
@@ -52,9 +52,11 @@ public class MaterialManager : MonoBehaviour
         {
             case MaterialType.Wall:
                 i = nr % WallMats.Length;
+                Debug.Log(i);
                 return WallMats[i];
             case MaterialType.Floor:
                 i = nr % FloorMats.Length;
+                Debug.Log(i);
                 return FloorMats[i];
             default: return DefaultMaterial;
         }

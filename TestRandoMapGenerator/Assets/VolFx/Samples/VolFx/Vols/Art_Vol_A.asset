@@ -239,6 +239,22 @@ MonoBehaviour:
   m_Flicker:
     m_OverrideState: 1
     m_Value: 1
+--- !u!114 &-6009984128105828695
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e6276bb40355174d8ef50b1aa690158, type: 3}
+  m_Name: PosterizeVol
+  m_EditorClassIdentifier: 
+  active: 0
+  m_Count:
+    m_OverrideState: 1
+    m_Value: 15
 --- !u!114 &-5946047691634514486
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -343,6 +359,58 @@ MonoBehaviour:
   m_Custom:
     m_OverrideState: 1
     m_Value: {fileID: 0}
+--- !u!114 &-4440429969972715988
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb2952b95454955ba507c3d96778a76, type: 3}
+  m_Name: VhsVol
+  m_EditorClassIdentifier: 
+  active: 1
+  _weight:
+    m_OverrideState: 1
+    m_Value: 0.557
+  _tape:
+    m_OverrideState: 0
+    m_Value: 0
+  _shades:
+    m_OverrideState: 0
+    m_Value: 0
+  _rocking:
+    m_OverrideState: 0
+    m_Value: 0
+  _squeeze:
+    m_OverrideState: 0
+    m_Value: 0
+  _density:
+    m_OverrideState: 0
+    m_Value: 0
+  _intensity:
+    m_OverrideState: 0
+    m_Value: 0
+  _scale:
+    m_OverrideState: 0
+    m_Value: 1
+  _flickering:
+    m_OverrideState: 0
+    m_Value: 0
+  _color:
+    m_OverrideState: 0
+    m_Value: {r: 1, g: 0, b: 0, a: 1}
+  _bleed:
+    m_OverrideState: 0
+    m_Value: 0.7
+  _flow:
+    m_OverrideState: 0
+    m_Value: 1
+  _pulsation:
+    m_OverrideState: 0
+    m_Value: 1
 --- !u!114 &-945824831987357381
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -358,10 +426,10 @@ MonoBehaviour:
   active: 1
   m_Scale:
     m_OverrideState: 1
-    m_Value: 0.88
+    m_Value: 0.882
   m_Grid:
-    m_OverrideState: 1
-    m_Value: 0.902
+    m_OverrideState: 0
+    m_Value: 1
   m_Roundness:
     m_OverrideState: 0
     m_Value: 0
@@ -374,10 +442,10 @@ MonoBehaviour:
     m_Value: {fileID: 2800000, guid: 96508607e51da0e4383768128dd952c5, type: 3}
   m_Impact:
     m_OverrideState: 1
-    m_Value: 0.383
+    m_Value: 0.08
   m_Crisp:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1
 --- !u!114 &-10052093550322528
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -393,10 +461,10 @@ MonoBehaviour:
   active: 1
   m_Sensitive:
     m_OverrideState: 1
-    m_Value: 0.097
+    m_Value: 1
   m_Thickness:
     m_OverrideState: 1
-    m_Value: 0.199
+    m_Value: 0.098
   m_Color:
     m_OverrideState: 1
     m_Value:
@@ -477,7 +545,7 @@ MonoBehaviour:
     m_Value: 0
   m_Mode:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 3
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -494,10 +562,12 @@ MonoBehaviour:
   - {fileID: -5946047691634514486}
   - {fileID: 4629311371032791693}
   - {fileID: 1332548320811149641}
-  - {fileID: -10052093550322528}
   - {fileID: -8666835228733706875}
   - {fileID: -6947018770871864195}
   - {fileID: -945824831987357381}
+  - {fileID: -10052093550322528}
+  - {fileID: -6009984128105828695}
+  - {fileID: -4440429969972715988}
 --- !u!114 &1332548320811149641
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -513,7 +583,7 @@ MonoBehaviour:
   active: 1
   m_Grain:
     m_OverrideState: 1
-    m_Value: 0.36
+    m_Value: 0.1
   m_Response:
     m_OverrideState: 1
     m_Value:
@@ -576,7 +646,7 @@ MonoBehaviour:
       - {r: 0, g: 0, b: 0, a: 0}
   m_Brightness:
     m_OverrideState: 1
-    m_Value: -0.329
+    m_Value: -0.27
   m_Hue:
     m_OverrideState: 1
     m_Value: 0
@@ -594,7 +664,7 @@ MonoBehaviour:
     m_Value: {r: 1, g: 1, b: 1, a: 0}
   m_Fps:
     m_OverrideState: 1
-    m_Value: 28
+    m_Value: 1
   m_Scale:
     m_OverrideState: 1
     m_Value: -0.04
