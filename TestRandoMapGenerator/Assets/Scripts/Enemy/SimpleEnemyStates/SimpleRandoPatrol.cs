@@ -22,8 +22,8 @@ public class SimpleRandoPatrol : BaseSimpleEnemyState
 
     public override void EnterState()
     {
-        float randomZ = Random.RandomRange(-walkRange, walkRange);
-        float randomX = Random.RandomRange(-walkRange, walkRange);
+        float randomZ = Random.Range(-walkRange, walkRange);
+        float randomX = Random.Range(-walkRange, walkRange);
 
         Vector3 destination = new Vector3(stateMashine.transform.position.x + randomX, stateMashine.transform.position.y, stateMashine.transform.position.z + randomZ);
 
