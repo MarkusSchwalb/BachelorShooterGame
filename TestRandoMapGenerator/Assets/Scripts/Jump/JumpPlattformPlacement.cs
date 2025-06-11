@@ -115,7 +115,7 @@ public class JumpPlattformPlacement : ProceduralModulLogicBase
         {
             //next position
             Vector3 randomNextPosition = CalculateNextGoalPoint(LastTile.transform.position, parent);
-            //spawn
+            //spawn a tile
             SpawnTile(randomNextPosition); 
 
             Debug.Log("nextTile");
