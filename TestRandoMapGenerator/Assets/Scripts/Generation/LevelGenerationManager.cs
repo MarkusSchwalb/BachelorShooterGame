@@ -42,7 +42,8 @@ public class LevelGenerationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GenerateNewSeed();
+        
+        //GenerateNewSeed();
         GenerateLevel();
     }
 
@@ -52,6 +53,15 @@ public class LevelGenerationManager : MonoBehaviour
         
     }
     private int counter = 0;
+
+    public void GenerateNewSeed()
+    {
+
+        int newSeed = UnityEngine.Random.Range(0, 2000);
+        SeedNmbr = newSeed;
+        GameData.Seed = newSeed;
+    }
+
     public void GenerateLevel()
     {
         lastDirection = direction.NotDefined;
@@ -94,7 +104,7 @@ public class LevelGenerationManager : MonoBehaviour
 
     private void StartMapGen()
     {
-        UnityEngine.Random.InitState(SeedNmbr);
+        UnityEngine.Random.InitState(GameData.Seed);
 
         west = 0; east = 0; north = 0;
         changeCount = 0;
@@ -300,12 +310,7 @@ public class LevelGenerationManager : MonoBehaviour
         return value;
     }
 
-    public void GenerateNewSeed()
-    {
 
-        int newSeed = UnityEngine.Random.Range(0, 2000);
-        SeedNmbr = newSeed;
-    }
 
     public void ClearLevel()
     {

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 33382006324641288}
   - component: {fileID: 23640767895571922}
   - component: {fileID: 64971371895215670}
+  - component: {fileID: 3041664337324205328}
   m_Layer: 0
   m_Name: SM_Buildings_Floor_1x1_01
   m_TagString: Floor
@@ -30,9 +31,10 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7706514074855614321}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &33382006324641288
 MeshFilter:
@@ -106,3 +108,49 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: bef96b6e1cd37444fa6937ae99361014, type: 3}
+--- !u!114 &3041664337324205328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906015796387160}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e37fed32e6e343f4fa6955c0bc88de94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  options: {fileID: 11400000, guid: 0fa5cf7c3c7122f4db73e6f99a638306, type: 2}
+  fallBackBrobability: 0.5
+  spawnTransform: {fileID: 7706514074855614321}
+--- !u!1 &4515737594756854638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7706514074855614321}
+  m_Layer: 0
+  m_Name: TrashSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7706514074855614321
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4515737594756854638}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4566176650753290}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -26,8 +26,14 @@ public class RoomObject : MonoBehaviour
     [Header("Spawners")]
     public List<EnemySpawner> ESpawners = new List<EnemySpawner>();
     public List<DeckungSpawner> DSpawners = new List<DeckungSpawner>();
-    
+
     //public ModulManager[] MManagers;
+
+    [Header("Trash")]
+    [field: SerializeField] private List<TrashSpawn> trashSpawns = new List<TrashSpawn>();
+    [field: SerializeField] private float trashiness = 0.5f;
+    [field: SerializeField] public TrashOptions trashOptions;
+
 
     // Start is called before the first frame update
     void Start()
@@ -117,7 +123,12 @@ public class RoomObject : MonoBehaviour
         //Change Material
         GetChangeMats();
         ChangeMaterialsOfMainStuff();
+
+        //spawn trash
+        SpawnTrash();
     }
+
+    
 
     private void FinalizeModules()
     {
@@ -191,6 +202,8 @@ public class RoomObject : MonoBehaviour
         
     }
 
+    
+
     void recursiveChangeMats(Transform parent)
     {
         
@@ -213,6 +226,57 @@ public class RoomObject : MonoBehaviour
             }
 
             recursiveChangeMats(child);
+        }
+    }
+
+    private void SpawnTrash()
+    {
+        Debug.Log("SpawnTrash");
+        GetTrashSpawners();
+        
+
+        foreach (TrashSpawn spawn in trashSpawns)
+        {
+            spawn.SpawnTrash(trashiness, this);
+        }
+        
+    }
+
+    private void GetTrashSpawners()
+    {
+        trashSpawns.Clear();
+
+        foreach (Transform child in Constructs)
+        {
+            if (child.gameObject.TryGetComponent<TrashSpawn>(out TrashSpawn spawn))
+            {
+                trashSpawns.Add(spawn);
+            }
+
+            if (child.gameObject.TryGetComponent<Exit>(out Exit exit)) // Bei Exits nicht weiter machen weil drunter ist nächester raum
+            {
+                continue;
+            }
+
+            RecursiveGetTrash(child);
+        }
+    }
+
+    private void RecursiveGetTrash(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.gameObject.TryGetComponent<TrashSpawn>(out TrashSpawn spawn))
+            {
+                trashSpawns.Add(spawn);
+            }
+
+            if (child.gameObject.TryGetComponent<Exit>(out Exit exit)) // Bei Exits nicht weiter machen weil drunter ist nächester raum
+            {
+                continue;
+            }
+
+            RecursiveGetTrash(child);
         }
     }
 }
