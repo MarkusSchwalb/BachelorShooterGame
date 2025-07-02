@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class HealthComponent : MonoBehaviour
 {
-    public event Action DeathEvent;
+    public event Action<HealthComponent> DeathEvent;
 
     [field: SerializeField] public HealthData HDHealthData { get; private set; }
-    protected float currentHealth = 100;
+    [field: SerializeField] protected float currentHealth = 100;
 
     public bool IsDead { get; private set; } = false;
 
@@ -86,7 +86,7 @@ public class HealthComponent : MonoBehaviour
         {
             currentHealth = 0;
             IsDead = true;
-            DeathEvent?.Invoke(); //should invoke handle death in main script of the actor
+            DeathEvent?.Invoke(this); //should invoke handle death in main script of the actor
             HandleDeath(); //should be away at some time
             
         }

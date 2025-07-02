@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -21,20 +22,19 @@ public class Player : MonoBehaviour
     public GameObject MainGun;
     public GameObject SecondaryGun;
 
-    [field: SerializeField] public Gun CurrentGun { get; private set;}
+    [field: SerializeField] public Gun CurrentGun { get; private set;} 
     
 
     [field: SerializeField] public Transform ProjectileSpawner { get; private set; }
     public GameObject projectile;
 
     [field: SerializeField] public Camera Camera { get; private set; }
-    [field: SerializeField] private GameObject xRotator;
-    [field: SerializeField] private GameObject yRotator;
+    [field: SerializeField] private GameObject rollRotator;
 
     [field: SerializeField] public float ySensitivity { get; private set; }
     [field: SerializeField] public float xSensitivity { get; private set; }
 
-
+    [field: SerializeField] public GameObject AimAt { get; private set; }
 
     [field: SerializeField] public float JumpStrength { get; private set; } = 1;
 
@@ -47,11 +47,25 @@ public class Player : MonoBehaviour
     private float gravity = -9.81f;
     private Vector3 playerVelocity;
 
+    [field: SerializeField] public Animator AimAnimator { get; private set; }
+    public static readonly int isAimingHash = Animator.StringToHash("IsAiming");
+
+    [field: SerializeField] public PlayerMelee PM { get; private set; }
+    [Header("Throwable")]
+    public GameObject Grenade;
+    [field: SerializeField] private Transform grenadeLauncherTrans;
+
+    [Header("Crouchen")]
+    [field: SerializeField] private float standHeight = 2, couchHeight = 1, standCam = 1.6f, crouchCam = 0.9f;
+
     //public Transform MainCameraTransform { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
+        if (rollRotator != null)
+        xRotation = rollRotator.transform.localPosition.x;
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -86,20 +100,69 @@ public class Player : MonoBehaviour
     {
         if (InputReader == null) { Debug.LogError("No InputReader"); return; }
         InputReader.AimEvent += HandleAimEvent;
+        InputReader.AimDownEvent += HandleAimEvent;
         InputReader.ShootEvent += HandleShootEvent;
         InputReader.JumpEvent += HandleJumpEvent;
         InputReader.ReloadEvent += HandleReload;
+        InputReader.MeleeEvent += HandleMelee;
+        InputReader.GrenadeEvent += HandleGrenade;
+        InputReader.CrouchEvent += HandleCrouch;
     }
+
+    private void HandleCrouch()
+    {
+        bool isCrouchen = InputReader.IsCrouching;
+        Vector3 camPos = RecoilScript.transform.localPosition;
+
+        if (isCrouchen) { 
+            CharacterController.height = couchHeight;
+            camPos.y = crouchCam;
+        }
+        else { 
+            CharacterController.height = standHeight;
+            camPos.y = standCam;
+        }
+
+        RecoilScript.transform.localPosition = camPos;
+
+        CharacterController.center = new Vector3 (0, CharacterController.height/2, 0);
+    }
+
+    private void HandleGrenade()
+    {
+        Debug.Log("FireInTheHole");
+        if (grenadeLauncherTrans == null || Grenade == null) return;
+        GameObject nGrenade = Instantiate(Grenade, grenadeLauncherTrans.position, grenadeLauncherTrans.rotation);
+
+    }
+
+    private void HandleMelee()
+    {
+        Debug.Log("Melee");
+        if (PM == null) return;
+        PM.Attack();
+    }
+
+    private void HandleAimEvent()
+    {
+        if ( AimAnimator == null)
+        {
+            return;
+        }
+        AimAnimator.SetBool(isAimingHash, InputReader.IsAiming);
+    }
+    /*
+    private void HandleAimDownEvent()
+    {
+        throw new NotImplementedException();
+    }*/
 
     private void HandleReload()
     {
         CurrentGun.ReloadMag();
     }
 
-    private void HandleAimEvent()
-    {
-        Debug.Log("Aim");
-    }
+    
 
     private void HandleShootEvent()
     {
@@ -138,14 +201,27 @@ public class Player : MonoBehaviour
     private void CameraRotation()
     {
         Vector2 mouseInput = InputReader.MouseInput;
-        //Debug.Log(mouseInput);
-        //Up and down
+
+        if (rollRotator == null) { 
+            //Debug.Log(mouseInput);
+            //Up and down
+            xRotation -= (mouseInput.y * Time.deltaTime) * ySensitivity;
+            xRotation = Mathf.Clamp(xRotation, -xAxisLookClamp, xAxisLookClamp);
+            Camera.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+        }
+        //rotate Rotators
+        //up Down
         xRotation -= (mouseInput.y * Time.deltaTime) * ySensitivity;
         xRotation = Mathf.Clamp(xRotation, -xAxisLookClamp, xAxisLookClamp);
-        Camera.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+        rollRotator.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
 
         //left right
         transform.Rotate(Vector3.up * (mouseInput.x * Time.deltaTime) * xSensitivity);
+
+        
+
+
+
     }
 
     private void Movement()
@@ -163,7 +239,7 @@ public class Player : MonoBehaviour
         {
             SpeedModifier = MovementSpeed;
         }
-
+        /**/
         Vector3 moveDirection = (transform.forward * vertical + transform.right * horizontal);
             
 

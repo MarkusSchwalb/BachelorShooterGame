@@ -20,6 +20,8 @@ public class UIManager : MonoBehaviour
     public delegate void OnXPChanged(int xpChange);
     public OnXPChanged onXPChanged;
 
+    public Interactable LastInteractable { get; private set; }
+    [field: SerializeField] public GameObject InteractableWindow { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -31,5 +33,10 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void LookAtInteractable()
+    {
+
     }
 }

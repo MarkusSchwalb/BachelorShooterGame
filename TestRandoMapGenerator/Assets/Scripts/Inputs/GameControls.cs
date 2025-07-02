@@ -40,7 +40,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""name"": ""Aim"",
                     ""type"": ""Button"",
                     ""id"": ""db7f9b9c-6650-45dd-b83a-0973a994fb2d"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -49,7 +49,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""name"": ""Shoot"",
                     ""type"": ""Button"",
                     ""id"": ""1835cff5-7748-449d-97ad-1892f6c826d5"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -67,7 +67,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""name"": ""Sprinting"",
                     ""type"": ""Button"",
                     ""id"": ""cf1a5b8c-9ebe-4553-a44e-f3fb1b578d30"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -86,6 +86,42 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""5dd5ff85-fbc4-49e5-ad16-4356902708c0"",
                     ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""8717fa8f-6ecd-47c5-8ecc-b6c10287389e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MeleeAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""a3fa1efb-f45f-4073-8ca7-b85c00583adc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Granade"",
+                    ""type"": ""Button"",
+                    ""id"": ""2c21d6b5-f6f9-4911-81f2-129f98888fe0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""3c25e401-0fc7-4183-8a2a-26aef37bf1c2"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -212,6 +248,50 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""82ae02e7-d53a-4235-a917-2e3e7307aedb"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e31dc63b-9306-4fb3-af99-37bc171e1964"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MeleeAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""18923742-b523-4b5e-98e0-abfcdb17a01c"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Granade"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1739e225-ad60-4a99-afeb-5e009573c785"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -244,6 +324,10 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         m_GamePlay_Sprinting = m_GamePlay.FindAction("Sprinting", throwIfNotFound: true);
         m_GamePlay_Jumping = m_GamePlay.FindAction("Jumping", throwIfNotFound: true);
         m_GamePlay_Reload = m_GamePlay.FindAction("Reload", throwIfNotFound: true);
+        m_GamePlay_Interact = m_GamePlay.FindAction("Interact", throwIfNotFound: true);
+        m_GamePlay_MeleeAttack = m_GamePlay.FindAction("MeleeAttack", throwIfNotFound: true);
+        m_GamePlay_Granade = m_GamePlay.FindAction("Granade", throwIfNotFound: true);
+        m_GamePlay_Crouch = m_GamePlay.FindAction("Crouch", throwIfNotFound: true);
     }
 
     ~@GameControls()
@@ -317,6 +401,10 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_GamePlay_Sprinting;
     private readonly InputAction m_GamePlay_Jumping;
     private readonly InputAction m_GamePlay_Reload;
+    private readonly InputAction m_GamePlay_Interact;
+    private readonly InputAction m_GamePlay_MeleeAttack;
+    private readonly InputAction m_GamePlay_Granade;
+    private readonly InputAction m_GamePlay_Crouch;
     public struct GamePlayActions
     {
         private @GameControls m_Wrapper;
@@ -328,6 +416,10 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         public InputAction @Sprinting => m_Wrapper.m_GamePlay_Sprinting;
         public InputAction @Jumping => m_Wrapper.m_GamePlay_Jumping;
         public InputAction @Reload => m_Wrapper.m_GamePlay_Reload;
+        public InputAction @Interact => m_Wrapper.m_GamePlay_Interact;
+        public InputAction @MeleeAttack => m_Wrapper.m_GamePlay_MeleeAttack;
+        public InputAction @Granade => m_Wrapper.m_GamePlay_Granade;
+        public InputAction @Crouch => m_Wrapper.m_GamePlay_Crouch;
         public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -358,6 +450,18 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Reload.started += instance.OnReload;
             @Reload.performed += instance.OnReload;
             @Reload.canceled += instance.OnReload;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
+            @MeleeAttack.started += instance.OnMeleeAttack;
+            @MeleeAttack.performed += instance.OnMeleeAttack;
+            @MeleeAttack.canceled += instance.OnMeleeAttack;
+            @Granade.started += instance.OnGranade;
+            @Granade.performed += instance.OnGranade;
+            @Granade.canceled += instance.OnGranade;
+            @Crouch.started += instance.OnCrouch;
+            @Crouch.performed += instance.OnCrouch;
+            @Crouch.canceled += instance.OnCrouch;
         }
 
         private void UnregisterCallbacks(IGamePlayActions instance)
@@ -383,6 +487,18 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Reload.started -= instance.OnReload;
             @Reload.performed -= instance.OnReload;
             @Reload.canceled -= instance.OnReload;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
+            @MeleeAttack.started -= instance.OnMeleeAttack;
+            @MeleeAttack.performed -= instance.OnMeleeAttack;
+            @MeleeAttack.canceled -= instance.OnMeleeAttack;
+            @Granade.started -= instance.OnGranade;
+            @Granade.performed -= instance.OnGranade;
+            @Granade.canceled -= instance.OnGranade;
+            @Crouch.started -= instance.OnCrouch;
+            @Crouch.performed -= instance.OnCrouch;
+            @Crouch.canceled -= instance.OnCrouch;
         }
 
         public void RemoveCallbacks(IGamePlayActions instance)
@@ -418,5 +534,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         void OnSprinting(InputAction.CallbackContext context);
         void OnJumping(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnMeleeAttack(InputAction.CallbackContext context);
+        void OnGranade(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
     }
 }

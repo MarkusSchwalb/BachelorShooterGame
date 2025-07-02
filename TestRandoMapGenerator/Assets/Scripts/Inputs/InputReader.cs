@@ -11,9 +11,19 @@ public class InputReader : MonoBehaviour, GameControls.IGamePlayActions
     public bool TriggerDown = false;
 
     public event Action AimEvent;
+    public bool IsAiming = false;
+    public event Action AimDownEvent;
     public event Action JumpEvent;
 
     public event Action ReloadEvent;
+
+    public event Action InteractEvent;
+    public event Action MeleeEvent;
+    public event Action GrenadeEvent;
+
+    public event Action CrouchEvent;
+    public bool IsCrouching;
+
 
     public Vector2 MoveInput;
     public Vector2 MouseInput;
@@ -62,9 +72,19 @@ public class InputReader : MonoBehaviour, GameControls.IGamePlayActions
     }
     public void OnAim(InputAction.CallbackContext context)
     {
-        if (!context.performed) { return; }
-        Debug.Log("AimInput");
-        AimEvent?.Invoke();
+        if (context.performed)
+        {
+            IsAiming = true;
+            
+            AimEvent?.Invoke();
+        }
+
+        if (context.canceled)
+        {
+            IsAiming = false;
+            
+            AimDownEvent?.Invoke();
+        }
     }
 
     public void OnSprinting(InputAction.CallbackContext context)
@@ -94,5 +114,41 @@ public class InputReader : MonoBehaviour, GameControls.IGamePlayActions
         if (!context.performed) { return; }
         Debug.Log("Reload!");
         ReloadEvent?.Invoke();
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (!context.performed) { return; }
+        Debug.Log("Reload!");
+        InteractEvent?.Invoke();
+    }
+
+    public void OnMeleeAttack(InputAction.CallbackContext context)
+    {
+        if (!context.performed) { return; }
+        Debug.Log("Reload!");
+        MeleeEvent?.Invoke();
+    }
+
+    public void OnGranade(InputAction.CallbackContext context)
+    {
+        if (!context.performed) { return; }
+        Debug.Log("Reload!");
+        GrenadeEvent?.Invoke();
+    }
+
+    public void OnCrouch(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            IsCrouching = true;
+            CrouchEvent?.Invoke();
+        }
+
+        if (context.canceled)
+        {
+            IsCrouching = false;
+            CrouchEvent?.Invoke();
+        }
     }
 }

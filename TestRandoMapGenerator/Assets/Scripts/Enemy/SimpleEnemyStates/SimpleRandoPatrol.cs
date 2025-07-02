@@ -6,8 +6,8 @@ using UnityEngine;
 public class SimpleRandoPatrol : BaseSimpleEnemyState
 {
     private readonly int StandardBlendTree = Animator.StringToHash("Standard");
-    private readonly int ForwardSpeedHash = Animator.StringToHash("ForwardSpeed");
-    private readonly int SideSpeed = Animator.StringToHash("SideSpeed");
+    private readonly int ForwardSpeedHash = Animator.StringToHash("GoblinSpeed");
+    //private readonly int SideSpeed = Animator.StringToHash("SideSpeed");
 
     private const float animationDampTime = 0.1f;
     private const float crossFadeDuration = 0.2f;
