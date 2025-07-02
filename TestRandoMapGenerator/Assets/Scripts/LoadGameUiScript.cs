@@ -15,6 +15,8 @@ public class LoadGameUiScript : MonoBehaviour
 
         Debug.Log("Current Seed " + GameData.Seed + " Eingabe war " + GameData.Eingabe);
 
-        SceneManager.LoadScene(0); // muss nachher auf 1 geändert werden
+        SceneManager.LoadScene(1); // muss nachher auf 1 geändert werden
+
+        GameData.CurrentLevel = 1;
     }
 }

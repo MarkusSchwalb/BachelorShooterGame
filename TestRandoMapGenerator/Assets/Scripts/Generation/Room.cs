@@ -8,11 +8,22 @@ public class Room : ScriptableObject
     public string RoomName;
     public GameObject RoomObject;
 
-    public Vector3 SizePoint1;
-    public Vector3 SizePoint2;
-
-    
-
     public int Difficulty;
 
+    public int Threat;
+    public int Tempo;
+    public int Tension;
+    public int MovementImpetus;
+
+    public RoomType RoomType;
+}
+
+public enum RoomType
+{
+    NotDefined,
+    Movement,
+    Combat,
+    Roaming,
+    Puzzle,
+    notRelevant
 }

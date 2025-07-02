@@ -28,15 +28,20 @@ public class Player : MonoBehaviour
     public GameObject projectile;
 
     [field: SerializeField] public Camera Camera { get; private set; }
+    [field: SerializeField] private GameObject xRotator;
+    [field: SerializeField] private GameObject yRotator;
 
     [field: SerializeField] public float ySensitivity { get; private set; }
     [field: SerializeField] public float xSensitivity { get; private set; }
+
+
 
     [field: SerializeField] public float JumpStrength { get; private set; } = 1;
 
     private float xAxisLookClamp = 80f;
 
     float xRotation = 0;
+
 
     private bool isGrounded;
     private float gravity = -9.81f;
