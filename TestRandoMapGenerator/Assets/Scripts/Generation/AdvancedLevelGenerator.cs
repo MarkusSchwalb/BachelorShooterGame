@@ -2,7 +2,9 @@ using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
@@ -23,13 +25,14 @@ public class AdvancedLevelGenerator : MonoBehaviour
 
     [Header("Parameter")]
     public bool RandyRandom = false;
-    [Tooltip("needs to be even and a number above 6 if you input a uneven number it adds 1 to make it even if " +
+    [Tooltip("needs to be a number above 6 if " +
         "you make an input below 6 it will be 6")]
     public int MainRoomCount;
 
 
     //for intensity curve
     private List<int> intensityCurve = new List<int>();
+    private List<bool> peakRestList = new List<bool>();
     public int goalIntensity { get; private set; }
 
     //Spawned Rooms
@@ -46,7 +49,7 @@ public class AdvancedLevelGenerator : MonoBehaviour
         GenerateLevel();
     }
 
-    private void GenerateLevel()
+    public void GenerateLevel()
     {
         ResetSettings();
         CheckAndInitSeed();
@@ -118,15 +121,47 @@ public class AdvancedLevelGenerator : MonoBehaviour
         UnityEngine.Random.InitState(seed);
     }
 
-    private void GenerateIntensityCurve()
+    public void GenerateIntensityCurve()
     {
         if (MainRoomCount < 6) MainRoomCount = 6;
-        if (MainRoomCount%2 != 0)
+        /*if (MainRoomCount % 2 != 0)
         {
             MainRoomCount++;
-        }
+        }*/
+
+        GeneratePeakBoolList();
         
         intensityCurve.Clear();
+
+        int currentI = 1;
+        int nextI = 0;
+
+        for (int i = 0; i < peakRestList.Count; i++)
+        {
+            if (peakRestList[i] == false)
+            {
+                nextI = currentI - UnityEngine.Random.Range(1, Mathf.Clamp(currentI/2, 2, 10));
+            }
+            if (peakRestList[i] == true)
+            {
+                if (i == 1) { nextI = currentI + UnityEngine.Random.Range(3, 5); } 
+                else
+                nextI = currentI + UnityEngine.Random.Range(2, 4);
+            }
+            nextI = Mathf.Clamp(nextI, 0, 10);
+            intensityCurve.Add(nextI);
+
+            currentI = nextI;
+        }
+
+        //Climax sichern
+        intensityCurve[intensityCurve.Count - 1] = Mathf.Clamp((intensityCurve.Max() + 2), 5, 10); 
+
+        Debug.Log("Elements: " +  intensityCurve.Count);
+        Debug.Log("Peak Rest List: " + string.Join(", ", peakRestList));
+        Debug.Log("Intensity Curve: " +  string.Join(", ", intensityCurve));
+
+        /*
         int startIntensity = UnityEngine.Random.Range(1, 2);
         intensityCurve.Add(startIntensity);
         int hookIntensity = UnityEngine.Random.Range(startIntensity + 1, startIntensity + 3);
@@ -142,8 +177,46 @@ public class AdvancedLevelGenerator : MonoBehaviour
             int newIntensityPeak = UnityEngine.Random.Range(lastIntensity + 2, lastIntensity + 3);
             intensityCurve.Add(newIntensityPeak);
             lastIntensity += newIntensityPeak;
-        }
+        }*/
     }
+
+    private void GeneratePeakBoolList()
+    {
+        peakRestList.Clear();
+        //start with rest than the hook with peak than a rest and than calculate the rest to the one
+        // before the fore last value
+        //fore last is false and last is peak but its going to be a special room
+        peakRestList.Add(false);    //start of the curve
+        peakRestList.Add(true);     //Hook
+        peakRestList.Add(false);    //Rest after hook
+
+        for (int i = 3; i < MainRoomCount - 2; i++) //we are 3 rooms in and the last two are 
+        {
+            if (peakRestList[peakRestList.Count-1] == true) 
+            {
+                if (peakRestList[peakRestList.Count-2] == true)
+                {
+                    peakRestList.Add(false);
+                    continue;
+                }
+                int randomInt = UnityEngine.Random.Range(1, 11);
+                if (randomInt < 3)
+                {
+                    peakRestList.Add(true);
+                    continue;
+                }
+                peakRestList.Add(false);
+            }
+            else
+            {
+                peakRestList.Add(true);
+            }
+        }
+
+        peakRestList.Add(false);
+        peakRestList.Add(true);
+    }
+
     private void StartGeneratingLevel()
     {
         west = 0; east = 0; north = 0;

@@ -22,7 +22,7 @@ public class InputReader : MonoBehaviour, GameControls.IGamePlayActions
     public event Action GrenadeEvent;
 
     public event Action CrouchEvent;
-    public bool IsCrouching;
+    public bool IsCrouching = false;
 
 
     public Vector2 MoveInput;
