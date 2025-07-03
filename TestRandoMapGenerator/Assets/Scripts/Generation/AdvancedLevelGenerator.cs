@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Burst.CompilerServices;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -35,11 +36,12 @@ public class AdvancedLevelGenerator : MonoBehaviour
     //for intensity curve
     private List<int> intensityCurve = new List<int>();
     private List<bool> peakRestList = new List<bool>();
-    public int goalIntensity { get; private set; }
+    private int goalIntensity;
 
     //Spawned Rooms
     private List<Room> spawnedRooms = new List<Room>();
     private List<RoomObject> spawnedRoomObjects = new List<RoomObject>();
+
     public RoomObject CurrentRoom { get; private set; }
 
     private direction lastDirection = direction.NotDefined;
@@ -53,11 +55,33 @@ public class AdvancedLevelGenerator : MonoBehaviour
 
     public void GenerateLevel()
     {
+        GameData.CurrentLevel = 1;
         ResetSettings();
         CheckAndInitSeed();
         GenerateIntensityCurve(); //[x]
-        StartGeneratingLevel(); // [/]
-        SpawnRooms(); // [/]
+        StartGeneratingLevel(); // [x]
+        SpawnRooms(); // [x]
+        SpawnRewardRooms();
+    }
+
+    private void SpawnRewardRooms()
+    {
+        foreach (RoomObject roomO in spawnedRoomObjects)
+        {
+            if (roomO.Intensity >= 5) SpawnRewardIfPossible(roomO);
+        }
+
+    }
+
+    private void SpawnRewardIfPossible(RoomObject roomO)
+    {
+        //Check for available exits
+        roomO.CheckExits();
+        if (roomO.ExitList.Count == 0) return;
+
+        int randomInt = UnityEngine.Random.Range(0, roomO.ExitList.Count);
+        Room toSpawnRoom = RoomSelection(RewardRooms);
+        GameObject spawnedRoom = Instantiate(toSpawnRoom.RoomObject, roomO.ExitList[randomInt].transform);
     }
 
     private void ResetSettings()
@@ -169,8 +193,9 @@ public class AdvancedLevelGenerator : MonoBehaviour
         }
 
         //Climax sichern
-        intensityCurve[intensityCurve.Count - 1] = Mathf.Clamp((intensityCurve.Max() + 2), 5, 10); 
+        intensityCurve[intensityCurve.Count - 1] = Mathf.Clamp((intensityCurve.Max() + 2), 5, 10);
 
+        Debug.Log("Intensity Curve: " + string.Join(", ", intensityCurve));
     }
 
     private void GeneratePeakBoolList()
@@ -219,26 +244,67 @@ public class AdvancedLevelGenerator : MonoBehaviour
         SetCurrentRoom(spawnedRoom);
         spawnedRooms.Add(StartRoom);
 
+
         if (GameData.CurrentLevel == 1)
         {
-            SpawnRoom(StartWeaponRoom);
-        }
+            SpawnRoom(StartWeaponRoom, true);
+
+            int rInt = UnityEngine.Random.Range(0, InBetweenRooms.Count());
+            SpawnRoom(RoomSelection(InBetweenRooms), false);
+        } else SpawnRoom(RoomSelection(InBetweenRooms), false);
     }
 
-    private void SpawnRoom(Room toSpawnRoom)
+    private void SpawnRooms()
+    {
+        
+        for (int i = 0; i <= MainRoomCount - 1; i++) //minus one because the Climax room is separate
+        {
+            //finde die aktuelle intensität
+            goalIntensity = intensityCurve[i];
+            //prüfe die Letzte art von Level
+            List<Room> possibleRooms = CheckNextPossibleRooms(goalIntensity);
+            Debug.Log("Possible rooms: " + string.Join(", ", possibleRooms));
+            //select one of the rooms and Spawn him
+            
+            SpawnRoom(RoomSelection(possibleRooms), true);
+            SpawnRoom(RoomSelection(InBetweenRooms), false);
+        }
+
+        //letzte rooms
+        SpawnRoom(RoomSelection(ClimaxRooms), true);
+        SpawnRoom(EndRoom, true);
+    }
+
+    private void SpawnRoom(Room toSpawnRoom, bool isMainRoom)
     {
         if (CurrentRoom == null)
         {
             Debug.LogWarning("SpawnRoom has tried to spawn Rooms without having currentRoom");
             return;
         }
+
+        if (toSpawnRoom == null)
+        {
+            Debug.LogWarning("SpawnRoom has tried to spawn a Room but the Room had no roomObject");
+            return;
+        }
+
         GameObject spawnedRoomObj = Instantiate(
             toSpawnRoom.RoomObject, 
             CurrentRoom.ExitList[CalculateNextExit()].transform);
 
         SetCurrentRoom (spawnedRoomObj);
-        spawnedRooms.Add(toSpawnRoom);
+        if (isMainRoom)
+        {
+            spawnedRooms.Add(toSpawnRoom);
+            CurrentRoom.FinalizeRoom(goalIntensity);
+            
+
+        } else CurrentRoom.FinalizeRoom(); 
     }
+
+    
+
     //spawnedRoom = Instantiate(MediumRooms[ranomValue].RoomObject, CurrentRoom.ExitList[CalculateNextExit()].transform);
 
     private void SetCurrentRoom(GameObject spawnedRoom)
@@ -255,26 +321,57 @@ public class AdvancedLevelGenerator : MonoBehaviour
         }
     }
 
-    
-    private void SpawnRooms()
+    private Room RoomSelection(List<Room> list)
     {
-        
-        for (int i = 0; i <= MainRoomCount - 1; i++) //minus one because the Climax room is separate
+        int maxValue = 0;
+        foreach (Room room in list)
         {
-            //finde die aktuelle intensität
-            int intens = intensityCurve[i];
-            //prüfe die Letzte art von Level
-            List<Room> possibleRooms = CheckNextPossibleRooms(i);
-
+            maxValue += room.Commoness; 
         }
+        int goal = UnityEngine.Random.Range(0, maxValue);
+        int counter = 0;
+
+        foreach(Room room in list)
+        {
+            counter += room.Commoness;
+            if (counter > goal)
+            {
+                return room;
+            }                    
+        }
+
+        return list[0];
     }
+
+    private Room RoomSelection(Room[] list)
+    {
+        int maxValue = 0;
+        foreach (Room room in list)
+        {
+            maxValue += room.Commoness;
+        }
+        int goal = UnityEngine.Random.Range(0, maxValue);
+        int counter = 0;
+
+        foreach (Room room in list)
+        {
+            counter += room.Commoness;
+            if (counter > goal)
+            {
+                return room;
+            }
+        }
+
+        return list[0];
+    }
+
 
     private List<Room> CheckNextPossibleRooms(int i)
     {
-        if (i > 9) i = 9;
+        if (i > 10) i = 10;
         List<Room> list = new List<Room>();
         RoomType excludeRoomType = CheckExcludeRoomType();
-
+        /*
         foreach (Room room in RoomList)
         {
             if (i - 1 <= room.Difficulty && room.Difficulty <= i + 1)
@@ -282,45 +379,34 @@ public class AdvancedLevelGenerator : MonoBehaviour
                 if (room.RoomType == excludeRoomType) continue;
                 list.Add(room);
             }
-        }
-
-        if (list.Count > 0) list = LesserSpecificRoomFilter(i);
-        return list;
-    }
-
-    private List<Room> LesserSpecificRoomFilter(int i)
-    {
-        List<Room> list = new List<Room>();
-        foreach (Room room in RoomList)
+        }*/
+        int breaker = 0;
+        while (list.Count < 1 || breaker > 10)
         {
-            if (i - 3 <= room.Difficulty && room.Difficulty <= i + 3)
-            {
-                list.Add(room);
-            }
-        }
-        if (list.Count == 0)
-        {
-            Room hardest = null;
-            Room secondHardest = null;
-            Room thirdHardest = null;
-
             foreach (Room room in RoomList)
             {
-                if (hardest == null) hardest = room;
-                if (room.Difficulty > hardest.Difficulty)
+                // intensity - unten soll kleiner sein als raum schwierigkeit
+                //raumschwierigkeit soll kleiner sein als obere grenze
+                if ( i - breaker <= room.Difficulty && room.Difficulty <= i + breaker) // the limits go wider with each while loop
                 {
-                    thirdHardest = secondHardest;
-                    secondHardest = hardest;
-                    hardest = room;
+                    if (room.RoomType == excludeRoomType) continue;
+                    list.Add(room);
                 }
             }
-            list = new List<Room> { hardest, secondHardest, thirdHardest };
+            breaker++;
         }
+        Debug.Log("Possible roomscount: " + list.Count + " Es wurde ein Breaker von: " 
+            + breaker + "Benutzt | Diese wurden gefunden " + string.Join(", ", list));
+
+        if (list.Count <= 0) list = RoomList; //after 10 times it should have found something but just in case
         return list;
     }
+
+    
 
     private RoomType CheckExcludeRoomType()
     {
+        if (spawnedRooms.Count < 2) return RoomType.notRelevant;
         if (spawnedRooms[spawnedRooms.Count - 1].RoomType == spawnedRooms[spawnedRooms.Count - 2].RoomType 
             && spawnedRooms[spawnedRooms.Count - 2].RoomType == spawnedRooms[spawnedRooms.Count - 3].RoomType)
         {
@@ -355,11 +441,23 @@ public class AdvancedLevelGenerator : MonoBehaviour
 
         //Mark Exit x as mainPath
         CurrentRoom.ExitList[exitNr].SetIsMainPath(true);
-        CurrentRoom.FinalizeRoom(); //maybe another position?? think about it
+        
 
         return exitNr;
 
     }
+    /*
+    private void CalculateExits()
+    {
+        List<direction> notAvailable = new List<direction>();
+        if (east >= 1) notAvailable.Add(direction.east);
+        if (west >= 1) notAvailable.Add(direction.west);
+        if (north >= 1) notAvailable.Add(direction.north);
+        
+
+        CurrentRoom.CalculateExits(notAvailable)
+
+    }*/
 
     private void HandleSideCounter(direction exitDirection)
     {

@@ -8,6 +8,7 @@ public class Exit : MonoBehaviour
     BoxCollider CheckCollider;
     public LayerMask LayerMask;
     [field: SerializeField] public bool IsMainPath {  get; private set; }
+    [field: SerializeField] public bool IsSidePath { get; private set; }
 
     bool isAvailable = true;
     
@@ -34,7 +35,7 @@ public class Exit : MonoBehaviour
     public bool CheckAvailable()
     {
         if (LayerMask == 0) { LayerMask = LayerMask.GetMask("Rooms"); }
-        Debug.Log("Check Exit Availibility of " + gameObject.name);
+        //Debug.Log("Check Exit Availibility of " + gameObject.name);
         CheckCollider = GetComponent<BoxCollider>();
         if (CheckCollider == null) { Debug.LogError("No Collider Found"); return false; }
 
@@ -43,10 +44,10 @@ public class Exit : MonoBehaviour
         if (CheckSpace())
         {
             isAvailable = true;
-            Debug.Log("Exit check returns true");
+            //Debug.Log("Exit check returns true");
             return true;
         }
-        Debug.Log("Exit check returns false");
+        //Debug.Log("Exit check returns false");
         return false;
     }
 
@@ -120,6 +121,11 @@ public class Exit : MonoBehaviour
                 DestroyImmediate(parent.GetChild(i).gameObject);
             }
         }
+    }
+
+    internal void SetIsSidePath(bool v)
+    {
+        IsSidePath = v;
     }
 }
 

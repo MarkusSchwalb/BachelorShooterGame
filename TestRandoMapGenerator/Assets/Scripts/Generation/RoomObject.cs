@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
+using Unity.VisualScripting.Antlr3.Runtime;
+using UnityEditor;
 using UnityEngine;
 
 public class RoomObject : MonoBehaviour
@@ -9,6 +11,9 @@ public class RoomObject : MonoBehaviour
     [Header("Exits")]
     public Transform[] Exits;
     public Exit[] EExit;
+
+    public Transform nextMainExit {  get; private set; }
+    public Transform[] potentialReward { get; private set; }
 
     [Header("Transform where the objects and not the exits are")]
     public Transform[] Constructs;
@@ -34,6 +39,7 @@ public class RoomObject : MonoBehaviour
     [field: SerializeField] private float trashiness = 0.5f;
     [field: SerializeField] public TrashOptions trashOptions;
 
+    public int Intensity { get; set; } = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -69,6 +75,21 @@ public class RoomObject : MonoBehaviour
             ExitList.Add(GetDirectionExit(direction.north));
         }
     }
+
+    /*
+    public int GetAvailableSideExit()
+    {
+        List<int> sideExit = new List<int>();
+        for (int i = 0; i < ExitList.Count; i++)
+        { 
+            if (!ExitList[i].IsMainPath && ExitList[i].CheckAvailable())
+            {
+
+            }
+        }
+
+        return 99; //Error return
+    }*/
 
     private Exit GetDirectionExit( direction face)
     {
@@ -111,7 +132,7 @@ public class RoomObject : MonoBehaviour
     {
         Debug.Log("FinalizeRoom");
 
-        HandleOpenExits();
+        //HandleOpenExits(); //darüber denken wir noch
         //SpawnEnemys();  //Maybe later more of a handle spawner (spawner as main chategory and enemy spawner ammunition spawner and stuff as a under chategory) //SpawnEnemys muss anscheinend nach bake maps passieren
 
         // Spawn Modules
@@ -128,7 +149,15 @@ public class RoomObject : MonoBehaviour
         SpawnTrash();
     }
 
-    
+    public void FinalizeRoom(int intensity)
+    {
+        Intensity = intensity;
+
+        FinalizeRoom();
+
+    }
+
+
 
     private void FinalizeModules()
     {
@@ -277,6 +306,52 @@ public class RoomObject : MonoBehaviour
             }
 
             RecursiveGetTrash(child);
+        }
+    }
+    /*
+    internal void CalculateExits(List<direction> notAvailable)
+    {
+        ResetExitBoolIsMainPath();
+        ResetExitBoolIsSidePath();
+        CheckExits();
+        
+        if (ExitList.Count <= 1)
+        {
+            nextMainExit = ExitList[0].transform;
+
+        }
+
+        if (notAvailable.Count >= 3)
+        {
+            //choose North
+            Exit e = ExitList.Find(exit => exit.ExitDirection == direction.north);
+            e.SetIsMainPath(true);
+        }
+        List<Exit> potentialMainPath = new List<Exit>();
+        foreach (Exit exit in ExitList)
+        {
+            if (!notAvailable.Contains(exit.ExitDirection))
+            {
+                potentialMainPath.Add(exit);
+            }
+        }
+        if (potentialMainPath.Count < 1)
+        {
+            //choose North
+            Exit e = ExitList.Find(exit => exit.ExitDirection == direction.north);
+            e.SetIsMainPath(true);
+        }
+
+        int rInt =
+
+
+    }*/
+
+    private void ResetExitBoolIsSidePath()
+    {
+        foreach (Exit exit in EExit)
+        {
+            exit.SetIsSidePath(false);
         }
     }
 }
