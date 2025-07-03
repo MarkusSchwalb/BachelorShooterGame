@@ -15,6 +15,8 @@ public class AdvancedLevelGenerator : MonoBehaviour
     [Header("Rooms")]
     [field: SerializeField] public Room StartRoom { get; private set; }
     [field: SerializeField] public Room EndRoom { get; private set; }
+    [field: SerializeField] public Room StartWeaponRoom { get; private set; }
+
 
     [field: SerializeField] public List<Room> RoomList { get; private set; } = new List<Room>();
     [field: SerializeField] public Room[] InBetweenRooms { get; private set; }
@@ -53,9 +55,9 @@ public class AdvancedLevelGenerator : MonoBehaviour
     {
         ResetSettings();
         CheckAndInitSeed();
-        GenerateIntensityCurve();
-        StartGeneratingLevel();
-        SpawnRooms();
+        GenerateIntensityCurve(); //[x]
+        StartGeneratingLevel(); // [/]
+        SpawnRooms(); // [/]
     }
 
     private void ResetSettings()
@@ -133,51 +135,42 @@ public class AdvancedLevelGenerator : MonoBehaviour
         
         intensityCurve.Clear();
 
-        int currentI = 1;
+        
+        int lastHI = 1; // High Intensity
+        int lastLI = 1; // low 
         int nextI = 0;
 
         for (int i = 0; i < peakRestList.Count; i++)
         {
             if (peakRestList[i] == false)
             {
-                nextI = currentI - UnityEngine.Random.Range(1, Mathf.Clamp(currentI/2, 2, 10));
+                lastLI++;
+                nextI = Mathf.Clamp(lastLI, 0, 4);
+                
+                if (nextI >= lastHI)
+                {
+                    nextI = lastHI - 1;
+                }
+
+                lastLI = nextI;
             }
             if (peakRestList[i] == true)
             {
-                if (i == 1) { nextI = currentI + UnityEngine.Random.Range(3, 5); } 
-                else
-                nextI = currentI + UnityEngine.Random.Range(2, 4);
+                float maxStep = (10 / MainRoomCount) * (UnityEngine.Random.Range(1, 4));
+                nextI = lastHI + UnityEngine.Random.Range(1, Mathf.RoundToInt(maxStep));
+                lastHI = nextI;
             }
+
+
             nextI = Mathf.Clamp(nextI, 0, 10);
             intensityCurve.Add(nextI);
 
-            currentI = nextI;
+            
         }
 
         //Climax sichern
         intensityCurve[intensityCurve.Count - 1] = Mathf.Clamp((intensityCurve.Max() + 2), 5, 10); 
 
-        Debug.Log("Elements: " +  intensityCurve.Count);
-        Debug.Log("Peak Rest List: " + string.Join(", ", peakRestList));
-        Debug.Log("Intensity Curve: " +  string.Join(", ", intensityCurve));
-
-        /*
-        int startIntensity = UnityEngine.Random.Range(1, 2);
-        intensityCurve.Add(startIntensity);
-        int hookIntensity = UnityEngine.Random.Range(startIntensity + 1, startIntensity + 3);
-        
-        intensityCurve.Add(hookIntensity);
-
-        int lastIntensity = hookIntensity;
-        for (int i = 2; i <= MainRoomCount;  i+=2)
-        {
-            int newIntensitRest = UnityEngine.Random.Range(lastIntensity - 1, lastIntensity - 2);
-            intensityCurve.Add(newIntensitRest);
-            lastIntensity = newIntensitRest;
-            int newIntensityPeak = UnityEngine.Random.Range(lastIntensity + 2, lastIntensity + 3);
-            intensityCurve.Add(newIntensityPeak);
-            lastIntensity += newIntensityPeak;
-        }*/
     }
 
     private void GeneratePeakBoolList()
@@ -192,20 +185,20 @@ public class AdvancedLevelGenerator : MonoBehaviour
 
         for (int i = 3; i < MainRoomCount - 2; i++) //we are 3 rooms in and the last two are 
         {
-            if (peakRestList[peakRestList.Count-1] == true) 
+            if (peakRestList[peakRestList.Count-1] == true) //if current one is a peak
             {
-                if (peakRestList[peakRestList.Count-2] == true)
+                if (peakRestList[peakRestList.Count-2] == true) //if forelast is peak than its false
                 {
                     peakRestList.Add(false);
                     continue;
                 }
                 int randomInt = UnityEngine.Random.Range(1, 11);
-                if (randomInt < 3)
+                if (randomInt <= 3) // 30 percent chance that 2 peaks after another
                 {
                     peakRestList.Add(true);
                     continue;
                 }
-                peakRestList.Add(false);
+                peakRestList.Add(false); // else its simply rest
             }
             else
             {
@@ -225,7 +218,28 @@ public class AdvancedLevelGenerator : MonoBehaviour
         GameObject spawnedRoom = Instantiate(StartRoom.RoomObject, transform);
         SetCurrentRoom(spawnedRoom);
         spawnedRooms.Add(StartRoom);
+
+        if (GameData.CurrentLevel == 1)
+        {
+            SpawnRoom(StartWeaponRoom);
+        }
     }
+
+    private void SpawnRoom(Room toSpawnRoom)
+    {
+        if (CurrentRoom == null)
+        {
+            Debug.LogWarning("SpawnRoom has tried to spawn Rooms without having currentRoom");
+            return;
+        }
+        GameObject spawnedRoomObj = Instantiate(
+            toSpawnRoom.RoomObject, 
+            CurrentRoom.ExitList[CalculateNextExit()].transform);
+
+        SetCurrentRoom (spawnedRoomObj);
+        spawnedRooms.Add(toSpawnRoom);
+    }
+    //spawnedRoom = Instantiate(MediumRooms[ranomValue].RoomObject, CurrentRoom.ExitList[CalculateNextExit()].transform);
 
     private void SetCurrentRoom(GameObject spawnedRoom)
     {
@@ -314,5 +328,60 @@ public class AdvancedLevelGenerator : MonoBehaviour
         }
 
         return RoomType.notRelevant;
+    }
+
+    private int CalculateNextExit() //momentan weiß ich doch gar nicht ob platz 0 in der Liste auch wirklich auch wirklich 0 im array ist
+    {
+        //Mark all exits as not path
+        CurrentRoom.ResetExitBoolIsMainPath();
+        //First get the exits that are not blocked
+        CurrentRoom.CheckExits();
+        if (CurrentRoom.ExitList.Count > 1) //Make sure we don't run in circles 3 turns right and we are where we used to be
+        {
+            if (east >= 1 && CurrentRoom.ExitList.Count > 1) { CurrentRoom.DeleteDirection(direction.east); } // > 1 means at lest 2
+            if (west >= 1 && CurrentRoom.ExitList.Count > 1) { CurrentRoom.DeleteDirection(direction.west); }
+            if (north >= 1 && CurrentRoom.ExitList.Count > 1) { CurrentRoom.DeleteDirection(direction.north); }
+        }
+
+        int exitNr;
+        if (CurrentRoom.ExitList.Count > 1)
+        {
+            exitNr = UnityEngine.Random.Range(0, CurrentRoom.ExitList.Count);
+        }
+        else exitNr = 0;
+
+        HandleSideCounter(CurrentRoom.ExitList[exitNr].ExitDirection);
+        Debug.Log("Room Spawn Direction " + CurrentRoom.ExitList[exitNr].ExitDirection);
+
+        //Mark Exit x as mainPath
+        CurrentRoom.ExitList[exitNr].SetIsMainPath(true);
+        CurrentRoom.FinalizeRoom(); //maybe another position?? think about it
+
+        return exitNr;
+
+    }
+
+    private void HandleSideCounter(direction exitDirection)
+    {
+        switch (exitDirection)
+        {
+            case direction.west:
+                west++;
+                east--;
+                north = 0;
+                break;
+            case direction.east:
+                east++;
+                west--;
+                north = 0;
+                break;
+            case direction.north:
+                north++;
+                break;
+            default:
+                //maybe something later
+                break;
+        }
+        Debug.Log("north Counter: " + north + " EastCounter: " + east + " West Counter: " + west);
     }
 }

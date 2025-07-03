@@ -9,7 +9,7 @@ public class ChangeMaterial : MonoBehaviour
     private Material newWallMaterial;
     internal void ChangeMat(int randomNr)
     {
-        Debug.Log("ChangeMat " + randomNr);
+        //Debug.Log("ChangeMat " + randomNr);
         
         if (MaterialManager.Instance == null) { Debug.LogWarning("No Material Manager"); return; }
         

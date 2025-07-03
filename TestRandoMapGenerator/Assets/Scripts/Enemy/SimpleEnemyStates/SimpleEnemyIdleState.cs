@@ -43,10 +43,10 @@ public class SimpleEnemyIdleState : BaseSimpleEnemyState
         if (stateMashine.Animator != null)
             stateMashine.Animator?.SetFloat(ForwardSpeedHash, currentSpeed, animationDampTime, DeltaTime);
 
-        Debug.Log("UpdateIdleState");
+        //Debug.Log("UpdateIdleState");
         if (stateMashine.Eyes.CheckIsInView(stateMashine.Player))
         {
-            Debug.Log("PlayerInView");
+            //Debug.Log("PlayerInView");
             //
             float distance = (stateMashine.Player.transform.position - stateMashine.transform.position).sqrMagnitude;
             if (distance < 3)
