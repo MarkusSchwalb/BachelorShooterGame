@@ -16,13 +16,32 @@ public class Exit : MonoBehaviour
 
     public GameObject EndOfPath;
 
+    [field: SerializeField] private RoomObject room;
+
     // Start is called before the first frame update
     void Start()
     {
+        if (room == null) { FindRoomObjcet(); }
         CheckCollider = GetComponent<BoxCollider>();
         if (CheckCollider == null)
         {
             Debug.LogError("No Collider Found for Exit : " + gameObject.name + " of Parent " + gameObject.transform.parent.name);
+        }
+    }
+
+    private void FindRoomObjcet()
+    {
+        GameObject parent = transform.parent.gameObject;
+        int breaker = 0;
+        while (room == null && breaker <= 10)
+        {
+            if (parent.TryGetComponent<RoomObject>(out RoomObject rO))
+            {
+                room = rO;
+                return;
+            }
+            parent = parent.transform.parent.gameObject;
+            breaker++;
         }
     }
 
@@ -34,6 +53,10 @@ public class Exit : MonoBehaviour
 
     public bool CheckAvailable()
     {
+        if ( IsSidePath || IsMainPath)
+        {
+            return false;
+        }
         if (LayerMask == 0) { LayerMask = LayerMask.GetMask("Rooms"); }
         //Debug.Log("Check Exit Availibility of " + gameObject.name);
         CheckCollider = GetComponent<BoxCollider>();
@@ -47,6 +70,8 @@ public class Exit : MonoBehaviour
             //Debug.Log("Exit check returns true");
             return true;
         }
+
+        isAvailable = false;
         //Debug.Log("Exit check returns false");
         return false;
     }
@@ -60,9 +85,22 @@ public class Exit : MonoBehaviour
             LayerMask
         );
 
-        Debug.Log("collider count: " + colliders.Length);
+        int maxColliders = 1; //make sure the room object doesn't count into it
+
+        if (room != null) 
+        {
+            foreach (Collider collider in colliders)
+            {
+                if (collider.gameObject == room.gameObject)
+                {
+                    maxColliders++;
+                }
+            }
+        }
+
+        //Debug.Log("collider count: " + colliders.Length);
         
-        if (colliders.Length > 1) { 
+        if (colliders.Length > maxColliders) { 
             Debug.Log(gameObject.name + "Ist versperrt");
             foreach (Collider collider in colliders)
             {
@@ -100,7 +138,7 @@ public class Exit : MonoBehaviour
 
     public void SetIsMainPath(bool value)
     {
-        Debug.Log("SetIsMainPath value: " + value);
+        //Debug.Log("SetIsMainPath value: " + value);
         IsMainPath = value;
     }
 

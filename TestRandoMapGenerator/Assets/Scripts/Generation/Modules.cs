@@ -116,7 +116,7 @@ public class Modules : MonoBehaviour
     private void CheckForModule(GameObject module)
     {
         Modules[] moudlesOnModule = module.GetComponents<Modules>();
-        Debug.Log("Check for Modules | Number Found Modules: " + moudlesOnModule.Length);
+        //Debug.Log("Check for Modules | Number Found Modules: " + moudlesOnModule.Length);
         foreach (Modules mod in moudlesOnModule)
         {
             mod.SpawnModules();

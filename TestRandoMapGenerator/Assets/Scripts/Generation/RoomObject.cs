@@ -39,7 +39,7 @@ public class RoomObject : MonoBehaviour
     [field: SerializeField] private float trashiness = 0.5f;
     [field: SerializeField] public TrashOptions trashOptions;
 
-    public int Intensity { get; set; } = 0;
+    [field: SerializeField] public int Intensity { get; set; } = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +59,7 @@ public class RoomObject : MonoBehaviour
         int i = 0;
         foreach (Exit exit in EExit) 
         {
+            if (exit == null) continue;
             //Debug.Log(i);
             i++;
             if (exit.CheckAvailable())
@@ -69,8 +70,8 @@ public class RoomObject : MonoBehaviour
         
         if (ExitList.Count == 0)
         {
-            Debug.LogWarning("No decent Exit found for some purposes we take number one exit" + gameObject.name);
-            if (EExit[0] == null) Debug.LogError(name + " Seems to have no Exit");
+            Debug.Log("No decent Exit found for some purposes we take number one exit" + gameObject.name);
+            if (EExit == null || EExit.Length == 0 || EExit[0] == null) Debug.Log(name + " Seems to have no Exit");
             else
             ExitList.Add(GetDirectionExit(direction.north));
         }
@@ -128,9 +129,17 @@ public class RoomObject : MonoBehaviour
         }
     }
 
+    public void ResetExitBoolIsSidePath()
+    {
+        foreach (Exit exit in EExit)
+        {
+            exit.SetIsSidePath(false);
+        }
+    }
+
     public void FinalizeRoom()
     {
-        Debug.Log("FinalizeRoom");
+        //Debug.Log("FinalizeRoom");
 
         //HandleOpenExits(); //darüber denken wir noch
         //SpawnEnemys();  //Maybe later more of a handle spawner (spawner as main chategory and enemy spawner ammunition spawner and stuff as a under chategory) //SpawnEnemys muss anscheinend nach bake maps passieren
@@ -171,7 +180,7 @@ public class RoomObject : MonoBehaviour
 
     public void ChangeMaterialsOfMainStuff()
     {
-        Debug.Log("ChangeMaterialsOfMainStuff");
+        //Debug.Log("ChangeMaterialsOfMainStuff");
         int randomNr = UnityEngine.Random.Range(0, 10);
         foreach (ChangeMaterial material in ChangeMatsWall) {
             material.ChangeMat(randomNr);
@@ -220,7 +229,7 @@ public class RoomObject : MonoBehaviour
 
     public void GetChangeMats()
     {
-        Debug.Log("MaterialChange in Room: " + name);
+        //Debug.Log("MaterialChange in Room: " + name);
         ChangeMatsWall.Clear();
         ChangeMatsFloor.Clear();
 
@@ -260,14 +269,14 @@ public class RoomObject : MonoBehaviour
 
     private void SpawnTrash()
     {
-        Debug.Log("SpawnTrash");
+        /*Debug.Log("SpawnTrash");
         GetTrashSpawners();
         
 
         foreach (TrashSpawn spawn in trashSpawns)
         {
             spawn.SpawnTrash(trashiness, this);
-        }
+        }*/
         
     }
 
@@ -347,11 +356,94 @@ public class RoomObject : MonoBehaviour
 
     }*/
 
-    private void ResetExitBoolIsSidePath()
+    
+
+    public bool CheckStuckInOtherRoom()
     {
+         LayerMask mask = LayerMask.GetMask("Rooms"); 
+        //Debug.Log("Check Exit Availibility of " + gameObject.name);
+        BoxCollider checkCollider = GetComponent<BoxCollider>();
+        if (checkCollider == null) { Debug.LogError("No Collider Found"); return false; }
+
+        Collider[] colliders = Physics.OverlapBox(
+            checkCollider.bounds.center, // Mittelpunkt des Colliders
+            checkCollider.bounds.extents, // Größe des Colliders
+            transform.rotation, // Rotation des Colliders
+            mask
+        );
+
+        int roomCount = 0;
+        foreach (Collider col in colliders)
+        {
+            if (col.gameObject == gameObject) continue;
+            if (CheckIfParentRoom(col.gameObject) || CheckIfDirectChildRoom(col.gameObject)) continue;
+            if (col.gameObject.TryGetComponent<RoomObject>(out RoomObject room))
+            {
+                roomCount++;
+                Debug.Log(gameObject.name + " Rooms Collided with " + col.gameObject.name);
+            }
+        }
+
+        if (roomCount > 0)
+        {
+           
+            foreach (Collider collider in colliders)
+            {
+                Debug.Log(collider.name);
+            }
+            return false;
+        }
+
+        //Debug.Log("Exit check returns false");
+        return true;
+    }
+
+    private bool CheckIfParentRoom(GameObject gO)
+    {
+        GameObject parent = transform.parent.gameObject;
+        for (int i = 0; i < 5 ; i++)
+        {
+            if (parent == gO) return true;
+            parent = parent.transform.parent.gameObject;
+        }
+        return false;
+    }
+
+    private bool CheckIfDirectChildRoom(GameObject gO)
+    {
+        if (EExit == null) return false;
         foreach (Exit exit in EExit)
         {
-            exit.SetIsSidePath(false);
+            foreach (Transform t in exit.transform)
+            {
+                if (t.gameObject == gO)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    internal void CheckExitsforRewards()
+    {
+        if (ExitList == null)
+        {
+            Debug.Log(gameObject.name + " Has exits that have no Exit list");
+            return;
+        }
+        ExitList.Clear();
+        int i = 0;
+        foreach (Exit exit in EExit)
+        {
+            if (exit == null) continue;
+
+            //Debug.Log(i);
+            i++;
+            if (exit.CheckAvailable())
+            {
+                ExitList.Add(exit);
+            }
         }
     }
 }

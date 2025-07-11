@@ -12,14 +12,17 @@ public class AdvancedLevelGeneratorEditor : Editor
         DrawDefaultInspector();
         AdvancedLevelGenerator generator = (AdvancedLevelGenerator)target;
 
-        if (GUILayout.Button("GenerateMap"))
+        if (GUILayout.Button("TestGenerate"))
         {
-            generator.GenerateLevel();
+            generator.TestGenerate();
         }
         if (GUILayout.Button("Intensity Curve"))
         {
             generator.GenerateIntensityCurve();
         }
-        
+        if (GUILayout.Button("CheckIsPlayable"))
+        {
+            generator.CheckIsPlayable();
+        }
     }
 }

@@ -5,19 +5,23 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Burst.CompilerServices;
 using Unity.Collections.LowLevel.Unsafe;
+using Unity.Mathematics;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class AdvancedLevelGenerator : MonoBehaviour
 {
     [field: SerializeField] public Int32 SeedNmbr { get; private set; }
+    [field: SerializeField] int wantedSeed;
+    [field: SerializeField] bool genWantedSeed = false;
 
     [Header("Rooms")]
     [field: SerializeField] public Room StartRoom { get; private set; }
     [field: SerializeField] public Room EndRoom { get; private set; }
     [field: SerializeField] public Room StartWeaponRoom { get; private set; }
-
+    [field: SerializeField] public Room ShopRoom { get; private set; }
 
     [field: SerializeField] public List<Room> RoomList { get; private set; } = new List<Room>();
     [field: SerializeField] public Room[] InBetweenRooms { get; private set; }
@@ -41,51 +45,125 @@ public class AdvancedLevelGenerator : MonoBehaviour
     //Spawned Rooms
     private List<Room> spawnedRooms = new List<Room>();
     private List<RoomObject> spawnedRoomObjects = new List<RoomObject>();
-
+    private List<RoomObject> mainRoomObj = new List<RoomObject>();
     public RoomObject CurrentRoom { get; private set; }
 
     private direction lastDirection = direction.NotDefined;
     private int west = 0, east = 0, north = 0;
-
+    int attempts = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        genWantedSeed = false;
+        attempts = 0;
         GenerateLevel();
+        
+    }
+
+    public void TestGenerate()
+    {
+        //Debug.Log(GameData.Seed + "SeedTestGenerate");
+        attempts =0; GenerateLevel();
+        if (genWantedSeed == true) GameData.SetSeed("NewSeed: " + wantedSeed.ToString());
+        
     }
 
     public void GenerateLevel()
     {
-        GameData.CurrentLevel = 1;
+        Debug.Log("Start Generate");
+        attempts++;
+        //GameData.CurrentLevel = 1;
         ResetSettings();
         CheckAndInitSeed();
         GenerateIntensityCurve(); //[x]
         StartGeneratingLevel(); // [x]
         SpawnRooms(); // [x]
-        SpawnRewardRooms();
+        SpawnRewardRooms(); // [x]
+        
+        if (!CheckIsPlayable())
+        {
+            Debug.Log("Attempt: " + attempts);
+            GameData.Seed = GameData.Seed + 30;
+            if (attempts < 10) GenerateLevel();
+        }
+        
+    }
+
+    public bool CheckIsPlayable()
+    {
+        int stuckCount = 0;
+        foreach(RoomObject rO in spawnedRoomObjects)
+        {
+            if (rO.CheckStuckInOtherRoom())
+            {
+                Debug.Log("We have a stuck Room" + rO.name);
+                stuckCount++; 
+            }
+        }
+
+        return stuckCount == 0;
     }
 
     private void SpawnRewardRooms()
     {
-        foreach (RoomObject roomO in spawnedRoomObjects)
+        int rewardCounter = 0;
+        foreach (RoomObject roomO in mainRoomObj)
         {
-            if (roomO.Intensity >= 5) SpawnRewardIfPossible(roomO);
+            Debug.Log(roomO.gameObject.name + " Spawn Reward");
+            
+            //SpawnRewardIfPossible(roomO);
+            
+            rewardCounter++;
+            if (roomO.Intensity >= 7 || rewardCounter > 2)
+            {
+                if (SpawnRewardIfPossible(roomO))
+                {
+                    rewardCounter = 0;
+                }
+                continue;
+            }
+            if (roomO.Intensity >= 3)
+            {
+                float dice = UnityEngine.Random.value;
+                if (dice < 0.7f)
+                    if (SpawnRewardIfPossible(roomO))
+                    {
+                        rewardCounter = 0;
+                    }
+
+                continue;
+            }
+            if (roomO.Intensity > 2)
+            {
+                float dice = UnityEngine.Random.value;
+                if (dice < 0.3f)
+                {
+                    if (SpawnRewardIfPossible(roomO))
+                    {
+                        rewardCounter = 0;
+                    }
+                }
+                continue;
+            }
         }
 
     }
 
-    private void SpawnRewardIfPossible(RoomObject roomO)
+    private bool SpawnRewardIfPossible(RoomObject roomO)
     {
         //Check for available exits
-        roomO.CheckExits();
-        if (roomO.ExitList.Count == 0) return;
+        roomO.CheckExitsforRewards();
+        if (roomO.ExitList.Count == 0) return false;
 
         int randomInt = UnityEngine.Random.Range(0, roomO.ExitList.Count);
         Room toSpawnRoom = RoomSelection(RewardRooms);
         GameObject spawnedRoom = Instantiate(toSpawnRoom.RoomObject, roomO.ExitList[randomInt].transform);
+        return true;
     }
 
     private void ResetSettings()
     {
+        SeedNmbr = GameData.Seed;
         lastDirection = direction.NotDefined;
         
         west = 0; east = 0; north = 0;
@@ -109,6 +187,7 @@ public class AdvancedLevelGenerator : MonoBehaviour
 
             spawnedRooms.Clear();
             spawnedRoomObjects.Clear();
+            mainRoomObj.Clear();
         }
     }
 
@@ -131,6 +210,7 @@ public class AdvancedLevelGenerator : MonoBehaviour
     private void CheckAndInitSeed()
     {
         if (RandyRandom) GenerateNewSeed();
+        //Debug.Log(GameData.Seed + " gameSeed");
         int seed = GameData.Seed;
 
         if (seed == 0) 
@@ -195,7 +275,7 @@ public class AdvancedLevelGenerator : MonoBehaviour
         //Climax sichern
         intensityCurve[intensityCurve.Count - 1] = Mathf.Clamp((intensityCurve.Max() + 2), 5, 10);
 
-        Debug.Log("Intensity Curve: " + string.Join(", ", intensityCurve));
+        //Debug.Log("Intensity Curve: " + string.Join(", ", intensityCurve));
     }
 
     private void GeneratePeakBoolList()
@@ -263,7 +343,7 @@ public class AdvancedLevelGenerator : MonoBehaviour
             goalIntensity = intensityCurve[i];
             //prüfe die Letzte art von Level
             List<Room> possibleRooms = CheckNextPossibleRooms(goalIntensity);
-            Debug.Log("Possible rooms: " + string.Join(", ", possibleRooms));
+            //Debug.Log("Possible rooms: " + string.Join(", ", possibleRooms));
             //select one of the rooms and Spawn him
             
             SpawnRoom(RoomSelection(possibleRooms), true);
@@ -298,7 +378,9 @@ public class AdvancedLevelGenerator : MonoBehaviour
         {
             spawnedRooms.Add(toSpawnRoom);
             CurrentRoom.FinalizeRoom(goalIntensity);
-            
+            RoomObject rO = spawnedRoomObj.GetComponent<RoomObject>();
+            if (rO != null)
+            mainRoomObj.Add(rO);
 
         } else CurrentRoom.FinalizeRoom(); 
     }
@@ -370,7 +452,8 @@ public class AdvancedLevelGenerator : MonoBehaviour
     {
         if (i > 10) i = 10;
         List<Room> list = new List<Room>();
-        RoomType excludeRoomType = CheckExcludeRoomType();
+        //RoomType excludeRoomType = CheckExcludeRoomType();
+        RoomType excludeRoomType = RoomType.Puzzle; //just for screenshot
         /*
         foreach (Room room in RoomList)
         {
@@ -395,8 +478,8 @@ public class AdvancedLevelGenerator : MonoBehaviour
             }
             breaker++;
         }
-        Debug.Log("Possible roomscount: " + list.Count + " Es wurde ein Breaker von: " 
-            + breaker + "Benutzt | Diese wurden gefunden " + string.Join(", ", list));
+        //Debug.Log("Possible roomscount: " + list.Count + " Es wurde ein Breaker von: " 
+        //    + breaker + "Benutzt | Diese wurden gefunden " + string.Join(", ", list));
 
         if (list.Count <= 0) list = RoomList; //after 10 times it should have found something but just in case
         return list;
@@ -420,13 +503,14 @@ public class AdvancedLevelGenerator : MonoBehaviour
     {
         //Mark all exits as not path
         CurrentRoom.ResetExitBoolIsMainPath();
+        CurrentRoom.ResetExitBoolIsSidePath();
         //First get the exits that are not blocked
         CurrentRoom.CheckExits();
         if (CurrentRoom.ExitList.Count > 1) //Make sure we don't run in circles 3 turns right and we are where we used to be
         {
             if (east >= 1 && CurrentRoom.ExitList.Count > 1) { CurrentRoom.DeleteDirection(direction.east); } // > 1 means at lest 2
             if (west >= 1 && CurrentRoom.ExitList.Count > 1) { CurrentRoom.DeleteDirection(direction.west); }
-            if (north >= 1 && CurrentRoom.ExitList.Count > 1) { CurrentRoom.DeleteDirection(direction.north); }
+            if (north >= 2 && CurrentRoom.ExitList.Count > 1) { CurrentRoom.DeleteDirection(direction.north); }
         }
 
         int exitNr;
@@ -437,10 +521,11 @@ public class AdvancedLevelGenerator : MonoBehaviour
         else exitNr = 0;
 
         HandleSideCounter(CurrentRoom.ExitList[exitNr].ExitDirection);
-        Debug.Log("Room Spawn Direction " + CurrentRoom.ExitList[exitNr].ExitDirection);
+        //Debug.Log("Room Spawn Direction " + CurrentRoom.ExitList[exitNr].ExitDirection);
 
         //Mark Exit x as mainPath
         CurrentRoom.ExitList[exitNr].SetIsMainPath(true);
+
         
 
         return exitNr;
@@ -480,6 +565,6 @@ public class AdvancedLevelGenerator : MonoBehaviour
                 //maybe something later
                 break;
         }
-        Debug.Log("north Counter: " + north + " EastCounter: " + east + " West Counter: " + west);
+        //Debug.Log("north Counter: " + north + " EastCounter: " + east + " West Counter: " + west);
     }
 }
