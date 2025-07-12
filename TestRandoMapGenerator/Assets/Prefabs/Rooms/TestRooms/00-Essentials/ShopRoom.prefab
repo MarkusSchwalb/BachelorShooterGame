@@ -353,6 +353,7 @@ MonoBehaviour:
   <IsSidePath>k__BackingField: 0
   ExitDirection: 3
   EndOfPath: {fileID: 7024782769648139300, guid: 1bc9a5ca5f4f10f4ebf93f6f633f1f0f, type: 3}
+  room: {fileID: 0}
 --- !u!65 &4453574261845425665
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -372,8 +373,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 11.5887375, y: 3.7578905, z: 9.309766}
-  m_Center: {x: -2.1055808, y: 1.378945, z: 5.5232234}
+  m_Size: {x: 50, y: 20, z: 50}
+  m_Center: {x: 0, y: 0, z: 25}
 --- !u!1 &1500543813284481755
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,6 +427,7 @@ MonoBehaviour:
   <IsSidePath>k__BackingField: 0
   ExitDirection: 0
   EndOfPath: {fileID: 7024782769648139300, guid: 1bc9a5ca5f4f10f4ebf93f6f633f1f0f, type: 3}
+  room: {fileID: 0}
 --- !u!65 &6105020322083924137
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -445,8 +447,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 13.265228, y: 2.5999613, z: 19.178745}
-  m_Center: {x: 0.3996582, y: 1.3142161, z: 10.187607}
+  m_Size: {x: 50, y: 20, z: 50}
+  m_Center: {x: 0, y: 0, z: 25}
 --- !u!1 &1500543813334129091
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,6 +501,7 @@ MonoBehaviour:
   <IsSidePath>k__BackingField: 0
   ExitDirection: 1
   EndOfPath: {fileID: 7024782769648139300, guid: 1bc9a5ca5f4f10f4ebf93f6f633f1f0f, type: 3}
+  room: {fileID: 0}
 --- !u!65 &440378220956978615
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -518,8 +521,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 9.540931, y: 3.1565635, z: 12.107328}
-  m_Center: {x: 1.3623528, y: 1.0782818, z: 6.7261295}
+  m_Size: {x: 50, y: 20, z: 50}
+  m_Center: {x: 0, y: 0, z: 25}
 --- !u!1 &1749000434642647829
 GameObject:
   m_ObjectHideFlags: 0

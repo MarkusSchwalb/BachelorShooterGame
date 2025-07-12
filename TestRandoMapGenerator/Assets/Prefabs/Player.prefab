@@ -1465,7 +1465,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <HDHealthData>k__BackingField: {fileID: 11400000, guid: 4470b783601b91c4e8b1d13e73140482, type: 2}
   currentHealth: 100
-  <slider>k__BackingField: {fileID: 0}
+  <slider>k__BackingField: {fileID: 1031522449}
 --- !u!1 &5405887118473443818
 GameObject:
   m_ObjectHideFlags: 0
@@ -1815,6 +1815,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <CharacterController>k__BackingField: {fileID: 402700049446532656}
+  capsuleCollider: {fileID: 0}
   <HealthComponent>k__BackingField: {fileID: 5430671471972349637}
   <InputReader>k__BackingField: {fileID: 1162185775}
   <MovementSpeed>k__BackingField: 5

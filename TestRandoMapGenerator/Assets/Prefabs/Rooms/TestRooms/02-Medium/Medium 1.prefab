@@ -441,6 +441,7 @@ MonoBehaviour:
   <IsSidePath>k__BackingField: 0
   ExitDirection: 3
   EndOfPath: {fileID: 7024782769648139300, guid: 1bc9a5ca5f4f10f4ebf93f6f633f1f0f, type: 3}
+  room: {fileID: 0}
 --- !u!65 &2876525172196240587
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -460,8 +461,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 26.223368, y: 1, z: 18.413427}
-  m_Center: {x: -5.2244244, y: 0, z: 9.590074}
+  m_Size: {x: 50, y: 20, z: 50}
+  m_Center: {x: 0, y: 0, z: 25}
 --- !u!1 &4295630569607525274
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,6 +515,7 @@ MonoBehaviour:
   <IsSidePath>k__BackingField: 0
   ExitDirection: 0
   EndOfPath: {fileID: 7024782769648139300, guid: 1bc9a5ca5f4f10f4ebf93f6f633f1f0f, type: 3}
+  room: {fileID: 0}
 --- !u!65 &1993283117724543249
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -533,8 +535,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 17.058456, y: 1, z: 28.09694}
-  m_Center: {x: 4.6448584, y: 0, z: 15.14012}
+  m_Size: {x: 50, y: 20, z: 50}
+  m_Center: {x: 0, y: 0, z: 25}
 --- !u!1 &4295630569857064234
 GameObject:
   m_ObjectHideFlags: 0

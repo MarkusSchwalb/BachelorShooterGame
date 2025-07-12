@@ -144,8 +144,10 @@ public class Exit : MonoBehaviour
 
     public void HandleEndOfPath()
     {
+
+        /*
         if (IsMainPath) { return; }
-        Instantiate(EndOfPath, transform); // maybe later with a check Space if sideroom
+        Instantiate(EndOfPath, transform); // maybe later with a check Space if sideroom*/
     }
 
     public void DeleteChildren()

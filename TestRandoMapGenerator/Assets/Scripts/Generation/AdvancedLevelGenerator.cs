@@ -79,10 +79,11 @@ public class AdvancedLevelGenerator : MonoBehaviour
         StartGeneratingLevel(); // [x]
         SpawnRooms(); // [x]
         SpawnRewardRooms(); // [x]
-        
+
+        Debug.Log("Attempt: " + attempts);
         if (!CheckIsPlayable())
         {
-            Debug.Log("Attempt: " + attempts);
+            
             GameData.Seed = GameData.Seed + 30;
             if (attempts < 10) GenerateLevel();
         }
@@ -101,7 +102,7 @@ public class AdvancedLevelGenerator : MonoBehaviour
             }
         }
 
-        return stuckCount == 0;
+        return stuckCount > 0;
     }
 
     private void SpawnRewardRooms()

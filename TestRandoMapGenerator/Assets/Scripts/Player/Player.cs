@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 {
     
     [field: SerializeField] public CharacterController CharacterController { get; private set; }
+    [field: SerializeField] private CapsuleCollider capsuleCollider;
     [field: SerializeField] public HealthComponent HealthComponent { get; private set; }
     [field: SerializeField] public InputReader InputReader { get; private set; }
 
@@ -117,10 +118,14 @@ public class Player : MonoBehaviour
         if (isCrouchen) { 
             CharacterController.height = couchHeight;
             camPos.y = crouchCam;
+            if (capsuleCollider != null) 
+                capsuleCollider.height = couchHeight;
         }
         else { 
             CharacterController.height = standHeight;
             camPos.y = standCam;
+            if (capsuleCollider != null)
+                capsuleCollider.height = standHeight;
         }
 
         RecoilScript.transform.localPosition = camPos;

@@ -19,8 +19,9 @@ public class Modules : MonoBehaviour
     
     public void SpawnModules()
     {
+        if (ModulLogic == null) { ModulLogic = GetComponent<ProceduralModulLogicBase>(); }
         if (ModulLogic != null) { 
-            ModulLogic = GetComponent<ProceduralModulLogicBase>();
+            
             ModulLogic.DoProcedural(); 
             return; }
 
