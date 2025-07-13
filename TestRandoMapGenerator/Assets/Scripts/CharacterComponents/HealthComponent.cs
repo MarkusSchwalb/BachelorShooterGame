@@ -6,7 +6,7 @@ using UnityEngine;
 public class HealthComponent : MonoBehaviour
 {
     public event Action<HealthComponent> DeathEvent;
-
+    public event Action<float> DamageAction; //for staggering
     [field: SerializeField] public HealthData HDHealthData { get; private set; }
     [field: SerializeField] protected float currentHealth = 100;
 
@@ -61,6 +61,8 @@ public class HealthComponent : MonoBehaviour
         DeathCheck();
         Debug.Log(gameObject.name + " has taken" + value + "amount of damage");
         UpdateSlider();
+
+        DamageAction?.Invoke(value);
     }
 
     

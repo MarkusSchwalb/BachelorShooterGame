@@ -7,10 +7,19 @@ public class SimpleTestEnemy : BaseEnemyStateMashine
         SwitchState(new TestEnemyAttack(this));
     }
 
+    public override void SwitchToStandardState()
+    {
+        SwitchState(new TestEnemyIdle(this));
+    }
+
     protected override void EnemyStart()
     {
         base.EnemyStart();
-        SwitchState(new TestEnemyIdle(this));
-        Debug.Log(Player.gameObject.name);
+        
+    }
+
+    protected override void HandleDamage(float value)
+    {
+        
     }
 }

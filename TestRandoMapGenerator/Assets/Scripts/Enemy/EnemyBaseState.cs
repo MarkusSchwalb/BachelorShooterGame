@@ -35,4 +35,12 @@ public abstract class EnemyBaseState : BaseState
     {
         stateMashine.transform.rotation = Quaternion.LookRotation(direction);    //rotate to the direction of movement
     }
+
+    protected Vector3 OffsetTarget(Vector3 positionA, Vector3 positionB, float offset)
+    {
+        Vector3 direction = (positionB - positionA).normalized;
+        Vector3 offsetTarger = positionB - direction * offset;
+
+        return offsetTarger;
+    }
 }
