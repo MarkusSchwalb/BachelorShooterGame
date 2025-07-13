@@ -10,11 +10,15 @@ public class GameManager : MonoBehaviour
     #region Singleton
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance != null && Instance != this)
         {
             Debug.LogWarning("Multiple Gamemanagers");
+            Destroy(this);
         }
-        Instance = this;
+        else
+        {
+            Instance = this;
+        }
     }
     #endregion
 

@@ -5,8 +5,8 @@ using UnityEngine;
 public class BaseStateMashine : MonoBehaviour
 {
     private BaseState currentState;
-    
 
+    public EnemyType EType = EnemyType.NotDefined;
     private bool isTransitioning = false;
 
     // Update is called once per frame
@@ -51,3 +51,5 @@ public class BaseStateMashine : MonoBehaviour
     }
     */
 }
+
+
