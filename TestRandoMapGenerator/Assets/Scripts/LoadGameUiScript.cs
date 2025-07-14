@@ -20,6 +20,7 @@ public class LoadGameUiScript : MonoBehaviour
         SceneManager.LoadScene(1); // muss nachher auf 1 geändert werden
 
         GameData.CurrentLevel = 1;
+        GameData.ResetGameData();
     }
 
     public void QuickPlay()

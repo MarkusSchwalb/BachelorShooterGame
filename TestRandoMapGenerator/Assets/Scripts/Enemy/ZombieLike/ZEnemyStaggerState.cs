@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ZEnemyStaggerState : EnemyBaseState
+public class ZEnemyStaggerState : ZEnemyBaseState
 {
     float cooldown = 2;
     float counter = 0;
@@ -11,7 +11,7 @@ public class ZEnemyStaggerState : EnemyBaseState
     private const float animationDampTime = 0.1f;
     private const float crossFadeDuration = 0.2f;
 
-    public ZEnemyStaggerState(BaseEnemyStateMashine sM) : base(sM)
+    public ZEnemyStaggerState(ZEnemyStateMashine sM) : base(sM)
     {
     }
 

@@ -52,11 +52,11 @@ public class GunUiScript : MonoBehaviour
         switch (slot)
         {
             case InventorySlot.Main:
-                UpdateAmmoDisplay(player.MainGun);
+                UpdateAmmoDisplay(player?.MainGunHand?.Gun?.gameObject);
                 UpdateSlot();
                 break;
             case InventorySlot.Secondary:
-                UpdateAmmoDisplay(player.SecondaryGun);
+                UpdateAmmoDisplay(player?.SecondaryGunHand?.Gun?.gameObject);
                 UpdateSlot();
                 break;
             default:

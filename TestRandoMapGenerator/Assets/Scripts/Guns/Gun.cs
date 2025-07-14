@@ -37,10 +37,12 @@ public class Gun : MonoBehaviour
         //CheckGunType();
         Magazin = GetComponent<MagazinComp>();
         gunAnimator = GetComponent<Animator>();
+        if (Magazin == null) Magazin = GetComponent<MagazinComp>();
         shootHash = Animator.StringToHash("Shoot");
         GameObject goPlayer = GameObject.FindWithTag("Player");
         player = goPlayer.GetComponent<Player>();
         CanFire = true;
+        coolDown = 60 / GunInfo.FiringRate;
     }
 
     private void CheckGunType()
@@ -159,7 +161,7 @@ public class Gun : MonoBehaviour
         if (MuscleFlash != null) { MuscleFlash.Play(); }
         if (GunShotAudio != null && ShotSoundObject != null)
         {
-            GameObject soundObject = Instantiate(ShotSoundObject, ProjectileSpawner);
+            GameObject soundObject = Instantiate(ShotSoundObject, ProjectileSpawner.position, ProjectileSpawner.rotation);
             if (soundObject.TryGetComponent<GunShot>(out GunShot shot))
             {
                 shot.SoundClip = GunShotAudio;

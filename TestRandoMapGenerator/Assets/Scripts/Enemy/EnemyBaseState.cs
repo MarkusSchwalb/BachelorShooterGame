@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public abstract class EnemyBaseState : BaseState
+public abstract class EnemyBaseState<T> : BaseState where T : BaseEnemyStateMashine // t can be any class derived from BaseEnemyState
 {
-    protected BaseEnemyStateMashine stateMashine;
-    public EnemyBaseState(BaseEnemyStateMashine sM)
+    protected T stateMashine;
+    public EnemyBaseState(T sM)
     {
         stateMashine = sM;
     }

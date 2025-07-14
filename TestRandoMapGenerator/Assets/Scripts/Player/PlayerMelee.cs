@@ -13,7 +13,7 @@ public class PlayerMelee : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name + " entered trigger");
+        //Debug.Log(other.gameObject.name + " entered trigger");
         if (other.gameObject == Owner) return;
         if (other.TryGetComponent<HealthComponent>(out HealthComponent component))
         {

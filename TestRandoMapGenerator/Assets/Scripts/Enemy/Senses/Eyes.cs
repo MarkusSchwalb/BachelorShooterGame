@@ -15,13 +15,16 @@ public class Eyes : MonoBehaviour
 
     public bool CheckIsInView(GameObject player)
     {
-        //Debug.Log("CheckPlayerInView");
+        //Debug.Log("CheckPlayerInView" + gameObject.name);
         //create a Vector 3 as an direction vector between Mousey and Player
         //Vector3 eyePosittion = transform.position;
         //eyePosittion.y += EyeHeight;
         Vector3 eyePos = new Vector3(transform.position.x, transform.position.y + EyeHeight, transform.position.z);
 
-        Vector3 vectorBetween = player.transform.position - eyePos;
+        Vector3 playerPos = player.transform.position;
+        playerPos.y += 1;
+
+        Vector3 vectorBetween = playerPos - eyePos;
         //calculate the angle
         float angle = Vector3.Angle(vectorBetween, transform.forward);
 

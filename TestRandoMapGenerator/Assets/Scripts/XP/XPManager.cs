@@ -14,6 +14,8 @@ public class XPManager : MonoBehaviour
 
     public GameObject currentXPObject {  get; private set; }
 
+    
+
     [field: SerializeField]
     public int currentXP {  get; private set; }
 

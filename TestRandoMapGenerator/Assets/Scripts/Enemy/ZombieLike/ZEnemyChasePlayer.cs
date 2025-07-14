@@ -3,7 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ZEnemyChasePlayer : EnemyBaseState
+public class ZEnemyChasePlayer : ZEnemyBaseState
 {
     private float previousFrameTime;
     private readonly int IdleHash = Animator.StringToHash("Standard");
@@ -13,7 +13,7 @@ public class ZEnemyChasePlayer : EnemyBaseState
 
     private const float animationDampTime = 0.1f;
     private const float crossFadeDuration = 0.2f;
-    public ZEnemyChasePlayer(BaseEnemyStateMashine sM) : base(sM)
+    public ZEnemyChasePlayer(ZEnemyStateMashine sM) : base(sM)
     {
     }
 
@@ -52,7 +52,7 @@ public class ZEnemyChasePlayer : EnemyBaseState
         if (stateMashine.Animator != null)
         {
             stateMashine.Animator?.SetFloat(Forward, currentForward, animationDampTime, DeltaTime);
-            //stateMashine.Animator?.SetFloat(Forward, currentSideward, animationDampTime, DeltaTime);
+            //stateMashine.Animator?.SetFloat(Sideward, currentSideward, animationDampTime, DeltaTime);
         }
 
         //move

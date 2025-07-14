@@ -24,6 +24,8 @@ public class InputReader : MonoBehaviour, GameControls.IGamePlayActions
     public event Action CrouchEvent;
     public bool IsCrouching = false;
 
+    public event Action ScrollEvent;
+
 
     public Vector2 MoveInput;
     public Vector2 MouseInput;
@@ -150,5 +152,12 @@ public class InputReader : MonoBehaviour, GameControls.IGamePlayActions
             IsCrouching = false;
             CrouchEvent?.Invoke();
         }
+    }
+
+    public void OnSwitchWeapon(InputAction.CallbackContext context)
+    {
+        if (!context.performed) { return; }
+        Debug.Log("Scoll!");
+        ScrollEvent?.Invoke();
     }
 }

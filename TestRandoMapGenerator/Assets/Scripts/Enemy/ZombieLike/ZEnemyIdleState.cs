@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ZEnemyIdleState : EnemyBaseState
+public class ZEnemyIdleState : ZEnemyBaseState
 {
     private float previousFrameTime;
     private readonly int IdleHash = Animator.StringToHash("Standard");
@@ -10,20 +10,20 @@ public class ZEnemyIdleState : EnemyBaseState
 
     private const float animationDampTime = 0.1f;
     private const float crossFadeDuration = 0.2f;
-    public ZEnemyIdleState(BaseEnemyStateMashine sM) : base(sM)
+    public ZEnemyIdleState(ZEnemyStateMashine sM) : base(sM)
     {
     }
 
     public override void EnterState()
     {
-        Debug.Log("ZEnemyIdleStateEnterState");
+        //Debug.Log("ZEnemyIdleStateEnterState");
         if (stateMashine.Animator != null)
             stateMashine.Animator?.CrossFadeInFixedTime(IdleHash, crossFadeDuration);
     }
 
     public override void ExitState()
     {
-        Debug.Log("ZEnemyIdleStateExitState");
+        //Debug.Log("ZEnemyIdleStateExitState");
     }
 
     public override void OnAnimatorMoveState()
@@ -33,14 +33,17 @@ public class ZEnemyIdleState : EnemyBaseState
 
     public override void UpdateState(float DeltaTime)
     {
-        Debug.Log("ZEnemyIdleStateUpdateState");
-        float currentForward = stateMashine.Agent.velocity.z;
-        float currentSideward = stateMashine.Agent.velocity.x;
+        //Debug.Log("ZEnemyIdleStateUpdateState");
+
+        Vector3 currentMovement = stateMashine.transform.InverseTransformDirection(stateMashine.Agent.velocity);
+
+        float currentForward = currentMovement.z;
+        float currentSideward = currentMovement.x;
 
         if (stateMashine.Animator != null)
         {
             stateMashine.Animator?.SetFloat(Forward, currentForward, animationDampTime, DeltaTime);
-            stateMashine.Animator?.SetFloat(Forward, currentSideward, animationDampTime, DeltaTime);
+            stateMashine.Animator?.SetFloat(Sideward, currentSideward, animationDampTime, DeltaTime);
         }
 
         if (stateMashine.Eyes.CheckIsInView(stateMashine.Player) || stateMashine.HasPlayer)

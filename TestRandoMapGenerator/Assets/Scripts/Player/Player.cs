@@ -20,8 +20,8 @@ public class Player : MonoBehaviour
 
     public int currentSlot { get; private set; } = 0;
 
-    public GameObject MainGun;
-    public GameObject SecondaryGun;
+    public GunHolder MainGunHand;
+    public GunHolder SecondaryGunHand;
 
     [field: SerializeField] public Gun CurrentGun { get; private set;} 
     
@@ -108,6 +108,7 @@ public class Player : MonoBehaviour
         InputReader.MeleeEvent += HandleMelee;
         InputReader.GrenadeEvent += HandleGrenade;
         InputReader.CrouchEvent += HandleCrouch;
+        InputReader.ScrollEvent += SwitchWeapon;
     }
 
     private void HandleCrouch()
@@ -156,6 +157,41 @@ public class Player : MonoBehaviour
         }
         AimAnimator.SetBool(isAimingHash, InputReader.IsAiming);
     }
+
+    private void SwitchWeapon()
+    {
+        Debug.Log("SwitchWeapon");
+        MainGunHand.gameObject.SetActive(!MainGunHand.gameObject.activeSelf);
+        SecondaryGunHand.gameObject.SetActive(!SecondaryGunHand.gameObject.activeSelf);
+
+        if (SecondaryGunHand.gameObject.activeSelf)
+        {
+            CurrentGun = SecondaryGunHand.Gun;
+        }
+        if (MainGunHand.gameObject.activeSelf)
+        {
+            CurrentGun = MainGunHand.Gun;
+        }
+    }
+
+    public void GetNewWeapon(bool isMain, GameObject gunObject)
+    {
+        if (isMain)
+        {
+            MainGunHand.GetNewGun(gunObject);
+            //MainGunHand.Gun.Magazin.Get
+        }
+        else
+        {
+            SecondaryGunHand.GetNewGun(gunObject);
+        }
+    }
+
+    public void GetNewWeapon()
+    {
+
+    }
+
     /*
     private void HandleAimDownEvent()
     {
@@ -164,6 +200,7 @@ public class Player : MonoBehaviour
 
     private void HandleReload()
     {
+        if (CurrentGun == null) return;
         CurrentGun.ReloadMag();
     }
 
@@ -171,6 +208,7 @@ public class Player : MonoBehaviour
 
     private void HandleShootEvent()
     {
+        if (CurrentGun == null) return;
         CurrentGun.HandleFireInput();
 
         /*

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ZEnemyAttackState : EnemyBaseState
+public class ZEnemyAttackState : ZEnemyBaseState
 {
     private readonly int Attack1 = Animator.StringToHash("Zombie Attack");
     private readonly int Attack2 = Animator.StringToHash("Zombie Attack2");
@@ -14,7 +14,7 @@ public class ZEnemyAttackState : EnemyBaseState
 
     private const float animationDampTime = 0.1f;
     private const float crossFadeDuration = 0.2f;
-    public ZEnemyAttackState(BaseEnemyStateMashine sM) : base(sM)
+    public ZEnemyAttackState(ZEnemyStateMashine sM) : base(sM)
     {
     }
 

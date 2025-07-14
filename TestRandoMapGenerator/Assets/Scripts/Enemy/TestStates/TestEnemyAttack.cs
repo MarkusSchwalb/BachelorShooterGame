@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TestEnemyAttack : EnemyBaseState
+public class TestEnemyAttack : EnemyBaseState<BaseEnemyStateMashine>
 {
     float count = 0;
 

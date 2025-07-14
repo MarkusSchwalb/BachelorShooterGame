@@ -60,10 +60,7 @@ public abstract class BaseEnemyStateMashine : BaseStateMashine
         if (Eyes == null) { Eyes = GetComponent<Eyes>(); }
         if (Animator == null) { Animator = GetComponent<Animator>(); }
         if (Player == null) { Player = GameObject.FindWithTag("Player"); }
-        if (Agent == null)
-        {
-            Agent = GetComponent<NavMeshAgent>();
-        }
+        if (Agent == null) { Agent = GetComponent<NavMeshAgent>(); }
         if (Controller == null) { Controller = GetComponent<CharacterController>(); }
     }
 
@@ -90,6 +87,7 @@ public abstract class BaseEnemyStateMashine : BaseStateMashine
     {
         if (CombatM == null) return;
         CombatM.DeleteAttacker(this);
+        GameData.KillCount++;
     }
 }
 

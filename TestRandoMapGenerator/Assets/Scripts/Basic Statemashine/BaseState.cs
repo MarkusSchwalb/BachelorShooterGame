@@ -33,4 +33,26 @@ public abstract class BaseState
             return 0f;
         }
     }
+
+    protected float GetNormalizedTime(Animator animator, string AnimationTag, int layernmbr)
+    {
+        //get info from the current and the next animation
+        AnimatorStateInfo currentInfo = animator.GetCurrentAnimatorStateInfo(layernmbr);
+        AnimatorStateInfo nextInfo = animator.GetNextAnimatorStateInfo(layernmbr);
+
+        //if we are transitioning (in Animation Layer 0) and the next animation has the wanted Tag than return the progression time of the next Animation
+        if (animator.IsInTransition(layernmbr) && nextInfo.IsTag(AnimationTag))
+        {
+            return nextInfo.normalizedTime;
+        }
+        //if we are not transitioning and the current tag is the wanted tag than retur the current progresstime
+        else if (!animator.IsInTransition(layernmbr) && currentInfo.IsTag(AnimationTag))
+        {
+            return currentInfo.normalizedTime;
+        }
+        else
+        {
+            return 0f;
+        }
+    }
 }

@@ -1,7 +1,7 @@
 using System.Threading;
 using UnityEngine;
 
-public class TestEnemyIdle : EnemyBaseState
+public class TestEnemyIdle : EnemyBaseState<BaseEnemyStateMashine>
 {
     public TestEnemyIdle(BaseEnemyStateMashine sM) : base(sM)
     {
