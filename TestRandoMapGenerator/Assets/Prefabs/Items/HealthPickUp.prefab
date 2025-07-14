@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5795135301707211832
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7989799860772963484}
+  - component: {fileID: 878181143896997057}
+  - component: {fileID: 2282304048308013693}
+  m_Layer: 0
+  m_Name: HealthPickUp
+  m_TagString: Interactable
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7989799860772963484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5795135301707211832}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3195744542357795421}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &878181143896997057
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5795135301707211832}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.55635166, y: 0.30503967, z: 0.49720007}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2282304048308013693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5795135301707211832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363f2d4cafb086542bf1381cc332ff5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <interactableText>k__BackingField: E to Heal
+--- !u!1001 &2890466048836531305
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7989799860772963484}
+    m_Modifications:
+    - target: {fileID: 307774420219020852, guid: 9db1cc6f3abcb8c4a9bd0aaad7a54216, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 307774420219020852, guid: 9db1cc6f3abcb8c4a9bd0aaad7a54216, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 307774420219020852, guid: 9db1cc6f3abcb8c4a9bd0aaad7a54216, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 307774420219020852, guid: 9db1cc6f3abcb8c4a9bd0aaad7a54216, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 307774420219020852, guid: 9db1cc6f3abcb8c4a9bd0aaad7a54216, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 307774420219020852, guid: 9db1cc6f3abcb8c4a9bd0aaad7a54216, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 307774420219020852, guid: 9db1cc6f3abcb8c4a9bd0aaad7a54216, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 307774420219020852, guid: 9db1cc6f3abcb8c4a9bd0aaad7a54216, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 307774420219020852, guid: 9db1cc6f3abcb8c4a9bd0aaad7a54216, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 307774420219020852, guid: 9db1cc6f3abcb8c4a9bd0aaad7a54216, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 307774420219124244, guid: 9db1cc6f3abcb8c4a9bd0aaad7a54216, type: 3}
+      propertyPath: m_Name
+      value: Healthpack_02
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9db1cc6f3abcb8c4a9bd0aaad7a54216, type: 3}
+--- !u!4 &3195744542357795421 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 307774420219020852, guid: 9db1cc6f3abcb8c4a9bd0aaad7a54216, type: 3}
+  m_PrefabInstance: {fileID: 2890466048836531305}
+  m_PrefabAsset: {fileID: 0}

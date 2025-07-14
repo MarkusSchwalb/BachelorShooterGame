@@ -18,7 +18,13 @@ public class Abstieg : Interactable
     public void HandleFadeOut()
     {
         Debug.Log("HandleFadeOut");
+        if (GameData.CurrentLevel == 3)
+        {
+            SceneManager.LoadScene(3);
+            return;
+        }
         GameData.CurrentLevel++;
+        
         SceneManager.LoadScene(1);
     }
 }

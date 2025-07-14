@@ -19,6 +19,7 @@ public class Gun : MonoBehaviour
     [field: SerializeField] private ParticleSystem MuscleFlash;
     [field: SerializeField] private GameObject ShotSoundObject;
     [field: SerializeField] private AudioClip GunShotAudio;
+    [field: SerializeField] private AudioClip GunReloadAudio;
 
     [field: SerializeField] public MagazinComp Magazin { get; private set; }
 
@@ -206,6 +207,17 @@ public class Gun : MonoBehaviour
 
     public void ReloadMag()
     {
+        //sound for reload
+        if (GunReloadAudio != null && ShotSoundObject != null)
+        {
+            GameObject soundObject = Instantiate(ShotSoundObject, ProjectileSpawner.position, ProjectileSpawner.rotation);
+            if (soundObject.TryGetComponent<GunShot>(out GunShot shot))
+            {
+                shot.SoundClip = GunReloadAudio;
+                shot.playSound();
+            }
+        }
+
         Magazin.ReloadGun();
     }
 }

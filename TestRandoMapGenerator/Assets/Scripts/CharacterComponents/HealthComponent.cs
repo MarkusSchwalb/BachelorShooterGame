@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class HealthComponent : MonoBehaviour
 {
+    bool isPlayerHealth = false;
+    private float MaxHealth;
     public event Action<HealthComponent> DeathEvent;
     public event Action<float> DamageAction; //for staggering
     [field: SerializeField] public HealthData HDHealthData { get; private set; }
@@ -18,8 +20,19 @@ public class HealthComponent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = HDHealthData.MaxHealth;
-        if (slider != null) slider.SetMaxValue(HDHealthData.MaxHealth);
+        if (isPlayerHealth)
+        {
+            MaxHealth = HDHealthData.MaxHealth * GameData.HealthModifier;
+        }
+        else
+        {
+            float multiplikator = Mathf.Clamp(GameData.CurrentLevel, 1, 5);
+            MaxHealth = HDHealthData.MaxHealth * multiplikator;
+        }
+
+        
+        currentHealth = MaxHealth;
+        if (slider != null) slider.SetMaxValue(MaxHealth);
         UpdateSlider();
     }
 
@@ -41,6 +54,19 @@ public class HealthComponent : MonoBehaviour
         if (currentHealth > HDHealthData.MaxHealth) { currentHealth = HDHealthData.MaxHealth; return; }
         currentHealth += HDHealthData.HealthRegeneration * Time.deltaTime;
         UpdateSlider();
+    }
+
+    protected bool IsFullLife()
+    {
+        if (!IsDead) return false;
+        if (currentHealth == HDHealthData.MaxHealth) return true;
+        else return false;
+    }
+
+    public void Regenerate(float value)
+    {
+        if (IsDead) return;
+        currentHealth = Mathf.Clamp(currentHealth + value, 0, HDHealthData.MaxHealth);
     }
 
     public void SetHealth(float value)
@@ -108,6 +134,8 @@ public class HealthComponent : MonoBehaviour
         if (slider == null) { return; }
         slider.SetSliderValue(currentHealth);
     }
+
+
 }
 
 public enum DamageType

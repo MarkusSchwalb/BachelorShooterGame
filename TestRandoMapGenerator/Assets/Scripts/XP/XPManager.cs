@@ -48,8 +48,12 @@ public class XPManager : MonoBehaviour
 
     public void ResetXP()
     {
-        currentXP = 0;
+        currentXP = GameData.Score;
         onXPChanged?.Invoke(-currentXP);
+    }
+    public void SaveXP()
+    {
+        GameData.Score = currentXP;
     }
 
     public void SetCurrentXPObject(GameObject newXpObject)

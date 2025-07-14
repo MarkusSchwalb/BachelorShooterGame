@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -17,6 +18,8 @@ public class Player : MonoBehaviour
     [field: SerializeField] public float SprintingSpeed { get; private set; } = 10;
 
     [field: SerializeField] public Recoil RecoilScript { get; private set; }
+
+    public float ThrowableCount = 0;
 
     public int currentSlot { get; private set; } = 0;
 
@@ -64,6 +67,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         if (rollRotator != null)
         xRotation = rollRotator.transform.localPosition.x;
 
@@ -71,10 +75,25 @@ public class Player : MonoBehaviour
         Cursor.visible = false;
     }
 
-    private void OnEnable()
+    private void Awake()
     {
+        
         CheckComponents();
         SubscribeToEvent();
+
+        SelectSecondary();
+    }
+
+    private void SelectSecondary()
+    {
+        CurrentGun = null;
+        MainGunHand.gameObject.SetActive(false);
+        SecondaryGunHand.gameObject.SetActive(true);
+
+        if (SecondaryGunHand.Gun != null)
+        {
+            CurrentGun = SecondaryGunHand.Gun;
+        }
     }
 
     private void CheckComponents()
@@ -99,6 +118,7 @@ public class Player : MonoBehaviour
 
     private void SubscribeToEvent()
     {
+        if (HealthComponent != null) HealthComponent.DeathEvent += HandleDeath;
         if (InputReader == null) { Debug.LogError("No InputReader"); return; }
         InputReader.AimEvent += HandleAimEvent;
         InputReader.AimDownEvent += HandleAimEvent;
@@ -109,6 +129,12 @@ public class Player : MonoBehaviour
         InputReader.GrenadeEvent += HandleGrenade;
         InputReader.CrouchEvent += HandleCrouch;
         InputReader.ScrollEvent += SwitchWeapon;
+    }
+
+    private void HandleDeath(HealthComponent component)
+    {
+        XPManager.Instance?.SaveXP();
+        SceneManager.LoadScene(2);
     }
 
     private void HandleCrouch()
@@ -167,10 +193,12 @@ public class Player : MonoBehaviour
         if (SecondaryGunHand.gameObject.activeSelf)
         {
             CurrentGun = SecondaryGunHand.Gun;
+            currentSlot = 1;
         }
         if (MainGunHand.gameObject.activeSelf)
         {
             CurrentGun = MainGunHand.Gun;
+            currentSlot = 0;
         }
     }
 
@@ -208,6 +236,7 @@ public class Player : MonoBehaviour
 
     private void HandleShootEvent()
     {
+        Debug.Log("HandleShootEvent");
         if (CurrentGun == null) return;
         CurrentGun.HandleFireInput();
 

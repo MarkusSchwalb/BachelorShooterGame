@@ -16,6 +16,8 @@ public static class GameData
     public static float HealthModifier;
     public static float GameObjectDiedFrom;
 
+    public static genType genType;
+
     public static void SetSeed(string sSeed)
     {
         Eingabe = sSeed;
@@ -42,8 +44,12 @@ public static class GameData
         KillCount = 0;
         Score = 0;
         StartTime = DateTime.Now;
-        AimModifier = 0;
-        HealthModifier = 0;
+        AimModifier = 1;
+        HealthModifier = 1;
     }
 
+}
+public enum genType
+{
+    Quick, Daily, Seed 
 }

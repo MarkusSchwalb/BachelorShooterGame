@@ -20,6 +20,7 @@ public class LoadGameUiScript : MonoBehaviour
         SceneManager.LoadScene(1); // muss nachher auf 1 geändert werden
 
         GameData.CurrentLevel = 1;
+
         GameData.ResetGameData();
     }
 
@@ -35,9 +36,11 @@ public class LoadGameUiScript : MonoBehaviour
 
         Debug.Log("Current Seed " + GameData.Seed + " Eingabe war " + GameData.Eingabe);
 
+        GameData.CurrentLevel = 1;
+        SetGenType(genType.Quick);
+
         SceneManager.LoadScene(1); // muss nachher auf 1 geändert werden
 
-        GameData.CurrentLevel = 1;
     }
 
     public void DailyChallenge()
@@ -51,8 +54,22 @@ public class LoadGameUiScript : MonoBehaviour
 
         GameData.SetSeed(date);
 
+        GameData.CurrentLevel = 1;
+        SetGenType(genType.Daily);
+
         SceneManager.LoadScene(1); // muss nachher auf 1 geändert werden
 
-        GameData.CurrentLevel = 1;
+        
+        
+    }
+
+    public void GenTypeSeed()
+    {
+        SetGenType(genType.Seed);
+    }
+
+    public void SetGenType(genType type)
+    {
+        GameData.genType = type;
     }
 }
