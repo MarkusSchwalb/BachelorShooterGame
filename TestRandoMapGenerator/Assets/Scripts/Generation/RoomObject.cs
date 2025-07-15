@@ -39,6 +39,8 @@ public class RoomObject : MonoBehaviour
     [field: SerializeField] private float trashiness = 0.5f;
     [field: SerializeField] public TrashOptions trashOptions;
 
+    private List<BaseEnemyStateMashine> spawnedEnemys = new List<BaseEnemyStateMashine>();
+
     [field: SerializeField] public int Intensity { get; set; } = 0;
 
     // Start is called before the first frame update
@@ -215,6 +217,25 @@ public class RoomObject : MonoBehaviour
         foreach (EnemySpawner spawner in ESpawners)
         {
             spawner.SpawnEnemy();
+            if (spawner.spawnedEnemy != null)
+            {
+                BaseEnemyStateMashine baseEnemyState = spawner.GetBaseEnemyStateMashine();
+                if (baseEnemyState != null)
+                {
+                    spawnedEnemys.Add(baseEnemyState);
+                    //subscribe to event gotEnemy
+                    baseEnemyState.GotPlayerEvent += HandleGotEnemyEvent; 
+                }
+            }
+        }
+    }
+
+    public void HandleGotEnemyEvent()
+    {
+        spawnedEnemys.RemoveAll(enemy => enemy == null);
+        foreach (BaseEnemyStateMashine baseEnemy in spawnedEnemys)
+        {
+            baseEnemy.HasPlayer = true;
         }
     }
 

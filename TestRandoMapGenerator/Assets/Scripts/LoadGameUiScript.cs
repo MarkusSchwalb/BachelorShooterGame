@@ -72,4 +72,9 @@ public class LoadGameUiScript : MonoBehaviour
     {
         GameData.genType = type;
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

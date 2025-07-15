@@ -48,6 +48,7 @@ public class ZEnemyIdleState : ZEnemyBaseState
 
         if (stateMashine.Eyes.CheckIsInView(stateMashine.Player) || stateMashine.HasPlayer)
         {
+            stateMashine.GotPlayer();
             Debug.Log("PlayerAttackable");
             //
             float distance = (stateMashine.Player.transform.position - stateMashine.transform.position).sqrMagnitude;

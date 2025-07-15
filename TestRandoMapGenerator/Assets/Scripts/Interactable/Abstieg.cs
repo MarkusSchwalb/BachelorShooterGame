@@ -15,8 +15,17 @@ public class Abstieg : Interactable
         Player player = FindFirstObjectByType<Player>();
         player.SaveGuns();
 
+        if (GameData.CurrentLevel == 3)
+        {
+            SceneManager.LoadScene(3);
+            return;
+        }
+        GameData.CurrentLevel++;
+
+        SceneManager.LoadScene(1);
+        /*
         fadeScript.FadeOutComplete += HandleFadeOut;
-        fadeScript.StartFade();
+        fadeScript.StartFade();*/
     }
 
     public void HandleFadeOut()

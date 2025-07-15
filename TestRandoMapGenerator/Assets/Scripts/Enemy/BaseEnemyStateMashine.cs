@@ -4,6 +4,7 @@ using UnityEngine.AI;
 
 public abstract class BaseEnemyStateMashine : BaseStateMashine
 {
+    public event Action GotPlayerEvent;
     [field: SerializeField] public Eyes Eyes { get; private set; }
     [field: SerializeField] public Animator Animator { get; private set; }
     [field: SerializeField] public CharacterController Controller { get; private set; }
@@ -61,7 +62,14 @@ public abstract class BaseEnemyStateMashine : BaseStateMashine
         if (Animator == null) { Animator = GetComponent<Animator>(); }
         if (Player == null) { Player = GameObject.FindWithTag("Player"); }
         if (Agent == null) { Agent = GetComponent<NavMeshAgent>(); }
+        if (Agent != null) { SnapToGround(); }
         if (Controller == null) { Controller = GetComponent<CharacterController>(); }
+    }
+
+    private void SnapToGround()
+    {
+        NavMeshHit navHit;
+        if (NavMesh.SamplePosition(transform.position, out navHit, 2f, NavMesh.AllAreas)) transform.position = navHit.position;
     }
 
     public virtual void RequestAttack()
@@ -88,6 +96,16 @@ public abstract class BaseEnemyStateMashine : BaseStateMashine
         if (CombatM == null) return;
         CombatM.DeleteAttacker(this);
         GameData.KillCount++;
+    }
+
+    public void GotPlayer()
+    {
+        if (!HasPlayer)
+        {
+            HasPlayer = true;
+            GotPlayerEvent?.Invoke();
+        }
+        
     }
 }
 

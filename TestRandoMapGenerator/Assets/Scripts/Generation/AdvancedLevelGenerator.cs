@@ -88,7 +88,15 @@ public class AdvancedLevelGenerator : MonoBehaviour
 
         CloseOpenExits();
         BakeNavMesh();
+        SpawnEnemys();
+    }
 
+    private void SpawnEnemys()
+    {
+        foreach (RoomObject rObject in spawnedRoomObjects)
+        {
+            rObject.SpawnEnemys();
+        }
     }
 
     public void BakeNavMesh()
@@ -351,7 +359,7 @@ public class AdvancedLevelGenerator : MonoBehaviour
         spawnedRooms.Add(StartRoom);
 
 
-        if (GameData.CurrentLevel < 1)
+        if (GameData.CurrentLevel <= 1)
         {
             SpawnRoom(StartWeaponRoom, true);
 

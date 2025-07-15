@@ -67,6 +67,8 @@ public class HealthComponent : MonoBehaviour
     {
         if (IsDead) return;
         currentHealth = Mathf.Clamp(currentHealth + value, 0, HDHealthData.MaxHealth);
+
+        UpdateSlider() ;
     }
 
     public void SetHealth(float value)

@@ -15,6 +15,7 @@ public class ZEnemyStateMashine : Base2PedalEnemyStateMashine
 
     protected override void HandleDamage(float value)
     {
+        GotPlayer();
         SwitchState(new ZEnemyStaggerState(this));
     }
 }

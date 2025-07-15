@@ -6,6 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject[] Enemys;
     bool canSpawn = true;
+    public GameObject spawnedEnemy {get; private set;}
 
     // Start is called before the first frame update
     void Start()
@@ -27,10 +28,17 @@ public class EnemySpawner : MonoBehaviour
     public void SpawnEnemy()
     {
         Debug.Log("SpawnEnemys");
-        if (!canSpawn) return;
+        //if (!canSpawn) return;
         if (Enemys.Length == 0) { Debug.LogWarning("EnemySpawner has no assigned Enemys to spawn"); return; }
         int randomNr = UnityEngine.Random.Range(0, Enemys.Length);
 
-        Instantiate(Enemys[randomNr], transform);
+        spawnedEnemy = Instantiate(Enemys[randomNr], transform);
+    }
+
+    public BaseEnemyStateMashine GetBaseEnemyStateMashine()
+    {
+        if (spawnedEnemy == null) return null;
+
+        return spawnedEnemy.GetComponent<BaseEnemyStateMashine>();
     }
 }

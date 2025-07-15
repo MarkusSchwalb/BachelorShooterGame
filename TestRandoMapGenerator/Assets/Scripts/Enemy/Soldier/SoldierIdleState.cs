@@ -53,6 +53,7 @@ public class SoldierIdleState : BaseSoldierState
 
         if (stateMashine.Eyes.CheckIsInView(stateMashine.Player) || stateMashine.HasPlayer)
         {
+            stateMashine.GotPlayer();
             //switch state to chaseState
             stateMashine.SwitchState(new SoldierGetCloserState(stateMashine));
         }
