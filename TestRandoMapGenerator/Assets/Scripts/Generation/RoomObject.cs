@@ -172,6 +172,11 @@ public class RoomObject : MonoBehaviour
     {
         foreach (Modules module in RoomModules)
         {
+            if (module == null)
+            {
+                Debug.LogError(gameObject.name + "Has an empty Module");
+                return;
+            }
             if (module.Room == null) { module.Room = this; }
             module.DeleteChildren();
             module.SpawnModules();
@@ -203,6 +208,7 @@ public class RoomObject : MonoBehaviour
 
     public void SpawnEnemys()
     {
+        Debug.Log("SpawnEnemysRoomOject");
         ESpawners.RemoveAll(item => item == null);
         if (ESpawners.Count == 0) { Debug.LogWarning("Room " + gameObject.name + " has no EnemySpawner be awere if its Start or endroom it is perfectly fine"); return; }
 
@@ -212,18 +218,11 @@ public class RoomObject : MonoBehaviour
         }
     }
 
-    private void HandleOpenExits()
+    public void HandleOpenExits()
     {
         foreach (Exit exit in EExit)
         {
-            if (!exit.IsMainPath)
-            {
-                exit.HandleEndOfPath();
-            }
-            if (exit.IsMainPath)
-            {
-                exit.DeleteChildren();
-            }
+            exit.HandleEndOfPath();
         }
     }
 
@@ -363,7 +362,7 @@ public class RoomObject : MonoBehaviour
          LayerMask mask = LayerMask.GetMask("Rooms"); 
         //Debug.Log("Check Exit Availibility of " + gameObject.name);
         BoxCollider checkCollider = GetComponent<BoxCollider>();
-        if (checkCollider == null) { Debug.LogError("No Collider Found"); return false; }
+        if (checkCollider == null) { Debug.LogError("No Collider Found" + gameObject.name); return false; }
 
         Collider[] colliders = Physics.OverlapBox(
             checkCollider.bounds.center, // Mittelpunkt des Colliders
@@ -445,5 +444,7 @@ public class RoomObject : MonoBehaviour
                 ExitList.Add(exit);
             }
         }
+
+        
     }
 }

@@ -11,6 +11,10 @@ public class Abstieg : Interactable
     }
     public override void Interact()
     {
+        //save weapon 
+        Player player = FindFirstObjectByType<Player>();
+        player.SaveGuns();
+
         fadeScript.FadeOutComplete += HandleFadeOut;
         fadeScript.StartFade();
     }

@@ -41,7 +41,7 @@ public class Gun : MonoBehaviour
         if (Magazin == null) Magazin = GetComponent<MagazinComp>();
         shootHash = Animator.StringToHash("Shoot");
         GameObject goPlayer = GameObject.FindWithTag("Player");
-        player = goPlayer.GetComponent<Player>();
+        player = FindFirstObjectByType<Player>();
         CanFire = true;
         coolDown = 60 / GunInfo.FiringRate;
     }
@@ -56,6 +56,7 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player == null || player.Camera == null) return;
         Ray ray = new Ray(player.Camera.transform.position, player.Camera.transform.forward);
         Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
         
@@ -174,6 +175,7 @@ public class Gun : MonoBehaviour
 
     private void CalCulateAimAt()
     {
+        if (player.Camera == null) return;
         Vector3 AimAtVector;
         // Get the center point of the screen
         Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);

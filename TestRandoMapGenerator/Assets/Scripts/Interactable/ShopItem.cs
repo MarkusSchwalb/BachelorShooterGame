@@ -1,6 +1,4 @@
 using System;
-using Unity.Collections.LowLevel.Unsafe;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class ShoItem : Interactable
@@ -13,7 +11,7 @@ public class ShoItem : Interactable
     {
         if (Items == null || Items.Length == 0)
         {
-            Debug.LogWarning("GunPickUpHasNoGuns");
+            Debug.LogWarning("ShopHasNoItem");
             return;
         }
         ChooseItem();

@@ -15,6 +15,10 @@ public static class GameData
     public static float AimModifier;
     public static float HealthModifier;
     public static float GameObjectDiedFrom;
+    public static string LastRoom;
+
+    public static GameObject MainGun;
+    public static GameObject SecondaryGun;
 
     public static genType genType;
 
@@ -46,6 +50,8 @@ public static class GameData
         StartTime = DateTime.Now;
         AimModifier = 1;
         HealthModifier = 1;
+        SecondaryGun = null;
+        MainGun = null;
     }
 
 }

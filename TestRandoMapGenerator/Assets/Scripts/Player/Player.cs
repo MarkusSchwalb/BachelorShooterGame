@@ -81,7 +81,26 @@ public class Player : MonoBehaviour
         CheckComponents();
         SubscribeToEvent();
 
+        LoadGuns();
         SelectSecondary();
+    }
+
+    private void LoadGuns()
+    {
+        if (GameData.SecondaryGun != null)
+        {
+            GetNewWeapon(false, GameData.SecondaryGun);
+        }
+        if (GameData.MainGun != null)
+        {
+            GetNewWeapon(true, GameData.SecondaryGun);
+        }
+    }
+
+    public void SaveGuns()
+    {
+        GameData.SecondaryGun = SecondaryGunHand.Gun.gameObject;
+        GameData.SecondaryGun = MainGunHand.Gun.gameObject;
     }
 
     private void SelectSecondary()

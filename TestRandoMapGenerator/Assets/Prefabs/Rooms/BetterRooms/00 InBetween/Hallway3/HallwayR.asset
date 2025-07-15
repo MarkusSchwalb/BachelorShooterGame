@@ -10,10 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 632b7ee0d5246264aad08e2552997a4a, type: 3}
-  m_Name: EndRoom
+  m_Name: HallwayR
   m_EditorClassIdentifier: 
-  RoomName: EndRoom
-  RoomObject: {fileID: 7154663560123571447, guid: df29cf62600dec146ab50720167d2454, type: 3}
-  SizePoint1: {x: 0, y: 0, z: 0}
-  SizePoint2: {x: 0, y: 0, z: 0}
-  Difficulty: 0
+  RoomName: HallwayR
+  RoomObject: {fileID: 3874532350548132530, guid: fe380c59380cdc2408c476c045e9ecf9, type: 3}
+  Difficulty: 4
+  Threat: 5
+  Tempo: 5
+  Tension: 3
+  MovementImpetus: 6
+  Commoness: 10
+  RoomType: 0

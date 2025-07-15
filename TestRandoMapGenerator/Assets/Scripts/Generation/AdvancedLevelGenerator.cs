@@ -3,13 +3,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Burst.CompilerServices;
-using Unity.Collections.LowLevel.Unsafe;
+using Unity.AI.Navigation;
 using Unity.Mathematics;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
+
 
 public class AdvancedLevelGenerator : MonoBehaviour
 {
@@ -22,6 +19,7 @@ public class AdvancedLevelGenerator : MonoBehaviour
     [field: SerializeField] public Room EndRoom { get; private set; }
     [field: SerializeField] public Room StartWeaponRoom { get; private set; }
     [field: SerializeField] public Room ShopRoom { get; private set; }
+    [field: SerializeField] public NavMeshSurface NMSurface { get; private set; }
 
     [field: SerializeField] public List<Room> RoomList { get; private set; } = new List<Room>();
     [field: SerializeField] public Room[] InBetweenRooms { get; private set; }
@@ -87,7 +85,34 @@ public class AdvancedLevelGenerator : MonoBehaviour
             GameData.Seed = GameData.Seed + 30;
             if (attempts < 10) GenerateLevel();
         }
-        
+
+        CloseOpenExits();
+        BakeNavMesh();
+
+    }
+
+    public void BakeNavMesh()
+    {
+        if (NMSurface == null)
+        {
+            NMSurface = FindObjectOfType<NavMeshSurface>();
+
+            if (NMSurface == null)
+            {
+                Debug.LogError("NoNavMeshAgent found");
+                return;
+            }
+
+        }
+        NMSurface.BuildNavMesh();
+    }
+
+    private void CloseOpenExits()
+    {
+        foreach (RoomObject roomObject in spawnedRoomObjects)
+        {
+            roomObject.HandleOpenExits();
+        }
     }
 
     public bool CheckIsPlayable()
@@ -326,13 +351,18 @@ public class AdvancedLevelGenerator : MonoBehaviour
         spawnedRooms.Add(StartRoom);
 
 
-        if (GameData.CurrentLevel == 1)
+        if (GameData.CurrentLevel < 1)
         {
             SpawnRoom(StartWeaponRoom, true);
 
             int rInt = UnityEngine.Random.Range(0, InBetweenRooms.Count());
             SpawnRoom(RoomSelection(InBetweenRooms), false);
-        } else SpawnRoom(RoomSelection(InBetweenRooms), false);
+        }
+        else
+        {
+            SpawnRoom(ShopRoom, true);
+            SpawnRoom(RoomSelection(InBetweenRooms), false);
+        }
     }
 
     private void SpawnRooms()
@@ -453,8 +483,8 @@ public class AdvancedLevelGenerator : MonoBehaviour
     {
         if (i > 10) i = 10;
         List<Room> list = new List<Room>();
-        //RoomType excludeRoomType = CheckExcludeRoomType();
-        RoomType excludeRoomType = RoomType.Puzzle; //just for screenshot
+        RoomType excludeRoomType = CheckExcludeRoomType();
+        //RoomType excludeRoomType = RoomType.Puzzle; //just for screenshot
         /*
         foreach (Room room in RoomList)
         {
@@ -464,6 +494,7 @@ public class AdvancedLevelGenerator : MonoBehaviour
                 list.Add(room);
             }
         }*/
+
         int breaker = 0;
         while (list.Count < 1 || breaker > 10)
         {
@@ -473,8 +504,17 @@ public class AdvancedLevelGenerator : MonoBehaviour
                 //raumschwierigkeit soll kleiner sein als obere grenze
                 if ( i - breaker <= room.Difficulty && room.Difficulty <= i + breaker) // the limits go wider with each while loop
                 {
-                    if (room.RoomType == excludeRoomType) continue;
-                    list.Add(room);
+                    if (breaker < 2)
+                    {
+                        if (room.RoomType == excludeRoomType && !spawnedRooms.Contains(room)) continue;
+                        list.Add(room);
+                    }
+                    else
+                    {
+                        if (room.RoomType == excludeRoomType) continue;
+                        list.Add(room);
+                    }
+
                 }
             }
             breaker++;
@@ -490,7 +530,7 @@ public class AdvancedLevelGenerator : MonoBehaviour
 
     private RoomType CheckExcludeRoomType()
     {
-        if (spawnedRooms.Count < 2) return RoomType.notRelevant;
+        if (spawnedRooms.Count < 3) return RoomType.notRelevant;
         if (spawnedRooms[spawnedRooms.Count - 1].RoomType == spawnedRooms[spawnedRooms.Count - 2].RoomType 
             && spawnedRooms[spawnedRooms.Count - 2].RoomType == spawnedRooms[spawnedRooms.Count - 3].RoomType)
         {
@@ -521,6 +561,15 @@ public class AdvancedLevelGenerator : MonoBehaviour
         }
         else exitNr = 0;
 
+        if (CurrentRoom.ExitList  == null) { Debug.LogError(CurrentRoom.gameObject.name + "seems to have an problem with exits");  }
+        if (CurrentRoom.ExitList.Count == 0) { 
+            if (CurrentRoom.EExit.Length == 0) {
+                Debug.LogError(CurrentRoom.gameObject.name + "seems to have an problem with exits");
+                
+                    }
+            if (CurrentRoom.EExit[0] != null)
+            CurrentRoom.ExitList.Add(CurrentRoom.EExit[0]); }
+
         HandleSideCounter(CurrentRoom.ExitList[exitNr].ExitDirection);
         //Debug.Log("Room Spawn Direction " + CurrentRoom.ExitList[exitNr].ExitDirection);
 
@@ -529,7 +578,7 @@ public class AdvancedLevelGenerator : MonoBehaviour
 
         
 
-        return exitNr;
+        return exitNr;//
 
     }
     /*

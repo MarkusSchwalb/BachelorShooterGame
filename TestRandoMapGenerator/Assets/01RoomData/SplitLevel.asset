@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 632b7ee0d5246264aad08e2552997a4a, type: 3}
-  m_Name: ShopRoom
+  m_Name: SplitLevel
   m_EditorClassIdentifier: 
-  RoomName: StartWeaponTestRoom
-  RoomObject: {fileID: 1500543811949537336, guid: a6a910eddd040f7418d647e040be28b4, type: 3}
-  Difficulty: 0
-  Threat: 0
-  Tempo: 0
-  Tension: 0
-  MovementImpetus: 0
-  Commoness: 10
-  RoomType: 5
+  RoomName: SplitLevel
+  RoomObject: {fileID: 631305316669569434, guid: d82130a48d439944a80bb23189a292de, type: 3}
+  Difficulty: 8
+  Threat: 8
+  Tempo: 3
+  Tension: 5
+  MovementImpetus: 5
+  Commoness: 5
+  RoomType: 0

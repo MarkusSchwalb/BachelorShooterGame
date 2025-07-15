@@ -18,6 +18,12 @@ public class Exit : MonoBehaviour
 
     [field: SerializeField] private RoomObject room;
 
+    //private List<Transform> bredcrumTransforms = new List<Transform>();
+    //[field: SerializeField] private GameObject breadcrum;
+
+    [field: SerializeField]
+    private GameObject MainPathDecal;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -144,11 +150,36 @@ public class Exit : MonoBehaviour
 
     public void HandleEndOfPath()
     {
+        if (!IsMainPath && !IsSidePath)
+        {
+            EndOfPath.SetActive(true);
+            if (MainPathDecal != null) MainPathDecal.SetActive(false);
+        }
+        else EndOfPath.SetActive(false);
+
+        if (IsMainPath)
+        {
+            //SpawnBreadCrums();
+            if (MainPathDecal != null) MainPathDecal.SetActive(true);
+        }
+
 
         /*
         if (IsMainPath) { return; }
         Instantiate(EndOfPath, transform); // maybe later with a check Space if sideroom*/
     }
+    /*
+    private void SpawnBreadCrums()
+    {
+        GetBreadcrums();
+        if (breadcrum == null || bredcrumTransforms.Count < 1) return;
+
+        foreach (Transform t in breadcrum.transform)
+        {
+            GameObject bO = Instantiate(breadcrum, t.position, t.rotation);
+            
+        }
+    }*/
 
     public void DeleteChildren()
     {
@@ -167,6 +198,17 @@ public class Exit : MonoBehaviour
     {
         IsSidePath = v;
     }
+    /*
+    private void GetBreadcrums()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.gameObject.CompareTag("Breadcrum"))
+            {
+                bredcrumTransforms.Add(child);
+            }
+        }
+    }*/
 }
 
 public enum direction

@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject[] Enemys;
+    bool canSpawn = true;
 
     // Start is called before the first frame update
     void Start()
@@ -18,8 +19,15 @@ public class EnemySpawner : MonoBehaviour
         
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        canSpawn = false;
+    }
+
     public void SpawnEnemy()
     {
+        Debug.Log("SpawnEnemys");
+        if (!canSpawn) return;
         if (Enemys.Length == 0) { Debug.LogWarning("EnemySpawner has no assigned Enemys to spawn"); return; }
         int randomNr = UnityEngine.Random.Range(0, Enemys.Length);
 
