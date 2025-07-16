@@ -51,7 +51,7 @@ public class SoldierIdleState : BaseSoldierState
             stateMashine.Animator?.SetFloat(Sideward, currentSideward, animationDampTime, DeltaTime);
         }
 
-        if (stateMashine.Eyes.CheckIsInView(stateMashine.Player) || stateMashine.HasPlayer)
+        if (stateMashine.Eyes.CheckIsInView(stateMashine.player) || stateMashine.HasPlayer)
         {
             stateMashine.GotPlayer();
             //switch state to chaseState

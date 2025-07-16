@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7738901443265523120}
   - component: {fileID: 6728135713068229744}
   - component: {fileID: 8739880763992193428}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3971744281662495770}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ProjectileSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,6 +120,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7738901443265523120}
     m_Modifications:
+    - target: {fileID: 7479932797204780906, guid: eb4a36188ccd2ff46bda106bad596784, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8154903046688816447, guid: eb4a36188ccd2ff46bda106bad596784, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -163,6 +167,14 @@ PrefabInstance:
     - target: {fileID: 8154903046688907551, guid: eb4a36188ccd2ff46bda106bad596784, type: 3}
       propertyPath: m_Name
       value: Shotgun3_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154903046688907551, guid: eb4a36188ccd2ff46bda106bad596784, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8718198441984585515, guid: eb4a36188ccd2ff46bda106bad596784, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -17,8 +17,8 @@ public static class GameData
     public static float GameObjectDiedFrom;
     public static string LastRoom;
 
-    public static GameObject MainGun;
-    public static GameObject SecondaryGun;
+    public static GunData MainGun;
+    public static GunData SecondaryGun;
 
     public static genType genType;
 
@@ -39,7 +39,7 @@ public static class GameData
     {
         TimeSpan delta = now - StartTime;
 
-        return delta.ToString();
+        return delta.ToString(@"hh\:mm\:ss");
     }
 
     public static void ResetGameData()
@@ -47,6 +47,8 @@ public static class GameData
         CurrentLevel = 1;
         KillCount = 0;
         Score = 0;
+        PlayerPrefs.SetInt("Score", 0);
+        PlayerPrefs.Save();
         StartTime = DateTime.Now;
         AimModifier = 1;
         HealthModifier = 1;

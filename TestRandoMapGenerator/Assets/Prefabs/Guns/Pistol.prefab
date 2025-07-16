@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1322497210299104824}
   - component: {fileID: 4266395959997414579}
   - component: {fileID: 2335838647199576437}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 5640425542554604598}
   - component: {fileID: 4731634785828703557}
   - component: {fileID: 6146278306755585748}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <GunInfo>k__BackingField: {fileID: 11400000, guid: 32714d8f99ff4d3429be6b2f1ac5d7f4, type: 2}
   isMainWeapon: 1
-  RapidFireMode: 1
+  RapidFireMode: 0
   coolDown: 0.1
   ProjectileMode: 0
   mask:
@@ -175,6 +175,7 @@ MonoBehaviour:
   MuscleFlash: {fileID: 0}
   ShotSoundObject: {fileID: 4287561670304729777, guid: c2a004bb1110a0545a5a8cf46fcbd2ce, type: 3}
   GunShotAudio: {fileID: 8300000, guid: 7f71614c492d1ff4eaf54ca3e78a581b, type: 3}
+  GunReloadAudio: {fileID: 0}
   <Magazin>k__BackingField: {fileID: 6146278306755585748}
   gunAnimator: {fileID: 4731634785828703557}
 --- !u!95 &4731634785828703557
@@ -227,7 +228,7 @@ GameObject:
   - component: {fileID: 3558094561043700141}
   - component: {fileID: 4790130030710267639}
   - component: {fileID: 1802285776639575040}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +333,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4496117218600542827}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ProjectileSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +367,7 @@ GameObject:
   - component: {fileID: 7600706564919975703}
   - component: {fileID: 7955366135481901781}
   - component: {fileID: 8130605645448791882}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -474,7 +475,7 @@ GameObject:
   - component: {fileID: 3172670887787310061}
   - component: {fileID: 2987337735491223898}
   - component: {fileID: 5161369431422921629}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -582,7 +583,7 @@ GameObject:
   - component: {fileID: 159921407818037397}
   - component: {fileID: 7663658471749012607}
   - component: {fileID: 7519626342038506750}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

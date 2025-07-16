@@ -46,12 +46,12 @@ public class ZEnemyIdleState : ZEnemyBaseState
             stateMashine.Animator?.SetFloat(Sideward, currentSideward, animationDampTime, DeltaTime);
         }
 
-        if (stateMashine.Eyes.CheckIsInView(stateMashine.Player) || stateMashine.HasPlayer)
+        if (stateMashine.Eyes.CheckIsInView(stateMashine.player) || stateMashine.HasPlayer)
         {
             stateMashine.GotPlayer();
             Debug.Log("PlayerAttackable");
             //
-            float distance = (stateMashine.Player.transform.position - stateMashine.transform.position).sqrMagnitude;
+            float distance = (stateMashine.player.transform.position - stateMashine.transform.position).sqrMagnitude;
             if (distance < 3)
             {
                 stateMashine.RequestAttack();

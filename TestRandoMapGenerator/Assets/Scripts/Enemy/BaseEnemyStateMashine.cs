@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using static VolFx.OldMoviePass;
 
 public abstract class BaseEnemyStateMashine : BaseStateMashine
 {
@@ -10,7 +11,7 @@ public abstract class BaseEnemyStateMashine : BaseStateMashine
     [field: SerializeField] public CharacterController Controller { get; private set; }
     [field: SerializeField] public HealthComponent HComp { get; private set; }
 
-    public GameObject Player;
+    public Player player;
     public bool HasPlayer = false;
 
     public CombatManager CombatM { get; private set; }
@@ -25,6 +26,14 @@ public abstract class BaseEnemyStateMashine : BaseStateMashine
     [field: SerializeField] public float Damage { get; private set; } = 10;
     public NavMeshAgent Agent;
 
+    [field: SerializeField] protected GameObject AudioObj;
+    [field: SerializeField] protected AudioClip hurtSound;
+    [field: SerializeField] protected AudioClip deathSound;
+
+    [field: SerializeField] protected GameObject effectObject;
+    [field: SerializeField] protected GameObject DeathParticle;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -37,7 +46,7 @@ public abstract class BaseEnemyStateMashine : BaseStateMashine
         CombatM = CombatManager.Instance;
         if (CombatM != null)
         {
-            Player = CombatM.player.gameObject;
+            player = CombatM.player;
         }
         CheckComponents();
         SwitchToStandardState();
@@ -54,22 +63,42 @@ public abstract class BaseEnemyStateMashine : BaseStateMashine
         }
     }
 
-    protected abstract void HandleDamage(float value);
+    protected virtual void HandleDamage(float value)
+    {
+        SpeakText(hurtSound);
+    }
 
     protected virtual void CheckComponents()
     {
         if (Eyes == null) { Eyes = GetComponent<Eyes>(); }
         if (Animator == null) { Animator = GetComponent<Animator>(); }
-        if (Player == null) { Player = GameObject.FindWithTag("Player"); }
-        if (Agent == null) { Agent = GetComponent<NavMeshAgent>(); }
+        if (player == null) { player = FindFirstObjectByType<Player>(); }
+        if (Agent == null) { 
+            Agent = GetComponent<NavMeshAgent>();
+            Agent.enabled = true;
+        }
         if (Agent != null) { SnapToGround(); }
         if (Controller == null) { Controller = GetComponent<CharacterController>(); }
     }
 
-    private void SnapToGround()
+    protected void SnapToGround()
     {
         NavMeshHit navHit;
-        if (NavMesh.SamplePosition(transform.position, out navHit, 2f, NavMesh.AllAreas)) transform.position = navHit.position;
+        if (NavMesh.SamplePosition(transform.position, out navHit, 5f, NavMesh.AllAreas))
+        {
+            Agent.Warp(navHit.position);
+            Agent.enabled = true;
+        }
+        else
+        {
+            RaycastHit hit;
+            Vector3 origin = transform.position + Vector3.up * 2;
+
+            if (Physics.Raycast(origin, Vector3.down, out hit, 10f))
+            {
+                transform.position = hit.point;
+            }
+        }
     }
 
     public virtual void RequestAttack()
@@ -84,6 +113,12 @@ public abstract class BaseEnemyStateMashine : BaseStateMashine
 
     public abstract void AttackGranted();
 
+    public virtual void AttackDenied()
+    {
+        hasRequesteAttack = false;
+        SwitchToStandardState() ;
+    }
+
     public virtual void EndAttack()
     {
         if (CombatM == null) return;
@@ -93,6 +128,8 @@ public abstract class BaseEnemyStateMashine : BaseStateMashine
 
     private void OnDestroy()
     {
+        SpeakText(deathSound);
+        SpawnPartikle(DeathParticle);
         if (CombatM == null) return;
         CombatM.DeleteAttacker(this);
         GameData.KillCount++;
@@ -107,6 +144,33 @@ public abstract class BaseEnemyStateMashine : BaseStateMashine
         }
         
     }
+
+    protected void SpeakText(AudioClip clip)
+    {
+        if (AudioObj == null) return;
+        GameObject go = Instantiate(AudioObj, transform.position, transform.rotation);
+        AudioObject audioObject = go.GetComponent<AudioObject>();
+        if (audioObject != null)
+        {
+            audioObject.SoundClip = clip;
+            audioObject.playSound();
+        }
+    }
+
+    protected void SpawnPartikle(GameObject particle)
+    {
+        if (particle == null || effectObject == null) return;
+        Vector3 pos = transform.position;
+        pos.y += 1;
+        GameObject eO = Instantiate(effectObject, transform.position, transform.rotation);
+        EffectObject eObj = eO.GetComponent<EffectObject>();
+        if (eO != null)
+        {
+            eObj.ParticleObj = particle;
+            eObj.PlayEffect();
+        }
+    }
+
 }
 
 public enum EnemyType

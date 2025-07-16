@@ -996,7 +996,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2282668239226554391}
   - component: {fileID: 3167406131770064580}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ZombieLike
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2799,14 +2799,14 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.27
   m_Speed: 1
-  m_Acceleration: 5
+  m_Acceleration: 10
   avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 1
+  m_AngularSpeed: 300
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 2.2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -2830,11 +2830,16 @@ MonoBehaviour:
   Player: {fileID: 0}
   HasPlayer: 0
   <RotationSpeed>k__BackingField: 300
-  <WalkingSpeed>k__BackingField: 5
+  <WalkingSpeed>k__BackingField: 3
   <ChasingSpeed>k__BackingField: 10
   AttackRange: 1
-  <Damage>k__BackingField: 10
+  <Damage>k__BackingField: 20
   Agent: {fileID: 2607251331043718637}
+  AudioObj: {fileID: 8359297419608997831, guid: 6a8c2dd75a482de45a107e107c239aa2, type: 3}
+  hurtSound: {fileID: 8300000, guid: 1b24c4e34252b3541bde7debb18d3278, type: 3}
+  deathSound: {fileID: 8300000, guid: 2e1a8240f2f40e949a75364307899b28, type: 3}
+  effectObject: {fileID: 4398125244087148165, guid: 6c0c36e0b6e6592478b625f73be0839c, type: 3}
+  DeathParticle: {fileID: 100000, guid: e9fe28aa7ae3c8044b21239f5574bd7b, type: 3}
 --- !u!114 &6857408867701467625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2849,10 +2854,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Fow>k__BackingField: 45
   <EyeHeight>k__BackingField: 1.6
-  <ViewingDistance>k__BackingField: 5
+  <ViewingDistance>k__BackingField: 20
   LayerMaskForRaycast:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 9
 --- !u!114 &8715748013713662895
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -49,7 +49,7 @@ public class SimpleRandoPatrol : BaseSimpleEnemyState
 
         counter += DeltaTime;
 
-        if (stateMashine.Eyes.CheckIsInView(stateMashine.Player))
+        if (stateMashine.Eyes.CheckIsInView(stateMashine.player))
         {
             Debug.Log("PlayerInView");
             //

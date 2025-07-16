@@ -44,7 +44,7 @@ public class SimpleEnemyIdleState : BaseSimpleEnemyState
             stateMashine.Animator?.SetFloat(ForwardSpeedHash, currentSpeed, animationDampTime, DeltaTime);
 
         //Debug.Log("UpdateIdleState");
-        if (stateMashine.Eyes.CheckIsInView(stateMashine.Player))
+        if (stateMashine.Eyes.CheckIsInView(stateMashine.player))
         {
             //Debug.Log("PlayerInView");
             //

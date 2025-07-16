@@ -80,8 +80,8 @@ public class RewardItem : Interactable
     public override void Interact()
     {
         
-            DoItemThing();
-        
+         DoItemThing();
+        Destroy(gameObject);
     }
 
     private void DoItemThing()

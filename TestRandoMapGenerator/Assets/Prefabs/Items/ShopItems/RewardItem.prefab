@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 508739584732205121}
   - component: {fileID: 8438621630964198916}
   - component: {fileID: 2640222693751962060}
+  - component: {fileID: 4321765061919755806}
   m_Layer: 0
   m_Name: RewardItem
   m_TagString: Interactable
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7238254380175726095}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -69,7 +70,49 @@ MonoBehaviour:
   <interactableText>k__BackingField: 
   Items:
   - ItemType: 1
-    ItemObject: {fileID: 0}
-    Commones: 0
+    ItemObject: {fileID: 2009845958658474738, guid: f847ee9c4dd74d945beb52c345beb014, type: 3}
+    Commones: 10
     price: 0
-  ItemDisplay: {fileID: 0}
+  - ItemType: 3
+    ItemObject: {fileID: 7044914612349839854, guid: f63f9a7863855cc408f795994c0c19ef, type: 3}
+    Commones: 10
+    price: 0
+  - ItemType: 2
+    ItemObject: {fileID: 5795135301707211832, guid: 94366344ff34d8842949a59eb634fceb, type: 3}
+    Commones: 10
+    price: 0
+  - ItemType: 0
+    ItemObject: {fileID: 1669033397038879798, guid: a5046a2e343ed414f94c5e234c98d22c, type: 3}
+    Commones: 5
+    price: 0
+  - ItemType: 0
+    ItemObject: {fileID: 1669033397038879798, guid: e800bbd602ccd374eba902b542d84c08, type: 3}
+    Commones: 5
+    price: 0
+  - ItemType: 0
+    ItemObject: {fileID: 1669033397038879798, guid: a5046a2e343ed414f94c5e234c98d22c, type: 3}
+    Commones: 5
+    price: 0
+  - ItemType: 0
+    ItemObject: {fileID: 1669033397038879798, guid: a9d766fc56d8e19449cb7995a8b3d333, type: 3}
+    Commones: 5
+    price: 0
+  - ItemType: 0
+    ItemObject: {fileID: 1669033397038879798, guid: d1822b1ee7a7f9f43a1d313364bb20fd, type: 3}
+    Commones: 5
+    price: 0
+  ItemDisplay: {fileID: 508739584732205121}
+--- !u!114 &4321765061919755806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7238254380175726095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d526ed5550c125e458c5fa8d9cc57003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 0.2
+  speed: 1

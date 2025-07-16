@@ -7,6 +7,8 @@ public class GunData : ScriptableObject
 {
     [field: SerializeField] public string GunName { get; private set; } = "NewGun";
 
+    [field: SerializeField] public GameObject GunObject { get; private set; }
+
     [field: SerializeField] public WeaponType GunType { get; private set; } = WeaponType.Pistol;
     [Tooltip("ShotsPerMinute")]
     [field: SerializeField] public float FiringRate { get; private set; } = 1f;

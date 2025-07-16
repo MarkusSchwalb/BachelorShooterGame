@@ -27,7 +27,7 @@ public class ZEnemyChasePlayer : ZEnemyBaseState
         stateMashine.Agent.SetDestination(
             OffsetTarget(
                 stateMashine.transform.position,
-                stateMashine.Player.transform.position,
+                stateMashine.player.transform.position,
                 stateMashine.AttackRange));
 
     }
@@ -59,7 +59,7 @@ public class ZEnemyChasePlayer : ZEnemyBaseState
         stateMashine.Agent.SetDestination(
             OffsetTarget(
                 stateMashine.transform.position, 
-                stateMashine.Player.transform.position, 
+                stateMashine.player.transform.position, 
                 stateMashine.AttackRange));
 
         float distanceToPlayer = (stateMashine.transform.position - stateMashine.transform.position).sqrMagnitude;

@@ -29,11 +29,13 @@ public class XPUiScript : MonoBehaviour
     {
         xPManager = XPManager.Instance;
         xPManager.onXPChanged += UpdateUI;
+        xPManager.Subscribed();
     }
 
     private void UpdateUI(int xpChange)
     {
         if (CurrentXPField == null) return;
+
         //make shure the GainedXp Field is shown
         //showGainedUI = true;
         counter = 0;

@@ -39,6 +39,8 @@ public class LoadGameUiScript : MonoBehaviour
         GameData.CurrentLevel = 1;
         SetGenType(genType.Quick);
 
+        GameData.ResetGameData();
+
         SceneManager.LoadScene(1); // muss nachher auf 1 geändert werden
 
     }
@@ -56,6 +58,8 @@ public class LoadGameUiScript : MonoBehaviour
 
         GameData.CurrentLevel = 1;
         SetGenType(genType.Daily);
+
+        GameData.ResetGameData();
 
         SceneManager.LoadScene(1); // muss nachher auf 1 geändert werden
 
@@ -76,5 +80,10 @@ public class LoadGameUiScript : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }

@@ -11,8 +11,8 @@ using UnityEngine;
 public class AdvancedLevelGenerator : MonoBehaviour
 {
     [field: SerializeField] public Int32 SeedNmbr { get; private set; }
-    [field: SerializeField] int wantedSeed;
-    [field: SerializeField] bool genWantedSeed = false;
+    //[field: SerializeField] int wantedSeed;       //was just for testing
+    //[field: SerializeField] bool genWantedSeed = false;
 
     [Header("Rooms")]
     [field: SerializeField] public Room StartRoom { get; private set; }
@@ -29,7 +29,7 @@ public class AdvancedLevelGenerator : MonoBehaviour
     [field: SerializeField] public Room[] ClimaxRooms;
 
     [Header("Parameter")]
-    public bool RandyRandom = false;
+    //public bool RandyRandom = false;
     [Tooltip("needs to be a number above 6 if " +
         "you make an input below 6 it will be 6")]
     public int MainRoomCount;
@@ -52,7 +52,7 @@ public class AdvancedLevelGenerator : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        genWantedSeed = false;
+        //genWantedSeed = false;
         attempts = 0;
         GenerateLevel();
         
@@ -61,8 +61,10 @@ public class AdvancedLevelGenerator : MonoBehaviour
     public void TestGenerate()
     {
         //Debug.Log(GameData.Seed + "SeedTestGenerate");
-        attempts =0; GenerateLevel();
-        if (genWantedSeed == true) GameData.SetSeed("NewSeed: " + wantedSeed.ToString());
+        //if (genWantedSeed == true) GameData.SetSeed("NewSeed: " + wantedSeed.ToString());
+        attempts = 0; 
+        GenerateLevel();
+        
         
     }
 
@@ -190,8 +192,11 @@ public class AdvancedLevelGenerator : MonoBehaviour
         if (roomO.ExitList.Count == 0) return false;
 
         int randomInt = UnityEngine.Random.Range(0, roomO.ExitList.Count);
+        roomO.ExitList[randomInt].SetIsSidePath(true);
         Room toSpawnRoom = RoomSelection(RewardRooms);
         GameObject spawnedRoom = Instantiate(toSpawnRoom.RoomObject, roomO.ExitList[randomInt].transform);
+        RoomObject room = spawnedRoom.GetComponent<RoomObject>();
+        if (room != null) room.FinalizeRoom();
         return true;
     }
 
@@ -243,7 +248,7 @@ public class AdvancedLevelGenerator : MonoBehaviour
 
     private void CheckAndInitSeed()
     {
-        if (RandyRandom) GenerateNewSeed();
+        //if (RandyRandom) GenerateNewSeed();
         //Debug.Log(GameData.Seed + " gameSeed");
         int seed = GameData.Seed;
 

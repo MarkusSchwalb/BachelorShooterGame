@@ -54,7 +54,8 @@ public class SimpleEnemyChaseState : BaseSimpleEnemyState
             stateMashine.Animator?.SetFloat(ForwardSpeedHash, currentSpeed, animationDampTime, DeltaTime);
 
         //Debug.Log("updateChaseState");
-        if (stateMashine.Eyes.CheckIsInView(stateMashine.Player))
+
+        if (stateMashine.Eyes.CheckIsInView(stateMashine.player))
         {
             
             stateMashine.Agent.destination = stateMashine.Player.transform.position;

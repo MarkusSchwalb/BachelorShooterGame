@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7738901443265523120}
   - component: {fileID: 6728135713068229744}
   - component: {fileID: 8739880763992193428}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ak
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3971744281662495770}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ProjectileSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,9 +120,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7738901443265523120}
     m_Modifications:
+    - target: {fileID: 3026703891113881784, guid: e68bb04873062d44db350c647dbb8563, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267774878307912648, guid: e68bb04873062d44db350c647dbb8563, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4318073352953623844, guid: e68bb04873062d44db350c647dbb8563, type: 3}
       propertyPath: m_Name
       value: AssaultRifle1_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318073352953623844, guid: e68bb04873062d44db350c647dbb8563, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4318073352953981188, guid: e68bb04873062d44db350c647dbb8563, type: 3}
       propertyPath: m_LocalPosition.x
@@ -163,6 +175,10 @@ PrefabInstance:
     - target: {fileID: 4318073352953981188, guid: e68bb04873062d44db350c647dbb8563, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8360453637132681932, guid: e68bb04873062d44db350c647dbb8563, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

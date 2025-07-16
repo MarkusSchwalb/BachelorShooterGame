@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5678498941419481420}
   - component: {fileID: 4333509521599034071}
   - component: {fileID: 1115507176386067575}
+  - component: {fileID: 2506193840985984798}
   m_Layer: 0
   m_Name: GrenadePickUp
   m_TagString: Interactable
@@ -68,6 +69,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <interactableText>k__BackingField: E to Pick Up Grenade
+--- !u!114 &2506193840985984798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009845958658474738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d526ed5550c125e458c5fa8d9cc57003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 0.2
+  speed: 0.2
 --- !u!1001 &4985462800413746348
 PrefabInstance:
   m_ObjectHideFlags: 0

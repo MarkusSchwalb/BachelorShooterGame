@@ -26,7 +26,7 @@ public class TestEnemyIdle : EnemyBaseState<BaseEnemyStateMashine>
     public override void UpdateState(float DeltaTime)
     {
         count = count + DeltaTime;
-        if (stateMashine.Player != null && count > 2)
+        if (stateMashine.player != null && count > 2)
         {
             Debug.Log("RequestAttack");
             stateMashine.RequestAttack();

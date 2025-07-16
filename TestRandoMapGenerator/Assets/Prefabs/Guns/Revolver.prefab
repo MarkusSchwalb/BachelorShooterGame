@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7738901443265523120}
   - component: {fileID: 6728135713068229744}
   - component: {fileID: 8739880763992193428}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Revolver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3971744281662495770}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ProjectileSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,9 +120,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7738901443265523120}
     m_Modifications:
+    - target: {fileID: 656064855514161741, guid: 8048d385ef0de844bb303a7ef235a948, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267862357762120464, guid: 8048d385ef0de844bb303a7ef235a948, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3699311668898543908, guid: 8048d385ef0de844bb303a7ef235a948, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7375057776650796211, guid: 8048d385ef0de844bb303a7ef235a948, type: 3}
       propertyPath: m_Name
       value: Pistol5_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 7375057776650796211, guid: 8048d385ef0de844bb303a7ef235a948, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7375057776651214995, guid: 8048d385ef0de844bb303a7ef235a948, type: 3}
       propertyPath: m_LocalPosition.x

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7738901443265523120}
   - component: {fileID: 6728135713068229744}
   - component: {fileID: 8739880763992193428}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: M4A1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3971744281662495770}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ProjectileSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,6 +163,18 @@ PrefabInstance:
     - target: {fileID: 1154036527437181012, guid: f4120bed47d358948a7b590e408de077, type: 3}
       propertyPath: m_Name
       value: AssaultRifle5_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154036527437181012, guid: f4120bed47d358948a7b590e408de077, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7024046039791999251, guid: f4120bed47d358948a7b590e408de077, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8046640636879670022, guid: f4120bed47d358948a7b590e408de077, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

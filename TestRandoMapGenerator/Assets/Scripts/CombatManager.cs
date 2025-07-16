@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using UnityEngine;
 
@@ -58,9 +59,38 @@ public class CombatManager : MonoBehaviour
         if (Attackers.Count < MaxAttackers)
         {
             CheckForAttackers();
+            CheckDistances();
         }
     }
 
+    private void CheckDistances()
+    {
+        Attackers.RemoveAll(e => e == null);
+        List<BaseEnemyStateMashine> list = new List<BaseEnemyStateMashine>();
+
+        foreach (BaseEnemyStateMashine enemyBase in Attackers)
+        {
+            float sqrDistancetoPlayer = CalcDistanceToPlayer(enemyBase.transform.position);
+            if (sqrDistancetoPlayer > 100)
+            {
+                list.Add(enemyBase);
+            }
+        }
+
+        foreach (BaseEnemyStateMashine enemyBase in list)
+        {
+            Attackers.Remove(enemyBase);
+            WaitingList.Remove(enemyBase);
+            enemyBase.AttackDenied();
+        }
+    }
+
+    private float CalcDistanceToPlayer(Vector3 startpos)
+    {
+
+        return (player.transform.position - startpos).sqrMagnitude;
+
+    }
     private void CheckForAttackers()
     {
         Debug.Log("Check for Attackers");   

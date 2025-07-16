@@ -29,10 +29,11 @@ public class SoldierGetCloserState : BaseSoldierState
         stateMashine.Agent.SetDestination(
             OffsetTarget(
                 stateMashine.transform.position,
-                stateMashine.Player.transform.position,
+                stateMashine.player.transform.position,
                 offset));
 
-    
+        stateMashine.Agent.updateRotation = false; // ab hier mach ich das
+
     }
 
     public override void ExitState()
@@ -48,7 +49,7 @@ public class SoldierGetCloserState : BaseSoldierState
     public override void UpdateState(float DeltaTime)
     {
         timer += DeltaTime;
-        float distanceToPlayerSqrMgn = (stateMashine.Player.transform.position - stateMashine.transform.position).sqrMagnitude;
+        float distanceToPlayerSqrMgn = (stateMashine.player.transform.position - stateMashine.transform.position).sqrMagnitude;
         if (
             distanceToPlayerSqrMgn < (stateMashine.minDistanceToPlayer * stateMashine.minDistanceToPlayer) 
             || distanceToPlayerSqrMgn > (stateMashine.AttackRange * stateMashine.AttackRange)
@@ -59,20 +60,20 @@ public class SoldierGetCloserState : BaseSoldierState
             stateMashine.Agent.SetDestination(
             OffsetTarget(
                 stateMashine.transform.position,
-                stateMashine.Player.transform.position,
+                stateMashine.player.transform.position,
                 offset
                 ));
         }
 
         bool inRange = distanceToPlayerSqrMgn < stateMashine.AttackRange * stateMashine.AttackRange;
         bool noToClose = (distanceToPlayerSqrMgn > stateMashine.minDistanceToPlayer * stateMashine.minDistanceToPlayer || timer > 3);
-        bool inView = stateMashine.Eyes.CheckIsInView(stateMashine.Player);
+        bool inView = stateMashine.Eyes.CheckIsInView(stateMashine.player);
 
 
 
         if (distanceToPlayerSqrMgn < stateMashine.AttackRange * stateMashine.AttackRange
             && (distanceToPlayerSqrMgn > stateMashine.minDistanceToPlayer * stateMashine.minDistanceToPlayer || timer > 3)
-            && stateMashine.Eyes.CheckIsInView(stateMashine.Player))
+            && stateMashine.Eyes.CheckIsInView(stateMashine.player))
         {
             stateMashine.SwitchState(new SoldierAimState(stateMashine));
         }
@@ -100,5 +101,7 @@ public class SoldierGetCloserState : BaseSoldierState
             stateMashine.Animator?.SetFloat(Forward, currentForward, animationDampTime, DeltaTime);
             stateMashine.Animator?.SetFloat(Sideward, currentSideward, animationDampTime, DeltaTime);
         }
+
+        FaceToPlayer(DeltaTime);
     }
 }

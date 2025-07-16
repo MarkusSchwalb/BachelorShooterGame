@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
+using UnityEngine.InputSystem.Controls;
 
 [System.Serializable]
 public class Deckung : MonoBehaviour
@@ -10,7 +11,21 @@ public class Deckung : MonoBehaviour
     public Transform SpawnTransform;
     public GameObject[] PossibleDeckungen;
 
-    
+    private void Start()
+    {
+        //StickToGround();
+    }
+
+    private void StickToGround()
+    {
+        RaycastHit hit;
+        Vector3 origin = transform.position + Vector3.up * 2;
+
+        if (Physics.Raycast(origin, Vector3.down, out hit, 10f))
+        {
+            transform.position = hit.point;
+        }
+    }
 
     public void SpawnDeckung()
     {

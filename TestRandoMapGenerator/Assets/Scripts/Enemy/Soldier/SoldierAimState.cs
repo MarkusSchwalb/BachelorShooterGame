@@ -37,7 +37,7 @@ public class SoldierAimState : BaseSoldierState
     public override void UpdateState(float DeltaTime)
     {
         FaceToPlayer(DeltaTime);
-        if (stateMashine.Eyes.CheckIsInView(stateMashine.Player))
+        if (stateMashine.Eyes.CheckIsInView(stateMashine.player))
         {
             stateMashine.RequestAttack();
         }
@@ -55,7 +55,7 @@ public class SoldierAimState : BaseSoldierState
             stateMashine.Animator?.SetFloat(Sideward, currentSideward, animationDampTime, DeltaTime);
         }
 
-        float distanceToPlayerSqrMgn = (stateMashine.Player.transform.position - stateMashine.transform.position).sqrMagnitude;
+        float distanceToPlayerSqrMgn = (stateMashine.player.transform.position - stateMashine.transform.position).sqrMagnitude;
         if (distanceToPlayerSqrMgn < stateMashine.minDistanceToPlayer * stateMashine.minDistanceToPlayer 
             || distanceToPlayerSqrMgn > stateMashine.AttackRange * stateMashine.AttackRange)
         {
@@ -63,7 +63,7 @@ public class SoldierAimState : BaseSoldierState
             stateMashine.Agent.SetDestination(
             OffsetTarget(
                 stateMashine.transform.position,
-                stateMashine.Player.transform.position,
+                stateMashine.player.transform.position,
                 offset
                 ));
         }

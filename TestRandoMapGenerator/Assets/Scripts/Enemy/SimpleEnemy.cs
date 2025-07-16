@@ -11,7 +11,8 @@ public class SimpleEnemy : BaseStateMashine
 
     public NavMeshAgent Agent {  get; private set; }
 
-    public GameObject Player;
+    public GameObject Player; //this code is abbandoned so
+    public Player player;
 
     [field: SerializeField] public float RotationSpeed { get; private set; }
     [field: SerializeField] public float WalkingSpeed { get; private set; }

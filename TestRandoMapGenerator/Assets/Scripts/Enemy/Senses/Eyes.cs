@@ -13,7 +13,7 @@ public class Eyes : MonoBehaviour
 
     public LayerMask LayerMaskForRaycast;
 
-    public bool CheckIsInView(GameObject player)
+    public bool CheckIsInView(Player player)
     {
         //Debug.Log("CheckPlayerInView" + gameObject.name);
         //create a Vector 3 as an direction vector between Mousey and Player
@@ -21,8 +21,7 @@ public class Eyes : MonoBehaviour
         //eyePosittion.y += EyeHeight;
         Vector3 eyePos = new Vector3(transform.position.x, transform.position.y + EyeHeight, transform.position.z);
 
-        Vector3 playerPos = player.transform.position;
-        playerPos.y += 1;
+        Vector3 playerPos = player.playerCenter.position;
 
         Vector3 vectorBetween = playerPos - eyePos;
         //calculate the angle
@@ -34,7 +33,7 @@ public class Eyes : MonoBehaviour
             //Debug.Log("CheckPlayerInViewTrue");
 
             //Check if player can be seen
-            if (playerHitByRaycast(player, vectorBetween))
+            if (playerHitByRaycast(player.gameObject, vectorBetween))
             {
                 Debug.Log("isInView");
                 return true;
@@ -64,11 +63,15 @@ public class Eyes : MonoBehaviour
                 GameObject hitObject = hit.transform.gameObject;
 
                 //check if the hit is the player
-                if (hitObject.CompareTag("Player"))
+                if (hitObject.CompareTag("Player") || hit.transform.root.CompareTag("Player"))
                 {
                     //Debug.Log("Hitplayer");
                     Debug.DrawRay(rayCastOrigin, (vectorToPlayer.normalized * hit.distance), Color.green);
                     return true;
+                }
+                else
+                {
+                    //Debug.Log("Ray hit: " + hit.collider.name + " (Layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer) + ")");
                 }
 
             }

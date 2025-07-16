@@ -20,7 +20,8 @@ public class StatisticsUi : MonoBehaviour
             string duration = GameData.GetDuration(DateTime.Now);
             TimeDisplay.text = "Survived for: " + duration;
         }
-        if (Score != null) Score.text = "Score: " + GameData.Score;
+        if (Score != null) Score.text = "Score: " + PlayerPrefs.GetInt("Score", 0);
+        PlayerPrefs.Save(); ;
         if (KillCount != null) KillCount.text = "Kills: " + GameData.KillCount;
         if (AimModifier != null) AimModifier.text = "Aim Modifier: " + GameData.AimModifier;
         if (HealthModifier != null) HealthModifier.text = "Health Modifier: " + GameData.HealthModifier;

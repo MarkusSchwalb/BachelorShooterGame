@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class BaseSimpleEnemyState : BaseState
 {
     protected SimpleEnemy stateMashine;
+
     public BaseSimpleEnemyState(SimpleEnemy simpleEnemy)
     {
         stateMashine = simpleEnemy;

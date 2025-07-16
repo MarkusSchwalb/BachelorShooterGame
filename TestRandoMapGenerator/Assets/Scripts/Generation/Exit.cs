@@ -153,14 +153,19 @@ public class Exit : MonoBehaviour
         if (!IsMainPath && !IsSidePath)
         {
             EndOfPath.SetActive(true);
-            if (MainPathDecal != null) MainPathDecal.SetActive(false);
+            
         }
         else EndOfPath.SetActive(false);
+
+
 
         if (IsMainPath)
         {
             //SpawnBreadCrums();
             if (MainPathDecal != null) MainPathDecal.SetActive(true);
+        } else
+        {
+            if (MainPathDecal != null) MainPathDecal.SetActive(false);
         }
 
 

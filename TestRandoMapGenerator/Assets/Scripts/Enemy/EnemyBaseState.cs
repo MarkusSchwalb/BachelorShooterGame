@@ -15,18 +15,18 @@ public abstract class EnemyBaseState<T> : BaseState where T : BaseEnemyStateMash
 
     protected void FaceToPlayer(float deltaTime)
     {
-        if (stateMashine.Player == null) { return; }
+        if (stateMashine.player == null) { return; }
 
-        Vector3 direction = stateMashine.Player.transform.position - stateMashine.transform.position;
+        Vector3 direction = stateMashine.player.transform.position - stateMashine.transform.position;
 
         stateMashine.transform.rotation = Quaternion.Lerp(stateMashine.transform.rotation, Quaternion.LookRotation(direction), deltaTime * stateMashine.RotationSpeed);    //rotate to the direction of movement
     }
 
     protected void FacePlayer()
     {
-        if (stateMashine.Player == null) { return; }
+        if (stateMashine.player == null) { return; }
 
-        Vector3 direction = stateMashine.Player.transform.position - stateMashine.transform.position;
+        Vector3 direction = stateMashine.player.transform.position - stateMashine.transform.position;
 
         stateMashine.transform.rotation = Quaternion.LookRotation(direction);
     }

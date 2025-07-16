@@ -122,6 +122,7 @@ public class Gun : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 100f, mask))
         {
+            Debug.Log("Das wurde angeschossen" + hit.collider.gameObject.layer);
             if (hit.collider.gameObject.TryGetComponent<HitBoxComponent>(out HitBoxComponent hitBoxComponent))
             {
                 hitBoxComponent.HandleHit(ProjectileDT);

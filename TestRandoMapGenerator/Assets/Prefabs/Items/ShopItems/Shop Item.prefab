@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1281623848765391254}
   - component: {fileID: 3262513611000367000}
-  m_Layer: 7
+  - component: {fileID: 219174230378382969}
+  - component: {fileID: 2145780106064893417}
+  m_Layer: 0
   m_Name: Shop Item
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -49,7 +51,7 @@ MonoBehaviour:
   - ItemType: 3
     ItemObject: {fileID: 7044914612349839854, guid: f63f9a7863855cc408f795994c0c19ef, type: 3}
     Commones: 10
-    price: 500
+    price: 100
   - ItemType: 1
     ItemObject: {fileID: 2009845958658474738, guid: f847ee9c4dd74d945beb52c345beb014, type: 3}
     Commones: 10
@@ -57,21 +59,56 @@ MonoBehaviour:
   - ItemType: 0
     ItemObject: {fileID: 1669033397038879798, guid: e800bbd602ccd374eba902b542d84c08, type: 3}
     Commones: 10
-    price: 3500
+    price: 400
   - ItemType: 0
     ItemObject: {fileID: 1669033397038879798, guid: a9d766fc56d8e19449cb7995a8b3d333, type: 3}
     Commones: 3
-    price: 4000
+    price: 600
   - ItemType: 0
     ItemObject: {fileID: 1669033397038879798, guid: d1822b1ee7a7f9f43a1d313364bb20fd, type: 3}
     Commones: 3
-    price: 2500
+    price: 500
   - ItemType: 0
     ItemObject: {fileID: 1669033397038879798, guid: a5046a2e343ed414f94c5e234c98d22c, type: 3}
     Commones: 5
-    price: 3000
-  - ItemType: 0
-    ItemObject: {fileID: 1669033397038879798, guid: a5046a2e343ed414f94c5e234c98d22c, type: 3}
-    Commones: 5
-    price: 3000
+    price: 400
+  - ItemType: 2
+    ItemObject: {fileID: 5795135301707211832, guid: 94366344ff34d8842949a59eb634fceb, type: 3}
+    Commones: 20
+    price: 120
   ItemDisplay: {fileID: 1281623848765391254}
+--- !u!65 &219174230378382969
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401742798584799487}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2145780106064893417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401742798584799487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d526ed5550c125e458c5fa8d9cc57003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 0.2
+  speed: 0.1

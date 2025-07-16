@@ -22,7 +22,7 @@ public class ZEnemyAttackState : ZEnemyBaseState
     {
         Debug.Log("ZEnemyAttackStateEnterState");
 
-        Vector3 lookPostion = stateMashine.Player.transform.position;
+        Vector3 lookPostion = stateMashine.player.transform.position;
         lookPostion.y = stateMashine.transform.position.y;
         stateMashine.transform.LookAt(lookPostion);
 

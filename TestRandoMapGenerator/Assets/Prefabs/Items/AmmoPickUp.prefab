@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5938334475399299630}
   - component: {fileID: 7360093804474816034}
   - component: {fileID: 4767476333908734190}
+  - component: {fileID: 3048378409926398146}
   m_Layer: 0
   m_Name: AmmoPickUp
   m_TagString: Interactable
@@ -68,6 +69,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <interactableText>k__BackingField: E to Pick Up Ammo
+--- !u!114 &3048378409926398146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7044914612349839854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d526ed5550c125e458c5fa8d9cc57003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 0.2
+  speed: 0.2
 --- !u!1001 &1448511171329954492
 PrefabInstance:
   m_ObjectHideFlags: 0

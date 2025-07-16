@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7738901443265523120}
   - component: {fileID: 6728135713068229744}
   - component: {fileID: 8739880763992193428}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pistol1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <GunInfo>k__BackingField: {fileID: 11400000, guid: 32714d8f99ff4d3429be6b2f1ac5d7f4, type: 2}
   isMainWeapon: 0
-  RapidFireMode: 1
+  RapidFireMode: 0
   coolDown: 0.1
   ProjectileMode: 0
   mask:
@@ -90,7 +90,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3971744281662495770}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ProjectileSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,6 +163,26 @@ PrefabInstance:
     - target: {fileID: 619461687908925085, guid: b29c4e2c49bba7047a9ed6ddf390d7b0, type: 3}
       propertyPath: m_Name
       value: Pistol2_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 619461687908925085, guid: b29c4e2c49bba7047a9ed6ddf390d7b0, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2869965082263077523, guid: b29c4e2c49bba7047a9ed6ddf390d7b0, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3487598093046732137, guid: b29c4e2c49bba7047a9ed6ddf390d7b0, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5287837628648345389, guid: b29c4e2c49bba7047a9ed6ddf390d7b0, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5644164495151924554, guid: b29c4e2c49bba7047a9ed6ddf390d7b0, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

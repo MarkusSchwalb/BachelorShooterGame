@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7989799860772963484}
   - component: {fileID: 878181143896997057}
   - component: {fileID: 2282304048308013693}
+  - component: {fileID: 1366410153656276128}
   m_Layer: 0
   m_Name: HealthPickUp
   m_TagString: Interactable
@@ -68,6 +69,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <interactableText>k__BackingField: E to Heal
+--- !u!114 &1366410153656276128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5795135301707211832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d526ed5550c125e458c5fa8d9cc57003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 0.2
+  speed: 0.2
 --- !u!1001 &2890466048836531305
 PrefabInstance:
   m_ObjectHideFlags: 0

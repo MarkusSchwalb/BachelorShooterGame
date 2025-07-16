@@ -108,7 +108,6 @@ MonoBehaviour:
   ExitDirection: 0
   EndOfPath: {fileID: 4318768357478071951}
   room: {fileID: 0}
-  breadcrum: {fileID: 1619583144272449015, guid: c2e281bdb35b37c4088e257ac01be6bb, type: 3}
   MainPathDecal: {fileID: 5041100675714563032}
 --- !u!1 &3576757727075889677
 GameObject:
@@ -349,7 +348,7 @@ Light:
   m_InnerSpotAngle: 39.91606
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1

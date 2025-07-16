@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Permissions;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,6 +12,8 @@ public class Player : MonoBehaviour
     
     [field: SerializeField] public CharacterController CharacterController { get; private set; }
     [field: SerializeField] private CapsuleCollider capsuleCollider;
+    [field: SerializeField] private GameObject StartWeapon;
+    public Transform playerCenter;
     [field: SerializeField] public HealthComponent HealthComponent { get; private set; }
     [field: SerializeField] public InputReader InputReader { get; private set; }
 
@@ -62,6 +65,9 @@ public class Player : MonoBehaviour
     [Header("Crouchen")]
     [field: SerializeField] private float standHeight = 2, couchHeight = 1, standCam = 1.6f, crouchCam = 0.9f;
 
+    [field: SerializeField] private GameObject AudioObj;
+    [field: SerializeField] private AudioClip SaveHer;
+    [field: SerializeField] private AudioClip Hurt;
     //public Transform MainCameraTransform { get; private set; }
 
     // Start is called before the first frame update
@@ -73,6 +79,21 @@ public class Player : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (GameData.CurrentLevel <= 1)
+            SpeakText(SaveHer);
+    }
+
+    private void SpeakText(AudioClip clip)
+    {
+        if (AudioObj == null) return;
+        GameObject go = Instantiate(AudioObj, transform.position,transform.rotation);
+        AudioObject audioObject = go.GetComponent<AudioObject>();
+        if ( audioObject != null)
+        {
+            audioObject.SoundClip = clip;
+            audioObject.playSound();
+        }
     }
 
     private void Awake()
@@ -89,25 +110,32 @@ public class Player : MonoBehaviour
     {
         if (GameData.SecondaryGun != null)
         {
-            GetNewWeapon(false, GameData.SecondaryGun);
+            GetNewWeapon(false, GameData.SecondaryGun.GunObject);
         }
         if (GameData.MainGun != null)
         {
-            GetNewWeapon(true, GameData.SecondaryGun);
+            GetNewWeapon(true, GameData.MainGun.GunObject);
         }
+
     }
 
     public void SaveGuns()
     {
-        GameData.SecondaryGun = SecondaryGunHand.Gun.gameObject;
-        GameData.SecondaryGun = MainGunHand.Gun.gameObject;
+        if (SecondaryGunHand.Gun != null && SecondaryGunHand.Gun.GunInfo != null)
+            GameData.SecondaryGun = SecondaryGunHand.Gun.GunInfo;
+
+        if (MainGunHand.Gun != null && MainGunHand.Gun.GunInfo != null)
+            GameData.MainGun = MainGunHand.Gun.GunInfo;
     }
 
     private void SelectSecondary()
     {
         CurrentGun = null;
+        currentSlot = 1;
         MainGunHand.gameObject.SetActive(false);
         SecondaryGunHand.gameObject.SetActive(true);
+        if (StartWeapon != null)
+            GetNewWeapon(false ,StartWeapon);
 
         if (SecondaryGunHand.Gun != null)
         {
@@ -128,11 +156,20 @@ public class Player : MonoBehaviour
         if (HealthComponent == null)
         {
             HealthComponent = GetComponent<HealthComponent>();
+            if (HealthComponent != null)
+            {
+                HealthComponent.DamageAction += HandleDamage;
+            }
         }
         if (Camera == null)
         {
             Debug.LogError("No Camera assigned");
         }
+    }
+
+    private void HandleDamage(float obj)
+    {
+        SpeakText(Hurt);
     }
 
     private void SubscribeToEvent()
@@ -148,6 +185,25 @@ public class Player : MonoBehaviour
         InputReader.GrenadeEvent += HandleGrenade;
         InputReader.CrouchEvent += HandleCrouch;
         InputReader.ScrollEvent += SwitchWeapon;
+    }
+
+    private void OnDestroy()
+    {
+        if (HealthComponent != null) HealthComponent.DeathEvent -= HandleDeath;
+        if (InputReader == null) { Debug.LogError("No InputReader"); return; }
+        InputReader.AimEvent -= HandleAimEvent;
+        InputReader.AimDownEvent -= HandleAimEvent;
+        InputReader.ShootEvent -= HandleShootEvent;
+        InputReader.JumpEvent -= HandleJumpEvent;
+        InputReader.ReloadEvent -= HandleReload;
+        InputReader.MeleeEvent -= HandleMelee;
+        InputReader.GrenadeEvent -= HandleGrenade;
+        InputReader.CrouchEvent -= HandleCrouch;
+        InputReader.ScrollEvent -= SwitchWeapon;
+    }
+    private void OnDisable()
+    {
+        
     }
 
     private void HandleDeath(HealthComponent component)
@@ -206,8 +262,10 @@ public class Player : MonoBehaviour
     private void SwitchWeapon()
     {
         Debug.Log("SwitchWeapon");
-        MainGunHand.gameObject.SetActive(!MainGunHand.gameObject.activeSelf);
-        SecondaryGunHand.gameObject.SetActive(!SecondaryGunHand.gameObject.activeSelf);
+        if (MainGunHand != null && MainGunHand.gameObject != null)
+            MainGunHand.gameObject.SetActive(!MainGunHand.gameObject.activeSelf);
+        if (SecondaryGunHand != null && SecondaryGunHand.gameObject != null)
+            SecondaryGunHand.gameObject.SetActive(!SecondaryGunHand.gameObject.activeSelf);
 
         if (SecondaryGunHand.gameObject.activeSelf)
         {
@@ -232,6 +290,7 @@ public class Player : MonoBehaviour
         {
             SecondaryGunHand.GetNewGun(gunObject);
         }
+        SaveGuns();
     }
 
     public void GetNewWeapon()
