@@ -279,24 +279,55 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void SwitchWeapon(bool toMain)
+    {
+        Debug.Log("SwitchWeapon");
+
+        if (!toMain)
+        {
+            if (MainGunHand != null && MainGunHand.gameObject != null)
+                MainGunHand.gameObject.SetActive(false);
+            if (SecondaryGunHand != null && SecondaryGunHand.gameObject != null)
+                SecondaryGunHand.gameObject.SetActive(true);
+        }
+        else
+        {
+            if (MainGunHand != null && MainGunHand.gameObject != null)
+                MainGunHand.gameObject.SetActive(true);
+            if (SecondaryGunHand != null && SecondaryGunHand.gameObject != null)
+                SecondaryGunHand.gameObject.SetActive(false);
+        }
+        
+
+        if (SecondaryGunHand.gameObject.activeSelf)
+        {
+            CurrentGun = SecondaryGunHand.Gun;
+            currentSlot = 1;
+        }
+        if (MainGunHand.gameObject.activeSelf)
+        {
+            CurrentGun = MainGunHand.Gun;
+            currentSlot = 0;
+        }
+    }
+
     public void GetNewWeapon(bool isMain, GameObject gunObject)
     {
         if (isMain)
         {
             MainGunHand.GetNewGun(gunObject);
+            SwitchWeapon(true);
             //MainGunHand.Gun.Magazin.Get
         }
         else
         {
             SecondaryGunHand.GetNewGun(gunObject);
+            SwitchWeapon(false);
         }
         SaveGuns();
     }
 
-    public void GetNewWeapon()
-    {
-
-    }
+    
 
     /*
     private void HandleAimDownEvent()

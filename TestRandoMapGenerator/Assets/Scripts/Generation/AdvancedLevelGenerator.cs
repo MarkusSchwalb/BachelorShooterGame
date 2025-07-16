@@ -517,9 +517,9 @@ public class AdvancedLevelGenerator : MonoBehaviour
                 //raumschwierigkeit soll kleiner sein als obere grenze
                 if ( i - breaker <= room.Difficulty && room.Difficulty <= i + breaker) // the limits go wider with each while loop
                 {
-                    if (breaker < 2)
+                    if (breaker <= 3)
                     {
-                        if (room.RoomType == excludeRoomType && !spawnedRooms.Contains(room)) continue;
+                        if (room.RoomType != excludeRoomType && !spawnedRooms.Contains(room)) continue;
                         list.Add(room);
                     }
                     else

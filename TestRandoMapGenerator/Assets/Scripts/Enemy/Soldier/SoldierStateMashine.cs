@@ -30,7 +30,7 @@ public class SoldierStateMashine : BaseEnemyStateMashine
             Debug.Log("TriedToShoot");
             return;
         }
-        Vector3 toPlayer = player.transform.position - ProjectileSpawner.position;
+        Vector3 toPlayer = player.playerCenter.transform.position - ProjectileSpawner.position;
         Quaternion rotation = Quaternion.LookRotation(toPlayer.normalized);
 
         GameObject proctl = Instantiate(Projectile, ProjectileSpawner.position, rotation);

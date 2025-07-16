@@ -14,7 +14,7 @@ public class RewardItem : Interactable
             return;
         }
         ChooseItem();
-        Instantiate(Items[slot].ItemObject, ItemDisplay);
+        Instantiate(Items[slot].ItemObject, ItemDisplay.position, ItemDisplay.rotation, ItemDisplay);
         updateText();
     }
 
@@ -80,7 +80,7 @@ public class RewardItem : Interactable
     public override void Interact()
     {
         
-         DoItemThing();
+        DoItemThing();
         Destroy(gameObject);
     }
 
