@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class HealthComponent : MonoBehaviour
 {
-    bool isPlayerHealth = false;
+    [field: SerializeField] bool isPlayerHealth = false;
     private float MaxHealth;
     public event Action<HealthComponent> DeathEvent;
     public event Action<float> DamageAction; //for staggering
@@ -50,8 +50,8 @@ public class HealthComponent : MonoBehaviour
     protected void Regenerate()
     {
         if (IsDead) return;
-        if (currentHealth == HDHealthData.MaxHealth) return;
-        if (currentHealth > HDHealthData.MaxHealth) { currentHealth = HDHealthData.MaxHealth; return; }
+        if (currentHealth == MaxHealth) return;
+        if (currentHealth > MaxHealth) { currentHealth = MaxHealth; return; }
         currentHealth += HDHealthData.HealthRegeneration * Time.deltaTime;
         UpdateSlider();
     }
@@ -59,27 +59,27 @@ public class HealthComponent : MonoBehaviour
     protected bool IsFullLife()
     {
         if (!IsDead) return false;
-        if (currentHealth == HDHealthData.MaxHealth) return true;
+        if (currentHealth == MaxHealth) return true;
         else return false;
     }
 
     public void Regenerate(float value)
     {
         if (IsDead) return;
-        currentHealth = Mathf.Clamp(currentHealth + value, 0, HDHealthData.MaxHealth);
+        currentHealth = Mathf.Clamp(currentHealth + value, 0, MaxHealth);
 
         UpdateSlider() ;
     }
 
     public void SetHealth(float value)
     {
-        currentHealth = Mathf.Clamp(value, 0 , HDHealthData.MaxHealth);
+        currentHealth = Mathf.Clamp(value, 0 , MaxHealth);
         UpdateSlider();
     }
 
     public void SetHealthToMaxHealth()
     {
-        currentHealth = HDHealthData.MaxHealth;
+        currentHealth = MaxHealth;
         UpdateSlider();
     }
 
