@@ -509,17 +509,17 @@ public class AdvancedLevelGenerator : MonoBehaviour
         }*/
 
         int breaker = 0;
-        while (list.Count < 1 || breaker > 10)
+        while (list.Count < 1 && breaker < 10) //solange wie die liste leer ist und der breaker kleiner ist als 10 also unter 10 durchläufen
         {
-            foreach (Room room in RoomList)
+            foreach (Room room in RoomList) //gehe durch jeden möglichen raum durch
             {
                 // intensity - unten soll kleiner sein als raum schwierigkeit
                 //raumschwierigkeit soll kleiner sein als obere grenze
                 if ( i - breaker <= room.Difficulty && room.Difficulty <= i + breaker) // the limits go wider with each while loop
-                {
+                { // solange die intensität kleiner gleich ist wie die raum schiwerigkeit oder die raum schwierigkeit kleiner ist als die intensität 
                     if (breaker <= 3)
                     {
-                        if (room.RoomType != excludeRoomType && !spawnedRooms.Contains(room)) continue;
+                        if (room.RoomType != excludeRoomType && !spawnedRooms.Contains(room)) 
                         list.Add(room);
                     }
                     else
