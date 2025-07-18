@@ -60,7 +60,17 @@ public abstract class BaseEnemyStateMashine : BaseStateMashine
         if (HComp != null)
         {
             HComp.DamageAction += HandleDamage;
+            HComp.DeathEvent += HandleDeath;
         }
+    }
+
+    private void HandleDeath(HealthComponent component)
+    {
+        SpeakText(deathSound);
+        SpawnPartikle(DeathParticle);
+        if (CombatM == null) return;
+        CombatM.DeleteAttacker(this);
+        GameData.KillCount++;
     }
 
     protected virtual void HandleDamage(float value)
@@ -128,11 +138,7 @@ public abstract class BaseEnemyStateMashine : BaseStateMashine
 
     private void OnDestroy()
     {
-        SpeakText(deathSound);
-        SpawnPartikle(DeathParticle);
-        if (CombatM == null) return;
-        CombatM.DeleteAttacker(this);
-        GameData.KillCount++;
+        
     }
 
     public void GotPlayer()
